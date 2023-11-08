@@ -1,0 +1,25 @@
+{
+  "animalesRefugiados": [
+    {
+      "oviparo": true,
+      "tieneCola": true,
+      "esPeludo": true,
+      "especie": 0,
+      "nombre": "mikel"
+    },
+    {
+      "oviparo": true,
+      "tieneCola": true,
+      "esPeludo": true,
+      "especie": 0,
+      "nombre": "andres"
+    },
+    {
+      "oviparo": true,
+      "tieneCola": true,
+      "esPeludo": true,
+      "especie": 0,
+      "nombre": "aaron"
+    }
+  ]
+}

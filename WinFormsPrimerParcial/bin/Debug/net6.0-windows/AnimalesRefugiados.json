@@ -1,0 +1,38 @@
+[
+  {
+    "esVenenosa": false,
+    "lugarDeOrigen": null,
+    "EsVenenosa": false,
+    "EsArboricola": true,
+    "Nombre": "Rana Gigante",
+    "EsPeludo": false,
+    "Especie": 2,
+    "esPeludo": false,
+    "especie": 2,
+    "nombre": "Rana Gigante"
+  },
+  {
+    "oviparo": true,
+    "tieneCola": true,
+    "Nombre": "Ornitorrinco Peludo",
+    "EsPeludo": true,
+    "Especie": 0,
+    "Oviparo": true,
+    "TieneCola": true,
+    "esPeludo": true,
+    "especie": 0,
+    "nombre": "Ornitorrinco Peludo"
+  },
+  {
+    "tieneAlas": true,
+    "velocidadVueloKMporH": 60,
+    "TieneAlas": true,
+    "VelocidadVueloKMporH": 60,
+    "Nombre": "Hornero Común",
+    "EsPeludo": false,
+    "Especie": 1,
+    "esPeludo": false,
+    "especie": 1,
+    "nombre": "Hornero Común"
+  }
+]

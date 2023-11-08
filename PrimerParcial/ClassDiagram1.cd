@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="PrimerParcial.Animal">
+    <Position X="9" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgASBAECEgAAAAAAAAAAAQAAAAAAAAAAAAiA=</HashCode>
+      <FileName>Animal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PrimerParcial.Hornero">
+    <Position X="9" Y="4.5" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAASBAAAEAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Hornero.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PrimerParcial.Ornitorrinco">
+    <Position X="14.25" Y="4.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAASBAAAEAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Ornitorrinco.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PrimerParcial.Rana">
+    <Position X="5" Y="4.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAASBAAAEAAAAAAgAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Rana.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entidades.Refugio&lt;T&gt;">
+    <Position X="5.5" Y="0.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAEAAgAAACAAAAABAAAAAAAAAiA=</HashCode>
+      <FileName>Refugio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinFormsPrimerParcial.Usuario">
+    <Position X="11.75" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQBAACAAAAAAAAAAAQAAACAAAAQAAAAAAA=</HashCode>
+      <FileName>Usuario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Eespecies">
+    <Position X="14.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Enumerados.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,25 @@
+{
+  "animalesRefugiados": [
+    {
+      "esVenenosa": true,
+      "esArboricola": false,
+      "esPeludo": false,
+      "especie": 2,
+      "nombre": "pepe"
+    },
+    {
+      "esVenenosa": true,
+      "esArboricola": false,
+      "esPeludo": false,
+      "especie": 2,
+      "nombre": "shailo jr"
+    },
+    {
+      "esVenenosa": true,
+      "esArboricola": true,
+      "esPeludo": false,
+      "especie": 2,
+      "nombre": "massi"
+    }
+  ]
+}

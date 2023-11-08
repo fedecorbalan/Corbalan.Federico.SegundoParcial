@@ -1,0 +1,36 @@
+[
+  {
+    "esVenenosa": true,
+    "lugarDeOrigen": null,
+    "EsVenenosa": true,
+    "EsArboricola": true,
+    "esPeludo": false,
+    "especie": 2,
+    "nombre": "pepe",
+    "Especie": null
+  },
+  {
+    "oviparo": true,
+    "tieneCola": true,
+    "Nombre": "perry",
+    "EsPeludo": true,
+    "Especie": 0,
+    "Oviparo": true,
+    "TieneCola": true,
+    "esPeludo": true,
+    "especie": 0,
+    "nombre": "perry"
+  },
+  {
+    "tieneAlas": true,
+    "velocidadVueloKMporH": 40,
+    "TieneAlas": true,
+    "VelocidadVueloKMporH": 40,
+    "Nombre": "cualquiera",
+    "EsPeludo": false,
+    "Especie": 1,
+    "esPeludo": false,
+    "especie": 1,
+    "nombre": "cualquiera"
+  }
+]

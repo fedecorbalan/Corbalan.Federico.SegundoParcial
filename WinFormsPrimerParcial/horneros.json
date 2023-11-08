@@ -1,0 +1,25 @@
+{
+  "animalesRefugiados": [
+    {
+      "tieneAlas": true,
+      "velocidadVueloKMporH": 40,
+      "esPeludo": false,
+      "especie": 1,
+      "nombre": "henry"
+    },
+    {
+      "tieneAlas": true,
+      "velocidadVueloKMporH": 40,
+      "esPeludo": false,
+      "especie": 1,
+      "nombre": "romelu"
+    },
+    {
+      "tieneAlas": true,
+      "velocidadVueloKMporH": 40,
+      "esPeludo": true,
+      "especie": 1,
+      "nombre": "black"
+    }
+  ]
+}
