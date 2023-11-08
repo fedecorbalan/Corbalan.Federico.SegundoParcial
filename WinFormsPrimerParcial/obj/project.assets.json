@@ -79,11 +79,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\source\\repos\\PrimerParcial\\Corbalan.Federico\\WinFormsPrimerParcial\\WinFormsPrimerParcial.csproj",
+      "projectUniqueName": "C:\\Users\\User\\source\\repos\\Corbalan.Federico.SegundoParcial\\WinFormsPrimerParcial\\WinFormsPrimerParcial.csproj",
       "projectName": "WinFormsPrimerParcial",
-      "projectPath": "C:\\Users\\User\\source\\repos\\PrimerParcial\\Corbalan.Federico\\WinFormsPrimerParcial\\WinFormsPrimerParcial.csproj",
+      "projectPath": "C:\\Users\\User\\source\\repos\\Corbalan.Federico.SegundoParcial\\WinFormsPrimerParcial\\WinFormsPrimerParcial.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\source\\repos\\PrimerParcial\\Corbalan.Federico\\WinFormsPrimerParcial\\obj\\",
+      "outputPath": "C:\\Users\\User\\source\\repos\\Corbalan.Federico.SegundoParcial\\WinFormsPrimerParcial\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -100,8 +100,8 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "C:\\Users\\User\\source\\repos\\PrimerParcial\\Corbalan.Federico\\PrimerParcial\\Entidades.csproj": {
-              "projectPath": "C:\\Users\\User\\source\\repos\\PrimerParcial\\Corbalan.Federico\\PrimerParcial\\Entidades.csproj"
+            "C:\\Users\\User\\source\\repos\\Corbalan.Federico.SegundoParcial\\PrimerParcial\\Entidades.csproj": {
+              "projectPath": "C:\\Users\\User\\source\\repos\\Corbalan.Federico.SegundoParcial\\PrimerParcial\\Entidades.csproj"
             }
           }
         }

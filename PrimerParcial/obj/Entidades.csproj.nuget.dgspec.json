@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\source\\repos\\PrimerParcial\\Corbalan.Federico\\PrimerParcial\\Entidades.csproj": {}
+    "C:\\Users\\User\\source\\repos\\Corbalan.Federico.SegundoParcial\\PrimerParcial\\Entidades.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\source\\repos\\PrimerParcial\\Corbalan.Federico\\PrimerParcial\\Entidades.csproj": {
+    "C:\\Users\\User\\source\\repos\\Corbalan.Federico.SegundoParcial\\PrimerParcial\\Entidades.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\source\\repos\\PrimerParcial\\Corbalan.Federico\\PrimerParcial\\Entidades.csproj",
+        "projectUniqueName": "C:\\Users\\User\\source\\repos\\Corbalan.Federico.SegundoParcial\\PrimerParcial\\Entidades.csproj",
         "projectName": "Entidades",
-        "projectPath": "C:\\Users\\User\\source\\repos\\PrimerParcial\\Corbalan.Federico\\PrimerParcial\\Entidades.csproj",
+        "projectPath": "C:\\Users\\User\\source\\repos\\Corbalan.Federico.SegundoParcial\\PrimerParcial\\Entidades.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\source\\repos\\PrimerParcial\\Corbalan.Federico\\PrimerParcial\\obj\\",
+        "outputPath": "C:\\Users\\User\\source\\repos\\Corbalan.Federico.SegundoParcial\\PrimerParcial\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
