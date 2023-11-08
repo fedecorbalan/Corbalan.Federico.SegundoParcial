@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entidades", "PrimerParcial\Entidades.csproj", "{5B2C3939-14AB-4E46-9AFC-30DE49EE47F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsPrimerParcial", "WinFormsPrimerParcial\WinFormsPrimerParcial.csproj", "{9AD39296-41CB-404E-A58D-01D3897F500D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormsSegundoParcial", "WinFormsPrimerParcial\WinFormsSegundoParcial.csproj", "{9AD39296-41CB-404E-A58D-01D3897F500D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{5B2C3939-14AB-4E46-9AFC-30DE49EE47F4} = {5B2C3939-14AB-4E46-9AFC-30DE49EE47F4}
 	EndProjectSection

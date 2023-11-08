@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pnVhJM6iFuPgulXG57zO7+qCas6TsTYbxepcvS2bVXSFc2y4uwqe4Md4dhUPKcjJp8ECjJQznIIISC0ypddYZA==",
+  "dgSpecHash": "RZ00xJD0ymlecTWupsZtJDsQs21tC99BJ1crTOSg8UFi3L8I8T93oT1W5KTODy3c8nEc2TSvT0iUntuIe1OTeA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\User\\source\\repos\\Corbalan.Federico.SegundoParcial\\WinFormsPrimerParcial\\WinFormsPrimerParcial.csproj",
+  "projectFilePath": "C:\\Users\\User\\source\\repos\\Corbalan.Federico.SegundoParcial\\WinFormsPrimerParcial\\WinFormsSegundoParcial.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\User\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
   ],
