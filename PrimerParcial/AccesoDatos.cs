@@ -324,7 +324,7 @@ namespace Entidades
 
                 this.comando.CommandType = System.Data.CommandType.Text;
 
-                this.comando.CommandText = "update ranas set nombre = @nombre, especie = @especie, esPeludo = @esPeludo, tieneAlas = @tieneAlas, velocidadKmH = @velocidadKmH WHERE id = @id";
+                this.comando.CommandText = "update horneros set nombre = @nombre, especie = @especie, esPeludo = @esPeludo, tieneAlas = @tieneAlas, velocidadKmH = @velocidadKmH WHERE id = @id";
                 this.comando.Connection = this.conexion;
 
                 this.conexion.Open();
@@ -366,7 +366,7 @@ namespace Entidades
 
                 this.comando.CommandType = System.Data.CommandType.Text;
 
-                this.comando.CommandText = "update ranas set nombre = @nombre, especie = @especie, esPeludo = @esPeludo, esOviparo = @esOviparo, tieneCola = @tieneCola WHERE id = @id";
+                this.comando.CommandText = "update ornitorrincos set nombre = @nombre, especie = @especie, esPeludo = @esPeludo, esOviparo = @esOviparo, tieneCola = @tieneCola WHERE id = @id";
                 this.comando.Connection = this.conexion;
 
                 this.conexion.Open();
@@ -400,7 +400,7 @@ namespace Entidades
                 this.comando = new SqlCommand();
                 this.comando.Parameters.AddWithValue("@id", r.Id);
                 this.comando.CommandType = System.Data.CommandType.Text;
-                this.comando.CommandText = "DELETE FROM Tabla_Ranas WHERE id = @id";
+                this.comando.CommandText = "DELETE FROM ranas WHERE id = @id";
                 this.comando.Connection = this.conexion;
 
                 this.conexion.Open();
@@ -432,7 +432,7 @@ namespace Entidades
                 this.comando = new SqlCommand();
                 this.comando.Parameters.AddWithValue("@id", h.Id);
                 this.comando.CommandType = System.Data.CommandType.Text;
-                this.comando.CommandText = "DELETE FROM Tabla_Ranas WHERE id = @id";
+                this.comando.CommandText = "DELETE FROM horneros WHERE id = @id";
                 this.comando.Connection = this.conexion;
 
                 this.conexion.Open();
@@ -464,7 +464,7 @@ namespace Entidades
                 this.comando = new SqlCommand();
                 this.comando.Parameters.AddWithValue("@id", o.Id);
                 this.comando.CommandType = System.Data.CommandType.Text;
-                this.comando.CommandText = "DELETE FROM Tabla_Ranas WHERE id = @id";
+                this.comando.CommandText = "DELETE FROM ornitorrincos WHERE id = @id";
                 this.comando.Connection = this.conexion;
 
                 this.conexion.Open();
