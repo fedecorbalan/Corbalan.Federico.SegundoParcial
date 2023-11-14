@@ -212,7 +212,7 @@ namespace Entidades
                 if (nuevoId > 0)
                 {
                     // Actualizar el objeto Rana con el ID obtenido
-                    rana.Id = nuevoId;
+                    r.Id = nuevoId;
                     retorno = true;
                 }
             }
@@ -461,6 +461,7 @@ namespace Entidades
                 if (filasAfectadas == 1)
                 {
                     retorno = true;
+
                 }
             }
             catch (Exception ex) { }

@@ -124,20 +124,42 @@ namespace WinFormsPrimerParcial
             {
                 if (selectedIndex < listaRanasRefugiadas.animalesRefugiados.Count)
                 {
-                    listaRanasRefugiadas.animalesRefugiados.RemoveAt(selectedIndex);
+                    //listaRanasRefugiadas.animalesRefugiados.RemoveAt(selectedIndex);
+                    Rana ranaAEliminar = listaRanasRefugiadas.animalesRefugiados[selectedIndex];
+
+                    // Elimina la rana de la base de datos
+                    bool eliminacionExitosa = ado.EliminarRana(ranaAEliminar);
+
+                    if (eliminacionExitosa)
+                    {
+                        listaRanasRefugiadas.animalesRefugiados.RemoveAt(selectedIndex);
+                        lstVisor.Items.RemoveAt(selectedIndex);
+                    }
                 }
                 else if (selectedIndex < listaRanasRefugiadas.animalesRefugiados.Count + listaHornerosRefugiados.animalesRefugiados.Count)
                 {
-                    int index = selectedIndex - listaRanasRefugiadas.animalesRefugiados.Count;
-                    listaHornerosRefugiados.animalesRefugiados.RemoveAt(index);
+                    Hornero horneroAEliminar = listaHornerosRefugiados.animalesRefugiados[selectedIndex];
+
+                    bool eliminacionExitosa = ado.EliminarHornero(horneroAEliminar);
+
+                    if (eliminacionExitosa)
+                    {
+                        listaHornerosRefugiados.animalesRefugiados.RemoveAt(selectedIndex);
+                        lstVisor.Items.RemoveAt(selectedIndex);
+                    }
                 }
                 else
                 {
-                    int index = selectedIndex - listaRanasRefugiadas.animalesRefugiados.Count - listaHornerosRefugiados.animalesRefugiados.Count;
-                    listaOrnitorrincosRefugiados.animalesRefugiados.RemoveAt(index);
-                }
+                    Ornitorrinco ornitorrincoAEliminar = listaOrnitorrincosRefugiados.animalesRefugiados[selectedIndex];
 
-                lstVisor.Items.RemoveAt(selectedIndex);
+                    bool eliminacionExitosa = ado.EliminarOrnitorrinco(ornitorrincoAEliminar);
+
+                    if (eliminacionExitosa)
+                    {
+                        listaOrnitorrincosRefugiados.animalesRefugiados.RemoveAt(selectedIndex);
+                        lstVisor.Items.RemoveAt(selectedIndex);
+                    }
+                }
             }
             else
             {
