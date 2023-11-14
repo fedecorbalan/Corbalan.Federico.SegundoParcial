@@ -61,7 +61,7 @@ namespace Entidades.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Data Source=localhost\SQLEXPRESS3;Initial Catalog=refugio_db;Integrated Security=True;Trust Server Certificate=True.
+        ///   Busca una cadena traducida similar a Data Source=localhost\SQLEXPRESS3;Initial Catalog=RefugioDB;Integrated Security=True;Trust Server Certificate=True.
         /// </summary>
         internal static string miConexion {
             get {

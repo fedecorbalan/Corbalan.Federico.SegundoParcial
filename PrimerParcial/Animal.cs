@@ -10,6 +10,10 @@ namespace PrimerParcial
         public Eespecies especie { get; set; }
         public string nombre { get; set; }
 
+        public static int idCounter = 1;
+
+        public int Id { get; set; }
+
         public abstract string EmitirSonido();
 
         public Animal()
@@ -17,6 +21,7 @@ namespace PrimerParcial
             this.esPeludo = false;
             this.nombre = "SIN NOMBRE";
             this.especie = Eespecies.Anfibio;
+            this.Id = idCounter++;
         }
         public Animal(string nombre,bool esPeludo): this()
         {
@@ -33,7 +38,7 @@ namespace PrimerParcial
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append($" Nombre: {this.nombre} - Es Peludo: {this.esPeludo} - Especie: {this.especie.ToString()} ");
+            sb.Append($"Id: {this.Id} - Nombre: {this.nombre} - Es Peludo: {this.esPeludo} - Especie: {this.especie.ToString()} ");
 
             return sb.ToString();
         }
