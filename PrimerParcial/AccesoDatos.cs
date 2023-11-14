@@ -55,9 +55,7 @@ namespace Entidades
                 this.comando.Connection = this.conexion;
                 this.conexion.Open();
 
-
-                //this.comando.ExecuteNonQuery(); para comandos que no devuelven nada, lease insert, update y delete
-                this.lector = this.comando.ExecuteReader(); //-> Consulta tipo select, devuelve un obj SqlReader con consulta
+                this.lector = this.comando.ExecuteReader();
                 while (lector.Read())
                 {
                     Rana rana = new Rana();
@@ -72,10 +70,7 @@ namespace Entidades
                 }
                 this.lector.Close();
             }
-            catch (Exception e)
-            {
-
-            }
+            catch (Exception e){ }
             finally
             {
                 if (this.conexion.State == System.Data.ConnectionState.Open)
@@ -95,9 +90,7 @@ namespace Entidades
                 this.comando.Connection = this.conexion;
                 this.conexion.Open();
 
-
-                //this.comando.ExecuteNonQuery(); para comandos que no devuelven nada, lease insert, update y delete
-                this.lector = this.comando.ExecuteReader(); //-> Consulta tipo select, devuelve un obj SqlReader con consulta
+                this.lector = this.comando.ExecuteReader(); 
                 while (lector.Read())
                 {
                     Hornero hornero = new Hornero();
@@ -110,13 +103,9 @@ namespace Entidades
 
                     lista.animalesRefugiados.Add(hornero);
                 }
-
                 this.lector.Close();
             }
-            catch (Exception e)
-            {
-
-            }
+            catch (Exception e) {}
             finally
             {
                 if (this.conexion.State == System.Data.ConnectionState.Open)
@@ -136,9 +125,7 @@ namespace Entidades
                 this.comando.Connection = this.conexion;
                 this.conexion.Open();
 
-
-                //this.comando.ExecuteNonQuery(); para comandos que no devuelven nada, lease insert, update y delete
-                this.lector = this.comando.ExecuteReader(); //-> Consulta tipo select, devuelve un obj SqlReader con consulta
+                this.lector = this.comando.ExecuteReader(); 
                 while (lector.Read())
                 {
                     Ornitorrinco ornitorrinco = new Ornitorrinco();
@@ -153,10 +140,7 @@ namespace Entidades
                 }
                 this.lector.Close();
             }
-            catch (Exception e)
-            {
-
-            }
+            catch (Exception e) {}
             finally
             {
                 if (this.conexion.State == System.Data.ConnectionState.Open)
@@ -184,12 +168,8 @@ namespace Entidades
                 {
                     retorno = true;
                 }
-
             }
-            catch (Exception w)
-            {
-
-            }
+            catch (Exception w) {}
             finally
             {
                 if (this.conexion.State == System.Data.ConnectionState.Open)
@@ -219,10 +199,7 @@ namespace Entidades
                 }
 
             }
-            catch (Exception w)
-            {
-
-            }
+            catch (Exception w) { }
             finally
             {
                 if (this.conexion.State == System.Data.ConnectionState.Open)
@@ -252,10 +229,7 @@ namespace Entidades
                 }
 
             }
-            catch (Exception w)
-            {
-
-            }
+            catch (Exception w) {}
             finally
             {
                 if (this.conexion.State == System.Data.ConnectionState.Open)
@@ -265,7 +239,6 @@ namespace Entidades
             }
             return retorno;
         }
-
         public bool ModificarDatoRana(Rana r)
         {
             bool retorno = false;
@@ -295,10 +268,7 @@ namespace Entidades
                 }
 
             }
-            catch (Exception w)
-            {
-
-            }
+            catch (Exception w) {}
             finally
             {
                 if (this.conexion.State == System.Data.ConnectionState.Open)
@@ -337,10 +307,7 @@ namespace Entidades
                 }
 
             }
-            catch (Exception w)
-            {
-
-            }
+            catch (Exception w) { }
             finally
             {
                 if (this.conexion.State == System.Data.ConnectionState.Open)
@@ -379,10 +346,7 @@ namespace Entidades
                 }
 
             }
-            catch (Exception w)
-            {
-
-            }
+            catch (Exception w) { }
             finally
             {
                 if (this.conexion.State == System.Data.ConnectionState.Open)
@@ -412,9 +376,7 @@ namespace Entidades
                     retorno = true;
                 }
             }
-            catch (Exception ex)
-            {
-            }
+            catch (Exception ex) { }
             finally
             {
                 if (this.conexion.State == System.Data.ConnectionState.Open)
@@ -444,9 +406,7 @@ namespace Entidades
                     retorno = true;
                 }
             }
-            catch (Exception ex)
-            {
-            }
+            catch (Exception ex) { }
             finally
             {
                 if (this.conexion.State == System.Data.ConnectionState.Open)
@@ -476,9 +436,7 @@ namespace Entidades
                     retorno = true;
                 }
             }
-            catch (Exception ex)
-            {
-            }
+            catch (Exception ex){}
             finally
             {
                 if (this.conexion.State == System.Data.ConnectionState.Open)
@@ -488,18 +446,6 @@ namespace Entidades
             }
             return retorno;
         }
-
-
-
-
-
-
-
     }
-
-
-
-
-
 }
 
