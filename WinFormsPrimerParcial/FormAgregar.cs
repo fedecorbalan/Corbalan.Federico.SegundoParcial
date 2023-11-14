@@ -25,6 +25,8 @@ namespace WinFormsPrimerParcial
         public Animal NuevoAnimal { get; private set; }
         public FormPrincipal FormPrincipalRef { get; set; }
 
+        AccesoDatos ad = new AccesoDatos();
+
 
         public FormAgregar()
         {
@@ -51,18 +53,22 @@ namespace WinFormsPrimerParcial
                 nuevoOrnitorrinco = new Ornitorrinco(esPeludo, true, true, Eespecies.Mamifero, nombre);
                 _ = FormPrincipalRef.listaOrnitorrincosRefugiados + nuevoOrnitorrinco;
                 NuevoAnimal = nuevoOrnitorrinco;
+                ad.AgregarOrnitorrinco(nuevoOrnitorrinco);
+                
             }
             else if (especie == "rana")
             {
                 nuevaRana = new Rana(true, true, esPeludo, Eespecies.Anfibio, nombre);
                 _ = FormPrincipalRef.listaRanasRefugiadas + nuevaRana;
                 NuevoAnimal = nuevaRana;
+                ad.AgregarRana(nuevaRana);
             }
             else if (especie == "hornero")
             { 
                 nuevoHornero = new Hornero(40, true, esPeludo, Eespecies.Ave, nombre);
                 _ = FormPrincipalRef.listaHornerosRefugiados + nuevoHornero;
                 NuevoAnimal = nuevoHornero;
+                ad.AgregarHornero(nuevoHornero);
             }
             else
             {

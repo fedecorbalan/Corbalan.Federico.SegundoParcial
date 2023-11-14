@@ -14,6 +14,8 @@ namespace WinFormsPrimerParcial
         public Refugio<Rana> listaRanasRefugiadas;
         public Refugio<Hornero> listaHornerosRefugiados;
         public Refugio<Ornitorrinco> listaOrnitorrincosRefugiados;
+        
+        AccesoDatos ado = new AccesoDatos();
 
         public ListBox LstVisor { get; set; }
 
@@ -55,6 +57,7 @@ namespace WinFormsPrimerParcial
                     if (nuevoAnimal is Rana)
                     {
                         lstVisor.Items.Add(nuevoAnimal.ToString());
+
                     }
                     if (nuevoAnimal is Hornero)
                     {
@@ -141,7 +144,11 @@ namespace WinFormsPrimerParcial
                 MessageBox.Show("Selecciona un elemento para eliminar.");
             }
         }
-        private void FormPrincipal_Load(object sender, EventArgs e) { }
+        private void FormPrincipal_Load(object sender, EventArgs e) 
+        {
+            ado.ObtenerListaRanas(listaRanasRefugiadas);
+            ActualizarVisor();
+        }
         private void btnSalir_Click(object sender, EventArgs e)
         {
             DialogResult resultado = MessageBox.Show("¿Estas seguro que quieres salir?", "SALIR", MessageBoxButtons.YesNo, MessageBoxIcon.Question);

@@ -150,14 +150,15 @@ namespace Entidades
             }
             return lista;
         }
-        public bool AgregarDatoRanas(Rana rana)
+        /*
+        public bool AgregarRana(Rana rana)
         {
             bool retorno = false;
             try
             {
                 this.comando = new SqlCommand();
                 this.comando.CommandType = System.Data.CommandType.Text;
-                this.comando.CommandText = "insert into ranas(nombre,especie,esPeludo,esVenenosa,esArboricola) values('" + rana.nombre + "'," + rana.especie + "," + rana.esPeludo + ", " + rana.esVenenosa + "," + rana.esArboricola + ") "; //para agregar datos
+                this.comando.CommandText = "INSERT INTO ranas(nombre, especie, esPeludo, esVenenosa, esArboricola) " + $"VALUES('{rana.nombre}', {(int)rana.especie}, {rana.esPeludo}, {rana.esVenenosa}, {rana.esArboricola})"; //para agregar datos
                 this.comando.Connection = this.conexion;
 
                 this.conexion.Open();
@@ -179,27 +180,46 @@ namespace Entidades
             }
             return retorno;
         }
-        public bool AgregarDatoHorneros(Hornero hornero)
+        */
+        public bool AgregarRana(Rana r)
         {
             bool retorno = false;
+
             try
             {
                 this.comando = new SqlCommand();
                 this.comando.CommandType = System.Data.CommandType.Text;
-                this.comando.CommandText = "insert into horneros(nombre,especie,esPeludo,tieneAlas,velocidadKmH) values('" + hornero.nombre + "'," + hornero.especie + "," + hornero.esPeludo + ", " + hornero.tieneAlas + "," + hornero.velocidadVueloKMporH + ") "; //para agregar datos
+
+                // Utilizar parámetros para evitar la inyección de SQL
+                this.comando.CommandText = "INSERT INTO ranas(nombre, especie, esPeludo, esVenenosa, esArboricola) " +
+                    "VALUES(@nombre, @especie, @esPeludo, @esVenenosa, @esArboricola); " +
+                    "SELECT SCOPE_IDENTITY();";
+
+                // Añadir parámetros
+                this.comando.Parameters.AddWithValue("@nombre", r.nombre);
+                this.comando.Parameters.AddWithValue("@especie", (int)r.especie);
+                this.comando.Parameters.AddWithValue("@esPeludo", r.esPeludo);
+                this.comando.Parameters.AddWithValue("@esVenenosa", r.esVenenosa);
+                this.comando.Parameters.AddWithValue("@esArboricola", r.esArboricola);
+
                 this.comando.Connection = this.conexion;
 
                 this.conexion.Open();
 
-                int filasAfectadas = this.comando.ExecuteNonQuery();
+                // Ejecutar la consulta y obtener el ID de la rana
+                int nuevoId = Convert.ToInt32(this.comando.ExecuteScalar());
 
-                if (filasAfectadas == 1)
+                if (nuevoId > 0)
                 {
+                    // Actualizar el objeto Rana con el ID obtenido
+                    rana.Id = nuevoId;
                     retorno = true;
                 }
-
             }
-            catch (Exception w) { }
+            catch (Exception w)
+            {
+                // Manejar la excepción
+            }
             finally
             {
                 if (this.conexion.State == System.Data.ConnectionState.Open)
@@ -209,27 +229,43 @@ namespace Entidades
             }
             return retorno;
         }
-        public bool AgregarDatoOrnitorrincos(Ornitorrinco o)
+        public bool AgregarHornero(Hornero h)
         {
             bool retorno = false;
+
             try
             {
                 this.comando = new SqlCommand();
                 this.comando.CommandType = System.Data.CommandType.Text;
-                this.comando.CommandText = "insert into ornitorrincos(nombre,especie,esPeludo,esOviparo,tieneCola) values('" + o.nombre + "'," + o.especie + "," + o.esPeludo + ", " +  o.oviparo + "," + o.tieneCola + ") "; //para agregar datos
+
+                // Utilizar parámetros para evitar la inyección de SQL
+                this.comando.CommandText = "INSERT INTO horneros(nombre, especie, esPeludo, tieneAlas, velocidadKmH) " +
+                    "VALUES(@nombre, @especie, @esPeludo, @esVenenosa, @velocidadKmH); " +
+                    "SELECT SCOPE_IDENTITY();";
+
+                // Añadir parámetros
+                this.comando.Parameters.AddWithValue("@nombre", h.nombre);
+                this.comando.Parameters.AddWithValue("@especie", (int)h.especie);
+                this.comando.Parameters.AddWithValue("@esPeludo", h.esPeludo);
+                this.comando.Parameters.AddWithValue("@esVenenosa", h.tieneAlas);
+                this.comando.Parameters.AddWithValue("@esArboricola", (int)h.velocidadVueloKMporH);
+
                 this.comando.Connection = this.conexion;
 
                 this.conexion.Open();
 
-                int filasAfectadas = this.comando.ExecuteNonQuery();
+                int nuevoId = Convert.ToInt32(this.comando.ExecuteScalar());
 
-                if (filasAfectadas == 1)
+                if (nuevoId > 0)
                 {
+                    h.Id = nuevoId;
                     retorno = true;
                 }
-
             }
-            catch (Exception w) {}
+            catch (Exception w)
+            {
+                // Manejar la excepción
+            }
             finally
             {
                 if (this.conexion.State == System.Data.ConnectionState.Open)
@@ -239,7 +275,58 @@ namespace Entidades
             }
             return retorno;
         }
-        public bool ModificarDatoRana(Rana r)
+        public bool AgregarOrnitorrinco(Ornitorrinco o)
+        {
+            bool retorno = false;
+
+            try
+            {
+                this.comando = new SqlCommand();
+                this.comando.CommandType = System.Data.CommandType.Text;
+
+                // Utilizar parámetros para evitar la inyección de SQL
+                this.comando.CommandText = "INSERT INTO ornitorrincos(nombre, especie, esPeludo, esOviparo, tieneCola) " +
+                    "VALUES(@nombre, @especie, @esPeludo, @esOviparo, @tieneCola); " +
+                    "SELECT SCOPE_IDENTITY();";
+
+                // Añadir parámetros
+                this.comando.Parameters.AddWithValue("@nombre", o.nombre);
+                this.comando.Parameters.AddWithValue("@especie", (int)o.especie);
+                this.comando.Parameters.AddWithValue("@esPeludo", o.esPeludo);
+                this.comando.Parameters.AddWithValue("@esVenenosa", o.oviparo);
+                this.comando.Parameters.AddWithValue("@esArboricola", o.tieneCola);
+
+                this.comando.Connection = this.conexion;
+
+                this.conexion.Open();
+
+                // Ejecutar la consulta y obtener el ID de la rana
+                int nuevoId = Convert.ToInt32(this.comando.ExecuteScalar());
+
+                if (nuevoId > 0)
+                {
+                    // Actualizar el objeto Rana con el ID obtenido
+                    o.Id = nuevoId;
+                    retorno = true;
+                }
+            }
+            catch (Exception w)
+            {
+                // Manejar la excepción
+            }
+            finally
+            {
+                if (this.conexion.State == System.Data.ConnectionState.Open)
+                {
+                    this.conexion.Close();
+                }
+            }
+            return retorno;
+        }
+
+
+
+        public bool ModificarRana(Rana r)
         {
             bool retorno = false;
             try
@@ -278,7 +365,7 @@ namespace Entidades
             }
             return retorno;
         }
-        public bool ModificarDatoHornero(Hornero h)
+        public bool ModificarHornero(Hornero h)
         {
             bool retorno = false;
             try
@@ -317,7 +404,7 @@ namespace Entidades
             }
             return retorno;
         }
-        public bool ModificarDatoOrnitorrinco(Ornitorrinco o)
+        public bool ModificarOrnitorrinco(Ornitorrinco o)
         {
             bool retorno = false;
             try
