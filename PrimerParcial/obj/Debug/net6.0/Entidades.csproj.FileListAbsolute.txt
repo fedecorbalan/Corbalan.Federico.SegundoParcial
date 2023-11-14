@@ -22,3 +22,5 @@ C:\Users\User\source\repos\Corbalan.Federico.SegundoParcial\PrimerParcial\obj\De
 C:\Users\User\source\repos\Corbalan.Federico.SegundoParcial\PrimerParcial\obj\Debug\net6.0\refint\Entidades.dll
 C:\Users\User\source\repos\Corbalan.Federico.SegundoParcial\PrimerParcial\obj\Debug\net6.0\Entidades.pdb
 C:\Users\User\source\repos\Corbalan.Federico.SegundoParcial\PrimerParcial\obj\Debug\net6.0\ref\Entidades.dll
+C:\Users\User\source\repos\Corbalan.Federico.SegundoParcial\PrimerParcial\obj\Debug\net6.0\Entidades.Properties.Resources.resources
+C:\Users\User\source\repos\Corbalan.Federico.SegundoParcial\PrimerParcial\obj\Debug\net6.0\Entidades.csproj.GenerateResource.cache
