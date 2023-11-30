@@ -19,6 +19,13 @@ namespace WinFormsPrimerParcial
         public Usuario usuario;
 
         public Usuario UsuarioForm { get { return this.usuario; } }
+
+        public object VerificarUsuario { get; private set; }
+
+        public delegate void ActualizarPermisosHandler(bool permiteAgregar, bool permiteVer, bool permiteModificar, bool permiteEliminar);
+
+        public event ActualizarPermisosHandler ActualizarPermisos;
+
         public FormLogin()
         {
             InitializeComponent();
@@ -37,7 +44,15 @@ namespace WinFormsPrimerParcial
             if (this.usuario != null)
             {
                 RegistrarAcceso(this.usuario);
+
+                string perfil = this.usuario.perfil.ToLower();
+
+                // Disparar el evento para ajustar los permisos en FormPrincipal
+                ActualizarPermisos?.Invoke(perfil == "administrador", perfil == "vendedor" || perfil == "supervisor", perfil == "administrador" || perfil == "supervisor", perfil == "administrador");
+                    
+
                 this.DialogResult = DialogResult.OK;
+
             }
             else
             {
@@ -45,6 +60,8 @@ namespace WinFormsPrimerParcial
             }
             this.DialogResult = DialogResult.OK;
         }
+
+
 
         private Usuario Verificar()
         {

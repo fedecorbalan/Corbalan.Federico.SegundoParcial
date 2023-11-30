@@ -21,7 +21,6 @@ namespace PrimerParcial
             this.esPeludo = false;
             this.nombre = "SIN NOMBRE";
             this.especie = Eespecies.Anfibio;
-            this.Id = idCounter++;
         }
         public Animal(string nombre,bool esPeludo): this()
         {

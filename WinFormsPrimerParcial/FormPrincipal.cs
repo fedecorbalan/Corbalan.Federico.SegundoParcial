@@ -9,11 +9,14 @@ using Microsoft.Data.SqlClient;
 
 namespace WinFormsPrimerParcial
 {
+
     public partial class FormPrincipal : Form
     {
         public Refugio<Rana> listaRanasRefugiadas;
         public Refugio<Hornero> listaHornerosRefugiados;
         public Refugio<Ornitorrinco> listaOrnitorrincosRefugiados;
+
+        public string perfilUsuario;
         
         AccesoDatos ado = new AccesoDatos();
 
@@ -32,6 +35,7 @@ namespace WinFormsPrimerParcial
         {
             MessageBox.Show($"Bienvenido, {usuario.nombre}");
             this.lblInfo.Text = usuario.nombre;
+            this.perfilUsuario = usuario.perfil;
         }
         private void MostrarFechaActual()
         {
@@ -66,6 +70,8 @@ namespace WinFormsPrimerParcial
                 }
             }
         }
+        
+
         private void btnModificar_Click(object sender, EventArgs e)
         {
             int selectedIndex = lstVisor.SelectedIndex;
@@ -94,6 +100,7 @@ namespace WinFormsPrimerParcial
                 }
 
                 FormModificar frmModificar = new FormModificar(animalAModificar);
+                
                 frmModificar.StartPosition = FormStartPosition.CenterScreen;
                 frmModificar.ShowDialog();
 
@@ -170,7 +177,10 @@ namespace WinFormsPrimerParcial
         {
             ado.ObtenerListaRanas(listaRanasRefugiadas);
             ActualizarVisor();
+          
         }
+ 
+
         private void btnSalir_Click(object sender, EventArgs e)
         {
             DialogResult resultado = MessageBox.Show("¿Estas seguro que quieres salir?", "SALIR", MessageBoxButtons.YesNo, MessageBoxIcon.Question);

@@ -24,6 +24,8 @@ namespace WinFormsPrimerParcial
 
         public Eespecies Especie { get; set; }
 
+      
+
         public FormModificar(Animal animal)
         {
             InitializeComponent();
@@ -49,6 +51,7 @@ namespace WinFormsPrimerParcial
                 lblAtributo2.Text = "Es Arboricola?";
             }
         }
+        
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
@@ -126,8 +129,6 @@ namespace WinFormsPrimerParcial
                 MessageBox.Show("Especie no válida. Solo se permite Ornitorrinco, Rana o Hornero.");
                 return;
             }
-
-            
         }
         private void btnCancelar_Click(object sender, EventArgs e)
         {
