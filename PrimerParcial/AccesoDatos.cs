@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    public class AccesoDatos : ICrudHornero, ICrudOrnitorrinco, ICrudRana
+    public class AccesoDatos: ICrudRana,ICrudHornero,ICrudOrnitorrinco
     {
         private SqlConnection conexion;
         private static string cadena_conexion;
