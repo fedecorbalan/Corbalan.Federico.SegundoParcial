@@ -5,6 +5,15 @@
     <Compile Update="FormAgregar.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FormAgregarHornero.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormAgregarOrnitorrinco.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormAgregarRana.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FormLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -12,6 +21,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FormPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormSeleccionAnimal.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FormVisualizador.cs">

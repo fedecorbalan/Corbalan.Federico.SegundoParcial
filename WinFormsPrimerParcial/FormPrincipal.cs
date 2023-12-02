@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.IO;
 using Microsoft.Data.SqlClient;
+using WinFormsSegundoParcial;
 
 namespace WinFormsPrimerParcial
 {
@@ -30,12 +31,16 @@ namespace WinFormsPrimerParcial
             this.listaHornerosRefugiados = new Refugio<Hornero>();
             this.listaOrnitorrincosRefugiados = new Refugio<Ornitorrinco>();
             this.listaRanasRefugiadas = new Refugio<Rana>();
+
+            var formLogin = new FormLogin();
+            formLogin.ActualizarPermisos += ActualizarPermisosFormPrincipal;
         }
         public FormPrincipal(Usuario usuario) : this()
         {
             MessageBox.Show($"Bienvenido, {usuario.nombre}");
             this.lblInfo.Text = usuario.nombre;
             this.perfilUsuario = usuario.perfil;
+
         }
         private void MostrarFechaActual()
         {
@@ -44,28 +49,34 @@ namespace WinFormsPrimerParcial
         }
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            FormAgregar frmAgregar = new FormAgregar();
-            frmAgregar.FormPrincipalRef = this;
-            frmAgregar.StartPosition = FormStartPosition.CenterScreen;
 
-            if (frmAgregar.ShowDialog() == DialogResult.OK)
-            {
-                Animal nuevoAnimal = frmAgregar.NuevoAnimal;
+            FormSeleccionAnimal frmSeleccionAnimal = new FormSeleccionAnimal();
 
-                if (lstVisor.Items.Count >= 0)
+            if (frmSeleccionAnimal.ShowDialog() == DialogResult.OK)
+            { 
+                FormAgregar frmAgregar = new FormAgregar();
+                frmAgregar.FormPrincipalRef = this;
+                frmAgregar.StartPosition = FormStartPosition.CenterScreen;
+
+                if (frmAgregar.ShowDialog() == DialogResult.OK)
                 {
-                    if (nuevoAnimal is Ornitorrinco)
-                    {
-                        lstVisor.Items.Add(nuevoAnimal.ToString());
-                    }
-                    if (nuevoAnimal is Rana)
-                    {
-                        lstVisor.Items.Add(nuevoAnimal.ToString());
+                    Animal nuevoAnimal = frmAgregar.NuevoAnimal;
 
-                    }
-                    if (nuevoAnimal is Hornero)
+                    if (lstVisor.Items.Count >= 0)
                     {
-                        lstVisor.Items.Add(nuevoAnimal.ToString());
+                        if (nuevoAnimal is Ornitorrinco)
+                        {
+                            lstVisor.Items.Add(nuevoAnimal.ToString());
+                        }
+                        if (nuevoAnimal is Rana)
+                        {
+                            lstVisor.Items.Add(nuevoAnimal.ToString());
+
+                        }
+                        if (nuevoAnimal is Hornero)
+                        {
+                            lstVisor.Items.Add(nuevoAnimal.ToString());
+                        }
                     }
                 }
             }
@@ -228,6 +239,14 @@ namespace WinFormsPrimerParcial
                 lstVisor.Items.Add(hornero.ToString());
             }
         }
+        private void ActualizarPermisosFormPrincipal(bool permiteAgregar, bool permiteVer, bool permiteModificar, bool permiteEliminar)
+        {
+            // Implementa la lógica para ajustar la interfaz de usuario según los permisos
+            btnAgregar.Enabled = permiteAgregar;
+            btnModificar.Enabled = permiteModificar;
+            btnEliminar.Enabled = permiteEliminar;
+        }
+
         private void btnVisualizador_Click(object sender, EventArgs e)
         {
             string rutaArchivoLog = @"..\..\..\usuarios.log";

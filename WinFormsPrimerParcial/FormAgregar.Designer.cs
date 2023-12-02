@@ -34,8 +34,6 @@
             lblNombre = new Label();
             txtNombre = new TextBox();
             txtEsPeludo = new TextBox();
-            txtAnimal = new TextBox();
-            lblAnimal = new Label();
             lblEsPeludo = new Label();
             SuspendLayout();
             // 
@@ -45,14 +43,14 @@
             label1.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
             label1.Location = new Point(12, 9);
             label1.Name = "label1";
-            label1.Size = new Size(247, 38);
+            label1.Size = new Size(127, 38);
             label1.TabIndex = 2;
-            label1.Text = "AÑADIR ANIMAL";
+            label1.Text = "AÑADIR";
             // 
             // btnCancelar
             // 
             btnCancelar.BackColor = Color.PaleTurquoise;
-            btnCancelar.Location = new Point(23, 329);
+            btnCancelar.Location = new Point(23, 458);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(112, 34);
             btnCancelar.TabIndex = 4;
@@ -63,7 +61,7 @@
             // btnAceptar
             // 
             btnAceptar.BackColor = Color.PaleTurquoise;
-            btnAceptar.Location = new Point(204, 329);
+            btnAceptar.Location = new Point(204, 458);
             btnAceptar.Name = "btnAceptar";
             btnAceptar.Size = new Size(112, 34);
             btnAceptar.TabIndex = 5;
@@ -74,7 +72,7 @@
             // lblNombre
             // 
             lblNombre.AutoSize = true;
-            lblNombre.Location = new Point(23, 151);
+            lblNombre.Location = new Point(23, 66);
             lblNombre.Name = "lblNombre";
             lblNombre.Size = new Size(160, 25);
             lblNombre.TabIndex = 6;
@@ -82,38 +80,22 @@
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(23, 179);
+            txtNombre.Location = new Point(23, 103);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(293, 31);
             txtNombre.TabIndex = 7;
             // 
             // txtEsPeludo
             // 
-            txtEsPeludo.Location = new Point(23, 262);
+            txtEsPeludo.Location = new Point(23, 197);
             txtEsPeludo.Name = "txtEsPeludo";
             txtEsPeludo.Size = new Size(293, 31);
             txtEsPeludo.TabIndex = 8;
             // 
-            // txtAnimal
-            // 
-            txtAnimal.Location = new Point(23, 94);
-            txtAnimal.Name = "txtAnimal";
-            txtAnimal.Size = new Size(293, 31);
-            txtAnimal.TabIndex = 9;
-            // 
-            // lblAnimal
-            // 
-            lblAnimal.AutoSize = true;
-            lblAnimal.Location = new Point(23, 66);
-            lblAnimal.Name = "lblAnimal";
-            lblAnimal.Size = new Size(149, 25);
-            lblAnimal.TabIndex = 10;
-            lblAnimal.Text = "Ingrese el animal:";
-            // 
             // lblEsPeludo
             // 
             lblEsPeludo.AutoSize = true;
-            lblEsPeludo.Location = new Point(23, 225);
+            lblEsPeludo.Location = new Point(23, 157);
             lblEsPeludo.Name = "lblEsPeludo";
             lblEsPeludo.Size = new Size(106, 25);
             lblEsPeludo.TabIndex = 11;
@@ -124,10 +106,8 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightPink;
-            ClientSize = new Size(351, 407);
+            ClientSize = new Size(351, 519);
             Controls.Add(lblEsPeludo);
-            Controls.Add(lblAnimal);
-            Controls.Add(txtAnimal);
             Controls.Add(txtEsPeludo);
             Controls.Add(txtNombre);
             Controls.Add(lblNombre);
@@ -149,8 +129,6 @@
         private Label lblNombre;
         private TextBox txtNombre;
         private TextBox txtEsPeludo;
-        private TextBox txtAnimal;
-        private Label lblAnimal;
         private Label lblEsPeludo;
     }
 }

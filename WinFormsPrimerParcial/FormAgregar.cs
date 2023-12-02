@@ -25,16 +25,71 @@ namespace WinFormsPrimerParcial
         public Animal NuevoAnimal { get; private set; }
         public FormPrincipal FormPrincipalRef { get; set; }
 
-        AccesoDatos ad = new AccesoDatos();
+        AccesoDatos ado = new AccesoDatos();
 
 
         public FormAgregar()
         {
             InitializeComponent();
+
         }
+        public Button BtnAceptar
+        {
+            get { return btnAceptar; }
+            set { btnAceptar = value; }
+        }
+        public TextBox TxtNombre { get; set; }
+        public TextBox TxtPeludo { get; set; }
+
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            List<string> errores = new List<string>();
+            List<Exception> excepciones = new List<Exception>();
+
+            ValidarDatosAnimal(excepciones);
+
+            if (excepciones.Count > 0)
+            {
+                AvisoDeErrores(errores, excepciones);
+            }
+            else
+            {
+               
+            }
+
+
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        
+
+        public void CrearOrnitorrinco()
+        {
             string nombre = txtNombre.Text;
+            bool esPeludo = VerificarEsPeludo();
+
+            nuevoOrnitorrinco = new Ornitorrinco(esPeludo, true, true, Eespecies.Mamifero, nombre);
+            _ = FormPrincipalRef.listaOrnitorrincosRefugiados + nuevoOrnitorrinco;
+            NuevoAnimal = nuevoOrnitorrinco;
+            ado.AgregarOrnitorrinco(nuevoOrnitorrinco);
+
+        }
+
+        public void CrearHornero()
+        {
+            string nombre = txtNombre.Text;
+            bool esPeludo = VerificarEsPeludo();
+
+            nuevoHornero = new Hornero(40, true, esPeludo, Eespecies.Ave, nombre);
+            _ = FormPrincipalRef.listaHornerosRefugiados + nuevoHornero;
+            NuevoAnimal = nuevoHornero;
+            ado.AgregarHornero(nuevoHornero);
+        }
+
+
+        public bool VerificarEsPeludo()
+        {
             string textoPeludo = txtEsPeludo.Text.ToLower();
             bool esPeludo;
 
@@ -46,43 +101,38 @@ namespace WinFormsPrimerParcial
             {
                 esPeludo = false;
             }
-            string especie = txtAnimal.Text.ToLower();
-
-            if (especie == "ornitorrinco")
-            {
-                nuevoOrnitorrinco = new Ornitorrinco(esPeludo, true, true, Eespecies.Mamifero, nombre);
-                _ = FormPrincipalRef.listaOrnitorrincosRefugiados + nuevoOrnitorrinco;
-                NuevoAnimal = nuevoOrnitorrinco;
-                ad.AgregarOrnitorrinco(nuevoOrnitorrinco);
-                
-            }
-            else if (especie == "rana")
-            {
-                nuevaRana = new Rana(true, true, esPeludo, Eespecies.Anfibio, nombre);
-                _ = FormPrincipalRef.listaRanasRefugiadas + nuevaRana;
-                NuevoAnimal = nuevaRana;
-                ad.AgregarRana(nuevaRana);
-            }
-            else if (especie == "hornero")
-            { 
-                nuevoHornero = new Hornero(40, true, esPeludo, Eespecies.Ave, nombre);
-                _ = FormPrincipalRef.listaHornerosRefugiados + nuevoHornero;
-                NuevoAnimal = nuevoHornero;
-                ad.AgregarHornero(nuevoHornero);
-            }
-            else
-            {
-                MessageBox.Show("Especie no válida. Solo se permite Ornitorrinco, Rana o Hornero.");
-                return;
-            }
-
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            return esPeludo;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
+
+        public void AvisoDeErrores(List<string> errores, List<Exception> excepciones)
+        {
+            foreach (Exception excepcion in excepciones)
+            {
+                errores.Add(excepcion.Message);
+            }
+            if (errores.Count > 0)
+            {
+                string mensajeError = string.Join("\n", errores);
+                MessageBox.Show(mensajeError, "Errores al validar datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        public void ValidarDatosAnimal(List<Exception> excepciones)
+        {   //al negar el TryParse cuando el parseo no es exitoso retorna true
+            if (string.IsNullOrWhiteSpace(txtNombre.Text))
+            {
+                excepciones.Add(new ExcepcionNombreVacio());
+            }
+            if (string.IsNullOrWhiteSpace(txtEsPeludo.Text))
+            {
+                excepciones.Add(new ExcepcionPeludoVacio());
+            }
+        }
+
     }
 }
