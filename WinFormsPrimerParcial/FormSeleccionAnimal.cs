@@ -32,15 +32,21 @@ namespace WinFormsSegundoParcial
             if (rbtnHornero.Checked)
             {
                 FormAgregarHornero frmHornero = new FormAgregarHornero();
+                frmHornero.ShowDialog();
+                this.Close();
             }
             else if (rbtnOrnitorrinco.Checked)
             {
                 FormAgregarOrnitorrinco frmOrnitorrinco = new FormAgregarOrnitorrinco();
+                frmOrnitorrinco.ShowDialog();
+                this.Close();
             }
             else if (rbtnRana.Checked)
             {
-                FormAgregarRana frmAgregarRana = new FormAgregarRana();
-            }
+                FormAgregarRana frmRana = new FormAgregarRana();
+                frmRana.ShowDialog();
+                this.Close();
+            }   
             else
             {
                 MessageBox.Show("Seleccione un Animal.");

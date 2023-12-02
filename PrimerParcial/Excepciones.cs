@@ -10,21 +10,29 @@ namespace Entidades
     {
         public ExcepcionNombreVacio() : base("El campo Nombre esta vacio") { }
     }
-    public class ExcepcionAnimalVacio : Exception
-    {
-        public ExcepcionAnimalVacio() : base("El campo Animal esta vacio") { }
-    }
     public class ExcepcionPeludoVacio : Exception
     {
         public ExcepcionPeludoVacio() : base("El campo Es peludo esta vacio") { }
+    }
+    public class ExcepcionPeludoErroneo : Exception
+    {
+        public ExcepcionPeludoErroneo() : base("El campo Es peludo es invalido. Ingrese si o no") { }
     }
     public class ExcepcionEsVenenosaVacio : Exception
     {
         public ExcepcionEsVenenosaVacio() : base("El campo Es Venenosa esta vacio") { }
     }
+    public class ExcepcionEsVenenosaErroneo : Exception
+    {
+        public ExcepcionEsVenenosaErroneo() : base("El campo Es Venenosa es invalido. Ingresar si o no") { }
+    }
     public class ExcepcionEsArboricolaVacio : Exception
     {
         public ExcepcionEsArboricolaVacio() : base("El campo Es Arboricola esta vacio") { }
+    }
+    public class ExcepcionEsArboricolaErroneo : Exception
+    {
+        public ExcepcionEsArboricolaErroneo() : base("El campo Es Arboricola es invalido. Ingresar si o no.") { }
     }
     public class ExcepcionEsOviparoVacio : Exception
     {
@@ -41,5 +49,13 @@ namespace Entidades
     public class ExcepcionVelocidadVacio : Exception
     {
         public ExcepcionVelocidadVacio() : base("El campo Velocidad en KM/H esta vacio") { }
+    }
+    public class ExcepcionIdErroneo : Exception
+    {
+        public ExcepcionIdErroneo() : base("El tipo de dato del identificador es incorrecto.") { }
+    }
+    public class ExcepcionIdExistente : Exception
+    {
+        public ExcepcionIdExistente() : base("El identificador ya esta registrado.") { }
     }
 }

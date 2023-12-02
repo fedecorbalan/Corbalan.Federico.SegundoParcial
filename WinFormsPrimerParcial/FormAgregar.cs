@@ -123,7 +123,7 @@ namespace WinFormsPrimerParcial
             }
         }
         public void ValidarDatosAnimal(List<Exception> excepciones)
-        {   //al negar el TryParse cuando el parseo no es exitoso retorna true
+        {   
             if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
                 excepciones.Add(new ExcepcionNombreVacio());
@@ -131,6 +131,10 @@ namespace WinFormsPrimerParcial
             if (string.IsNullOrWhiteSpace(txtEsPeludo.Text))
             {
                 excepciones.Add(new ExcepcionPeludoVacio());
+            }
+            else if (txtEsPeludo.Text.ToLower() != "si" || txtEsPeludo.Text.ToLower() != "no")
+            {
+                excepciones.Add(new ExcepcionPeludoErroneo());
             }
         }
 
