@@ -24,6 +24,7 @@ namespace WinFormsSegundoParcial
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             SeleccionAnimal();
+            this.Close();
         }
 
         public void SeleccionAnimal()
@@ -50,6 +51,25 @@ namespace WinFormsSegundoParcial
             else
             {
                 MessageBox.Show("Seleccione un Animal.");
+            }
+        }
+        public Type GetSelectedAnimalType()
+        {
+            if (rbtnHornero.Checked)
+            {
+                return typeof(Hornero);
+            }
+            else if (rbtnOrnitorrinco.Checked)
+            {
+                return typeof(Ornitorrinco);
+            }
+            else if (rbtnRana.Checked)
+            {
+                return typeof(Rana);
+            }
+            else
+            {
+                throw new ExcepcionAnimalNoSeleccionado();
             }
         }
 

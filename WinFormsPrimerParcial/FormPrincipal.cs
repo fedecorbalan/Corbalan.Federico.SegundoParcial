@@ -49,39 +49,79 @@ namespace WinFormsPrimerParcial
         }
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-
             FormSeleccionAnimal frmSeleccionAnimal = new FormSeleccionAnimal();
 
             if (frmSeleccionAnimal.ShowDialog() == DialogResult.OK)
-            { 
-                FormAgregar frmAgregar = new FormAgregar();
-                frmAgregar.FormPrincipalRef = this;
-                frmAgregar.StartPosition = FormStartPosition.CenterScreen;
+            {
+                Type selectedAnimalType = frmSeleccionAnimal.GetSelectedAnimalType();
 
-                if (frmAgregar.ShowDialog() == DialogResult.OK)
+                if (selectedAnimalType != null)
                 {
-                    Animal nuevoAnimal = frmAgregar.NuevoAnimal;
+                    // Abre el formulario correspondiente según el tipo de animal seleccionado
+                    FormAgregar frmAgregar = Activator.CreateInstance(selectedAnimalType) as FormAgregar;
+                    frmAgregar.FormPrincipalRef = this;
+                    frmAgregar.StartPosition = FormStartPosition.CenterScreen;
 
-                    if (lstVisor.Items.Count >= 0)
+                    if (frmAgregar.ShowDialog() == DialogResult.OK)
                     {
-                        if (nuevoAnimal is Ornitorrinco)
-                        {
-                            lstVisor.Items.Add(nuevoAnimal.ToString());
-                        }
+                        Animal nuevoAnimal = frmAgregar.NuevoAnimal;
+
+                        // Agrega el nuevo animal a la lista correspondiente
                         if (nuevoAnimal is Rana)
                         {
-                            lstVisor.Items.Add(nuevoAnimal.ToString());
-
+                            listaRanasRefugiadas.AgregarAnimal((Rana)nuevoAnimal);
                         }
-                        if (nuevoAnimal is Hornero)
+                        else if (nuevoAnimal is Hornero)
                         {
-                            lstVisor.Items.Add(nuevoAnimal.ToString());
+                            listaHornerosRefugiados.AgregarAnimal((Hornero)nuevoAnimal);
                         }
+                        else if (nuevoAnimal is Ornitorrinco)
+                        {
+                            listaOrnitorrincosRefugiados.AgregarAnimal((Ornitorrinco)nuevoAnimal);
+                        }
+
+                        // Actualiza la lista en el formulario principal
+                        
                     }
                 }
             }
+            ActualizarVisor();
+
+
+
+
+            //FormSeleccionAnimal frmSeleccionAnimal = new FormSeleccionAnimal();
+
+            //if (frmSeleccionAnimal.ShowDialog() == DialogResult.OK)
+            //{ 
+            //    FormAgregar frmAgregar = new FormAgregar();
+            //    frmAgregar.FormPrincipalRef = this;
+            //    frmAgregar.StartPosition = FormStartPosition.CenterScreen;
+
+            //    if (frmAgregar.ShowDialog() == DialogResult.OK)
+            //    {
+            //        Animal nuevoAnimal = frmAgregar.NuevoAnimal;
+
+            //        if (lstVisor.Items.Count >= 0)
+            //        {
+            //            if (nuevoAnimal is Ornitorrinco)
+            //            {
+            //                lstVisor.Items.Add(nuevoAnimal.ToString());
+            //            }
+            //            if (nuevoAnimal is Rana)
+            //            {
+            //                lstVisor.Items.Add(nuevoAnimal.ToString());
+
+            //            }
+            //            if (nuevoAnimal is Hornero)
+            //            {
+            //                lstVisor.Items.Add(nuevoAnimal.ToString());
+            //            }
+            //        }
+            //    }
+            //}
+
         }
-        
 
         private void btnModificar_Click(object sender, EventArgs e)
         {

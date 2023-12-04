@@ -10,6 +10,10 @@ namespace Entidades
     {
         public ExcepcionNombreVacio() : base("El campo Nombre esta vacio") { }
     }
+    public class ExcepcionAnimalNoSeleccionado : Exception
+    {
+        public ExcepcionAnimalNoSeleccionado() : base("No se ha seleccionado ningun animal") { }
+    }
     public class ExcepcionPeludoVacio : Exception
     {
         public ExcepcionPeludoVacio() : base("El campo Es peludo esta vacio") { }

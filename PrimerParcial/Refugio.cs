@@ -84,5 +84,9 @@ namespace Entidades
                 return -1;
             }
         }
+        public void AgregarAnimal(T animal)
+        {
+            animalesRefugiados.Add(animal);
+        }
     }
 }

@@ -18,7 +18,6 @@ namespace WinFormsSegundoParcial
         public Animal NuevoAnimal { get; private set; }
 
         public Rana nuevaRana;
-        public FormPrincipal FormPrincipalRef { get; set; }
 
         public delegate void OperacionCompletaEventHandler(bool exito, string mensaje);
        
@@ -29,14 +28,40 @@ namespace WinFormsSegundoParcial
         {
             InitializeComponent();
             BtnAceptar.Enabled = true;
-
+            BtnCancelar.Enabled = true;
             BtnAceptar.Click += BtnAceptar_Click;
-
+            BtnCancelar.Click += BtnCancelar_Click;
+            this.FormPrincipalRef = (FormPrincipal)Application.OpenForms["FormPrincipal"];
         }
 
-        private void BtnAceptar_Click(object? sender, EventArgs e)
+        public FormAgregarRana(Rana r) : this()
         {
-            string nombre = TxtNombre.Text;
+            LblTitulo.Text = "Modificar Rana";
+
+            if (r.esVenenosa)
+            {
+                txtVenenosa.Text = "si";
+            }
+            else
+            {
+                txtVenenosa.Text = "no";
+            }
+
+            if (r.esArboricola)
+            {
+                txtArboricola.Text = "si";
+            }
+            else
+            {
+                txtArboricola.Text = "no";
+            }
+
+            nuevaRana = r;
+            this.modificar = true;
+        }
+
+        private async void BtnAceptar_Click(object? sender, EventArgs e)
+        {
             List<string> errores = new List<string>();
             List<Exception> excepciones = new List<Exception>();
 
@@ -50,8 +75,23 @@ namespace WinFormsSegundoParcial
             }
             else
             {
-                CrearRana(nombre);
+                nuevaRana = CrearRana();
+                if (modificar)
+                {
+                    await ModificarRanaAsync(nuevaRana);
+                    OperacionCompletada?.Invoke(true, "Modificación de datos exitoso");
+                }
+                else
+                {
+                    await AgregarRanaAsync(nuevaRana);
+                    OperacionCompletada?.Invoke(true, "Agregado de datos exitoso");
+                }
+                this.DialogResult = DialogResult.OK;
             }
+        }
+        private void BtnCancelar_Click(object? sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
         }
 
         public bool ValidarVenenosa()
@@ -72,16 +112,16 @@ namespace WinFormsSegundoParcial
             return esVenenosa;
 
         }
-        public void CrearRana(string nombre)
+        public Rana CrearRana()
         {
             bool esPeludo = VerificarEsPeludo();
             bool esVenenosa = ValidarVenenosa();
             bool esArboricola = ValidarArboricola();
+            string nombre = TxtNombre.ToString();
 
             nuevaRana = new Rana(esArboricola, esVenenosa, esPeludo, Eespecies.Anfibio, nombre);
-            _ = FormPrincipalRef.listaRanasRefugiadas + nuevaRana;
-            NuevoAnimal = nuevaRana;
-            ado.AgregarRana(nuevaRana);
+
+            return nuevaRana;
         }
 
         public bool ValidarArboricola()
@@ -92,9 +132,13 @@ namespace WinFormsSegundoParcial
             {
                 esArboricola = true;
             }
-            else
+            else if  (txtArboricola.Text.ToLower() == "no")
             {
                 esArboricola = false;
+            }
+            else
+            {
+                throw new ExcepcionEsArboricolaErroneo();
             }
             return esArboricola;
         }
@@ -105,7 +149,7 @@ namespace WinFormsSegundoParcial
             {
                 excepciones.Add(new ExcepcionEsArboricolaVacio());
             }
-            else if (txtArboricola.Text.ToLower() != "si" || txtArboricola.Text.ToLower() != "no")
+            else if (txtArboricola.Text.ToLower() != "si" && txtArboricola.Text.ToLower() != "no")
             {
                 excepciones.Add(new ExcepcionEsArboricolaErroneo());
             }
@@ -113,11 +157,42 @@ namespace WinFormsSegundoParcial
             {
                 excepciones.Add(new ExcepcionEsVenenosaVacio());
             }
-            else if (txtVenenosa.Text.ToLower() != "si" || txtVenenosa.Text.ToLower() != "no")
+            else if (txtVenenosa.Text.ToLower() != "si" && txtVenenosa.Text.ToLower() != "no")
             {
                 excepciones.Add(new ExcepcionEsVenenosaErroneo());
             }
         }
 
+        public async Task AgregarRanaAsync(Rana r)
+        {
+            try
+            {
+                await Task.Run(() =>
+                {
+                    this.ado.AgregarRana(r);
+                    FormPrincipalRef.listaRanasRefugiadas.AgregarAnimal(nuevaRana);
+                });
+            }
+            catch(Exception ex)
+            {
+                OperacionCompletada?.Invoke(false, $"Error al agregar la rana: {ex.Message}");
+            }
+
+        }
+
+        public async Task ModificarRanaAsync(Rana r)
+        {
+            try
+            {
+                await Task.Run(() =>
+                {
+                    this.ado.ModificarRana(r);
+                });
+            }
+            catch (Exception ex)
+            {
+                OperacionCompletada?.Invoke(false, $"Error al modificar la rana: {ex.Message}");
+            }
+        }   
     }
 }

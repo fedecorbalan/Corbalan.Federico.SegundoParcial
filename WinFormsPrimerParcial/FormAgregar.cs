@@ -23,69 +23,77 @@ namespace WinFormsPrimerParcial
         public Rana NuevaRana { get; private set; }
 
         public Animal NuevoAnimal { get; private set; }
+        
         public FormPrincipal FormPrincipalRef { get; set; }
 
         AccesoDatos ado = new AccesoDatos();
+
+        public bool modificar = false;
 
 
         public FormAgregar()
         {
             InitializeComponent();
-
         }
+
+        public FormAgregar(Animal a) : this()
+        {
+            txtNombre.Text = a.nombre;
+            if (a.esPeludo)
+            {
+                txtEsPeludo.Text = "si";
+            }
+            else
+            {
+                txtEsPeludo.Text = "no";
+            }
+            this.modificar = true;
+        }
+
+        public Label LblTitulo { get; set; }
+
         public Button BtnAceptar
         {
             get { return btnAceptar; }
             set { btnAceptar = value; }
         }
-        public TextBox TxtNombre { get; set; }
+        public Button BtnCancelar
+        {
+            get { return btnCancelar;}
+            set { btnCancelar = value; }
+        }
+        public string TxtNombre { get { return txtNombre.Text; } }
         public TextBox TxtPeludo { get; set; }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            List<string> errores = new List<string>();
-            List<Exception> excepciones = new List<Exception>();
-
-            ValidarDatosAnimal(excepciones);
-
-            if (excepciones.Count > 0)
-            {
-                AvisoDeErrores(errores, excepciones);
-            }
-            else
-            {
-               
-            }
-
-
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+           
         }
 
-        
 
-        public void CrearOrnitorrinco()
-        {
-            string nombre = txtNombre.Text;
-            bool esPeludo = VerificarEsPeludo();
 
-            nuevoOrnitorrinco = new Ornitorrinco(esPeludo, true, true, Eespecies.Mamifero, nombre);
-            _ = FormPrincipalRef.listaOrnitorrincosRefugiados + nuevoOrnitorrinco;
-            NuevoAnimal = nuevoOrnitorrinco;
-            ado.AgregarOrnitorrinco(nuevoOrnitorrinco);
+        //public void CrearOrnitorrinco()
+        //{
+        //    string nombre = txtNombre.Text;
+        //    bool esPeludo = VerificarEsPeludo();
 
-        }
+        //    nuevoOrnitorrinco = new Ornitorrinco(esPeludo, true, true, Eespecies.Mamifero, nombre);
+        //    _ = FormPrincipalRef.listaOrnitorrincosRefugiados + nuevoOrnitorrinco;
+        //    NuevoAnimal = nuevoOrnitorrinco;
+        //    ado.AgregarOrnitorrinco(nuevoOrnitorrinco);
 
-        public void CrearHornero()
-        {
-            string nombre = txtNombre.Text;
-            bool esPeludo = VerificarEsPeludo();
+        //}
 
-            nuevoHornero = new Hornero(40, true, esPeludo, Eespecies.Ave, nombre);
-            _ = FormPrincipalRef.listaHornerosRefugiados + nuevoHornero;
-            NuevoAnimal = nuevoHornero;
-            ado.AgregarHornero(nuevoHornero);
-        }
+        //public void CrearHornero()
+        //{
+        //    string nombre = txtNombre.Text;
+        //    bool esPeludo = VerificarEsPeludo();
+
+        //    nuevoHornero = new Hornero(40, true, esPeludo, Eespecies.Ave, nombre);
+        //    _ = FormPrincipalRef.listaHornerosRefugiados + nuevoHornero;
+        //    NuevoAnimal = nuevoHornero;
+        //    ado.AgregarHornero(nuevoHornero);
+        //}
 
 
         public bool VerificarEsPeludo()
@@ -103,6 +111,8 @@ namespace WinFormsPrimerParcial
             }
             return esPeludo;
         }
+        
+        
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -123,7 +133,7 @@ namespace WinFormsPrimerParcial
             }
         }
         public void ValidarDatosAnimal(List<Exception> excepciones)
-        {   
+        {
             if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
                 excepciones.Add(new ExcepcionNombreVacio());
@@ -132,7 +142,7 @@ namespace WinFormsPrimerParcial
             {
                 excepciones.Add(new ExcepcionPeludoVacio());
             }
-            else if (txtEsPeludo.Text.ToLower() != "si" || txtEsPeludo.Text.ToLower() != "no")
+            else if (txtEsPeludo.Text.ToLower() != "si" && txtEsPeludo.Text.ToLower() != "no")
             {
                 excepciones.Add(new ExcepcionPeludoErroneo());
             }

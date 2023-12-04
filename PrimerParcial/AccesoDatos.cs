@@ -150,6 +150,7 @@ namespace Entidades
             }
             return lista;
         }
+       
         public bool AgregarRana(Rana r)
         {
             bool retorno = false;
@@ -160,7 +161,7 @@ namespace Entidades
                 this.comando.CommandType = System.Data.CommandType.Text;
 
                 this.comando.CommandText = "INSERT INTO ranas(nombre, especie, esPeludo, esVenenosa, esArboricola) " +
-                    "VALUES(@id,@nombre, @especie, @esPeludo, @esVenenosa, @esArboricola)";
+                    "VALUES(@nombre, @especie, @esPeludo, @esVenenosa, @esArboricola)";
 
                 this.comando.Parameters.AddWithValue("@nombre", r.nombre);
                 this.comando.Parameters.AddWithValue("@especie", (int)r.especie);
@@ -176,7 +177,8 @@ namespace Entidades
 
                 if (filasAfectadas > 0)
                 {
-                    this.comando.CommandText = "SELECT MAX(id) FROM ranas;";
+                    // Recuperar el último ID insertado
+                    this.comando.CommandText = "SELECT IDENT_CURRENT('ranas')";
                     int nuevoId = Convert.ToInt32(this.comando.ExecuteScalar());
 
                     r.Id = nuevoId;
@@ -196,6 +198,7 @@ namespace Entidades
             }
             return retorno;
         }
+
 
         public bool AgregarHornero(Hornero h)
         {

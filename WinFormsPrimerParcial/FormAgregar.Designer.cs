@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
+            lblTitulo = new Label();
             btnCancelar = new Button();
             btnAceptar = new Button();
             lblNombre = new Label();
@@ -37,15 +37,15 @@
             lblEsPeludo = new Label();
             SuspendLayout();
             // 
-            // label1
+            // lblTitulo
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(12, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(127, 38);
-            label1.TabIndex = 2;
-            label1.Text = "AÑADIR";
+            lblTitulo.AutoSize = true;
+            lblTitulo.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
+            lblTitulo.Location = new Point(12, 9);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(127, 38);
+            lblTitulo.TabIndex = 2;
+            lblTitulo.Text = "AÑADIR";
             // 
             // btnCancelar
             // 
@@ -113,7 +113,7 @@
             Controls.Add(lblNombre);
             Controls.Add(btnAceptar);
             Controls.Add(btnCancelar);
-            Controls.Add(label1);
+            Controls.Add(lblTitulo);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormAgregar";
             StartPosition = FormStartPosition.CenterScreen;
@@ -123,7 +123,7 @@
         }
 
         #endregion
-        private Label label1;
+        private Label lblTitulo;
         private Button btnCancelar;
         private Button btnAceptar;
         private Label lblNombre;
