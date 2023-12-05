@@ -24,6 +24,10 @@ namespace WinFormsPrimerParcial
 
         public ListBox LstVisor { get; set; }
 
+        public event EventHandler OperacionCompletadaFormAgregar;
+        
+
+
         public FormPrincipal()
         {
             InitializeComponent();
@@ -63,6 +67,7 @@ namespace WinFormsPrimerParcial
                     frmAgregar.FormPrincipalRef = this;
                     frmAgregar.StartPosition = FormStartPosition.CenterScreen;
 
+
                     if (frmAgregar.ShowDialog() == DialogResult.OK)
                     {
                         Animal nuevoAnimal = frmAgregar.NuevoAnimal;
@@ -71,14 +76,17 @@ namespace WinFormsPrimerParcial
                         if (nuevoAnimal is Rana)
                         {
                             listaRanasRefugiadas.AgregarAnimal((Rana)nuevoAnimal);
+                            
                         }
                         else if (nuevoAnimal is Hornero)
                         {
                             listaHornerosRefugiados.AgregarAnimal((Hornero)nuevoAnimal);
+                            
                         }
                         else if (nuevoAnimal is Ornitorrinco)
                         {
                             listaOrnitorrincosRefugiados.AgregarAnimal((Ornitorrinco)nuevoAnimal);
+                            
                         }
                     }
                 }
@@ -206,8 +214,7 @@ namespace WinFormsPrimerParcial
         }
         private void FormPrincipal_Load(object sender, EventArgs e) 
         {
-            ado.ObtenerListaRanas(listaRanasRefugiadas);
-            ActualizarVisor();
+            
         }
  
 
@@ -308,21 +315,24 @@ namespace WinFormsPrimerParcial
         {
             if (openFileDialogDeserializar.ShowDialog() == DialogResult.OK)
             {
-                //string rutaArchivoEntrada = openFileDialogDeserializar.FileName;
+                string rutaArchivoEntrada = openFileDialogDeserializar.FileName;
 
-                //string archivoSeleccionado = Path.GetFileName(rutaArchivoEntrada);
-                //if (archivoSeleccionado == "ranas.json")
-                //{
-                //    DeserializarDesdeArchivoRanas(rutaArchivoEntrada, listaRanasRefugiadas);
-                //}
-                //else if (archivoSeleccionado == "ornitorrincos.json")
-                //{
-                //    DeserializarDesdeArchivoOrnitorrincos(rutaArchivoEntrada, listaOrnitorrincosRefugiados);
-                //}
-                //else if (archivoSeleccionado == "horneros.json")
-                //{
-                //    DeserializarDesdeArchivoHorneros(rutaArchivoEntrada, listaHornerosRefugiados);
-                //}
+                string archivoSeleccionado = Path.GetFileName(rutaArchivoEntrada);
+                if (archivoSeleccionado == "ranas.json")
+                {
+                    ado.ObtenerListaRanas(listaRanasRefugiadas);
+                    ActualizarVisor();
+                }
+                else if (archivoSeleccionado == "ornitorrincos.json")
+                {
+                    ado.ObtenerListaOrnitorrincos(listaOrnitorrincosRefugiados);
+                    ActualizarVisor();
+                }
+                else if (archivoSeleccionado == "horneros.json")
+                {
+                    ado.ObtenerListaHorneros(listaHornerosRefugiados);
+                    ActualizarVisor();
+                }
             }
         }
 
@@ -331,99 +341,38 @@ namespace WinFormsPrimerParcial
 
             if (saveFileDialogSerializar.ShowDialog() == DialogResult.OK)
             {
-                //string rutaArchivoSalida = saveFileDialogSerializar.FileName;
+                string rutaArchivoSalida = saveFileDialogSerializar.FileName;
 
-                //string archivoSeleccionado = Path.GetFileName(rutaArchivoSalida);
-                //if (archivoSeleccionado == "ranas.json")
-                //{
-                //    SerializarAArchivoRana(rutaArchivoSalida, listaRanasRefugiadas);
-                //}
-                //else if (archivoSeleccionado == "ornitorrincos.json")
-                //{
-                //    SerializarAArchivoOrnitorrinco(rutaArchivoSalida, listaOrnitorrincosRefugiados);
-                //}
-                //else if (archivoSeleccionado == "horneros.json")
-                //{
-                //    SerializarAArchivoHornero(rutaArchivoSalida, listaHornerosRefugiados);
-                //}
+                string archivoSeleccionado = Path.GetFileName(rutaArchivoSalida);
+                if (archivoSeleccionado == "ranas.json")
+                {
+                    SerializarAArchivoRana(rutaArchivoSalida, listaRanasRefugiadas);
+                }
+                else if (archivoSeleccionado == "ornitorrincos.json")
+                {
+                    SerializarAArchivoOrnitorrinco(rutaArchivoSalida, listaOrnitorrincosRefugiados);
+                }
+                else if (archivoSeleccionado == "horneros.json")
+                {
+                    SerializarAArchivoHornero(rutaArchivoSalida, listaHornerosRefugiados);
+                }
             }
         }
-        #region metodos serializadores
-        //public void SerializarAArchivoRana(string rutaArchivo, Refugio<Rana> lista)
-        //{
-        //    string json = JsonConvert.SerializeObject(lista, Formatting.Indented);
-        //    File.WriteAllText(rutaArchivo, json);
-        //}
-        //public void SerializarAArchivoOrnitorrinco(string rutaArchivo, Refugio<Ornitorrinco> lista)
-        //{
-        //    string json = JsonConvert.SerializeObject(lista, Formatting.Indented);
-        //    File.WriteAllText(rutaArchivo, json);
-        //}
-        //public void SerializarAArchivoHornero(string rutaArchivo, Refugio<Hornero> lista)
-        //{
-        //    string json = JsonConvert.SerializeObject(lista, Formatting.Indented);
-        //    File.WriteAllText(rutaArchivo, json);
-        //}
-
-        //public void DeserializarDesdeArchivoOrnitorrincos(string rutaArchivo, Refugio<Ornitorrinco> lista)
-        //{
-        //    if (File.Exists(rutaArchivo))
-        //    {
-        //        using (StreamReader sr = new StreamReader(rutaArchivo))
-        //        {
-        //            string json_str = sr.ReadToEnd();
-        //            Refugio<Ornitorrinco> refugioDeserializado = JsonConvert.DeserializeObject<Refugio<Ornitorrinco>>(json_str);
-
-        //            lista.animalesRefugiados = refugioDeserializado.animalesRefugiados;
-
-        //            lstVisor.Items.Clear();
-        //            foreach (Ornitorrinco elemento in lista.animalesRefugiados)
-        //            {
-        //                lstVisor.Items.Add(elemento.ToString());
-        //            }
-        //        }
-        //    }
-        //}
-        //public void DeserializarDesdeArchivoRanas(string rutaArchivo, Refugio<Rana> lista)
-        //{
-        //    if (File.Exists(rutaArchivo))
-        //    {
-        //        using (StreamReader sr = new StreamReader(rutaArchivo))
-        //        {
-        //            string json_str = sr.ReadToEnd();
-        //            Refugio<Rana> refugioDeserializado = JsonConvert.DeserializeObject<Refugio<Rana>>(json_str);
-
-        //            lista.animalesRefugiados = refugioDeserializado.animalesRefugiados;
-
-        //            lstVisor.Items.Clear();
-        //            foreach (Rana elemento in lista.animalesRefugiados)
-        //            {
-        //                lstVisor.Items.Add(elemento.ToString());
-        //            }
-        //        }
-        //    }
-        //}
-        //public void DeserializarDesdeArchivoHorneros(string rutaArchivo, Refugio<Hornero> lista)
-        //{
-        //    if (File.Exists(rutaArchivo))
-        //    {
-        //        using (StreamReader sr = new StreamReader(rutaArchivo))
-        //        {
-        //            string json_str = sr.ReadToEnd();
-        //            Refugio<Hornero> refugioDeserializado = JsonConvert.DeserializeObject<Refugio<Hornero>>(json_str);
-
-        //            lista.animalesRefugiados = refugioDeserializado.animalesRefugiados;
-
-        //            lstVisor.Items.Clear();
-        //            foreach (Hornero elemento in lista.animalesRefugiados)
-        //            {
-        //                lstVisor.Items.Add(elemento.ToString());
-        //            }
-        //        }
-        //    }
-        //}
-        #endregion
-
         
+        public void SerializarAArchivoRana(string rutaArchivo, Refugio<Rana> lista)
+        {
+            string json = JsonConvert.SerializeObject(lista, Formatting.Indented);
+            File.WriteAllText(rutaArchivo, json);
+        }
+        public void SerializarAArchivoOrnitorrinco(string rutaArchivo, Refugio<Ornitorrinco> lista)
+        {
+            string json = JsonConvert.SerializeObject(lista, Formatting.Indented);
+            File.WriteAllText(rutaArchivo, json);
+        }
+        public void SerializarAArchivoHornero(string rutaArchivo, Refugio<Hornero> lista)
+        {
+            string json = JsonConvert.SerializeObject(lista, Formatting.Indented);
+            File.WriteAllText(rutaArchivo, json);
+        }
     }
 }

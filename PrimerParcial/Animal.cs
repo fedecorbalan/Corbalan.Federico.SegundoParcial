@@ -10,7 +10,8 @@ namespace PrimerParcial
         public Eespecies especie { get; set; }
         public string nombre { get; set; }
 
-        public int idCounter = 1;
+        public static int idCounter = 0;
+
 
         public int Id { get; set; }
 
@@ -21,6 +22,7 @@ namespace PrimerParcial
             this.esPeludo = false;
             this.nombre = "SIN NOMBRE";
             this.especie = Eespecies.Anfibio;
+            this.Id = idCounter++;
         }
         public Animal(string nombre,bool esPeludo): this()
         {

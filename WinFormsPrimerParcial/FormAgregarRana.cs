@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,8 @@ namespace WinFormsSegundoParcial
 
         AccesoDatos ado = new AccesoDatos();
         public int IndiceSeleccionado { get; set; }
+        public int idCounter { get; private set; }
+
         public FormAgregarRana()
         {
             InitializeComponent();
@@ -133,7 +136,6 @@ namespace WinFormsSegundoParcial
             string nombre = TxtNombre.ToString();
 
             nuevaRana = new Rana(esArboricola, esVenenosa, esPeludo, Eespecies.Anfibio, nombre);
-            
 
             return nuevaRana;
         }
@@ -183,6 +185,7 @@ namespace WinFormsSegundoParcial
             {
                 await Task.Run(() =>
                 {
+                    nuevaRana.Id = ObtenerIdCorrecto();
                     this.ado.AgregarRana(r);
                     FormPrincipalRef.listaRanasRefugiadas.AgregarAnimal(nuevaRana);
                 });
@@ -215,19 +218,35 @@ namespace WinFormsSegundoParcial
         }
         public int ObtenerIdCorrecto()
         {
-            // Asumiendo que tienes una lista de ranas ordenadas por ID
             var ultimaRana = FormPrincipalRef.listaRanasRefugiadas.animalesRefugiados.LastOrDefault();
 
-            // Si hay alguna rana en la lista, devuelve el próximo ID incrementado
-            if (ultimaRana is not null)
+            if (modificar)
             {
                 return ultimaRana.Id;
+            }
+            if (ultimaRana is not null)
+            {
+                return ultimaRana.Id + 1;
             }
             // Si la lista está vacía, devuelve 1 como el primer ID
             else
             {
-                return 1;
+                return ObtenerNuevoIdUnico();
             }
+        }
+        private int ObtenerNuevoIdUnico()
+        {
+            // Reinicia el contador cuando la lista está vacía
+            idCounter = 1;
+
+            // Encuentra el siguiente ID no utilizado
+            int newId = 1;
+            while (FormPrincipalRef.listaRanasRefugiadas.animalesRefugiados.Any(rana => rana.Id == newId))
+            {
+                newId++;
+            }
+
+            return newId;
         }
 
     }

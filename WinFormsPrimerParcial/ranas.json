@@ -1,25 +1,36 @@
 {
   "animalesRefugiados": [
     {
-      "esVenenosa": true,
-      "esArboricola": false,
-      "esPeludo": false,
-      "especie": 2,
-      "nombre": "pepe"
-    },
-    {
-      "esVenenosa": true,
-      "esArboricola": false,
-      "esPeludo": false,
-      "especie": 2,
-      "nombre": "shailo jr"
-    },
-    {
-      "esVenenosa": true,
+      "esVenenosa": false,
       "esArboricola": true,
+      "esPeludo": true,
+      "especie": 2,
+      "nombre": "Juan",
+      "Id": 1
+    },
+    {
+      "esVenenosa": true,
+      "esArboricola": false,
       "esPeludo": false,
       "especie": 2,
-      "nombre": "massi"
+      "nombre": "matias",
+      "Id": 2
+    },
+    {
+      "esVenenosa": true,
+      "esArboricola": false,
+      "esPeludo": false,
+      "especie": 2,
+      "nombre": "pepe",
+      "Id": 3
+    },
+    {
+      "esVenenosa": true,
+      "esArboricola": false,
+      "esPeludo": false,
+      "especie": 2,
+      "nombre": "roman",
+      "Id": 4
     }
   ]
 }
