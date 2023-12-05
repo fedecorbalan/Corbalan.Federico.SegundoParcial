@@ -170,10 +170,10 @@ namespace WinFormsPrimerParcial
         }
         private void btnEliminar_Click(object sender, EventArgs e)
         {
+            
+            int selectedIndex = lstVisor.SelectedIndex;
             if (perfilUsuario.ToLower() == "administrador")
             {
-                int selectedIndex = lstVisor.SelectedIndex;
-
                 if (selectedIndex >= 0)
                 {
                     DialogResult resultado = MessageBox.Show("¿Esta seguro que desea eliminar el registro?\nEsto tambien lo eliminara de la base de datos", "Pregunta", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -222,6 +222,7 @@ namespace WinFormsPrimerParcial
                     {
                         MessageBox.Show("Selecciona un elemento para eliminar.");
                     }
+
                 }
                 else
                 {
@@ -384,24 +385,30 @@ namespace WinFormsPrimerParcial
 
         private void btnArchivoSalida_Click(object sender, EventArgs e)
         {
-
-            if (saveFileDialogSerializar.ShowDialog() == DialogResult.OK)
+            if (perfilUsuario.ToLower() == "administrador" || perfilUsuario.ToLower() == "supervisor")
             {
-                string rutaArchivoSalida = saveFileDialogSerializar.FileName;
+                if (saveFileDialogSerializar.ShowDialog() == DialogResult.OK)
+                {
+                    string rutaArchivoSalida = saveFileDialogSerializar.FileName;
 
-                string archivoSeleccionado = Path.GetFileName(rutaArchivoSalida);
-                if (archivoSeleccionado == "ranas.json")
-                {
-                    SerializarAArchivoRana(rutaArchivoSalida, listaRanasRefugiadas);
+                    string archivoSeleccionado = Path.GetFileName(rutaArchivoSalida);
+                    if (archivoSeleccionado == "ranas.json")
+                    {
+                        SerializarAArchivoRana(rutaArchivoSalida, listaRanasRefugiadas);
+                    }
+                    else if (archivoSeleccionado == "ornitorrincos.json")
+                    {
+                        SerializarAArchivoOrnitorrinco(rutaArchivoSalida, listaOrnitorrincosRefugiados);
+                    }
+                    else if (archivoSeleccionado == "horneros.json")
+                    {
+                        SerializarAArchivoHornero(rutaArchivoSalida, listaHornerosRefugiados);
+                    }
                 }
-                else if (archivoSeleccionado == "ornitorrincos.json")
-                {
-                    SerializarAArchivoOrnitorrinco(rutaArchivoSalida, listaOrnitorrincosRefugiados);
-                }
-                else if (archivoSeleccionado == "horneros.json")
-                {
-                    SerializarAArchivoHornero(rutaArchivoSalida, listaHornerosRefugiados);
-                }
+            }
+            else
+            {
+                MessageBox.Show("Usted es vendedor, por lo que solo puede leer los elementos, no guardarlos");
             }
         }
         
