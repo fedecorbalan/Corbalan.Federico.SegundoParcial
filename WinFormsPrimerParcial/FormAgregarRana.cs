@@ -23,6 +23,7 @@ namespace WinFormsSegundoParcial
         public event OperacionCompletaEventHandler OperacionCompletada;
 
         AccesoDatos ado = new AccesoDatos();
+        public int IndiceSeleccionado { get; set; }
         public FormAgregarRana()
         {
             InitializeComponent();
@@ -35,17 +36,17 @@ namespace WinFormsSegundoParcial
 
         public FormAgregarRana(Rana r) : this()
         {
-            LblTitulo.Text = "Modificar Rana";
+            LblTitulo = "Modificar Rana";
 
             TxtNombre = r.nombre;
 
             if (r.esPeludo == true)
             {
-                TxtPeludo.Text = "si";
+                TxtPeludo = "si";
             }
             else
-            {
-                TxtPeludo.Text = "no";
+            {   
+                TxtPeludo = "no";
             }
 
 
@@ -91,6 +92,7 @@ namespace WinFormsSegundoParcial
                 {
                     await ModificarRanaAsync(nuevaRana);
                     OperacionCompletada?.Invoke(true, "Modificación de datos exitoso");
+                    FormPrincipalRef.listaRanasRefugiadas.ActualizarAnimal(nuevaRana, IndiceSeleccionado);
                 }
                 else
                 {
@@ -131,6 +133,7 @@ namespace WinFormsSegundoParcial
             string nombre = TxtNombre.ToString();
 
             nuevaRana = new Rana(esArboricola, esVenenosa, esPeludo, Eespecies.Anfibio, nombre);
+            
 
             return nuevaRana;
         }
@@ -197,13 +200,35 @@ namespace WinFormsSegundoParcial
             {
                 await Task.Run(() =>
                 {
+                    nuevaRana.ActualizarRana(r);
+
+                    nuevaRana.Id = ObtenerIdCorrecto();
+                    
                     this.ado.ModificarRana(r);
+
                 });
             }
             catch (Exception ex)
             {
                 OperacionCompletada?.Invoke(false, $"Error al modificar la rana: {ex.Message}");
             }
-        }   
+        }
+        public int ObtenerIdCorrecto()
+        {
+            // Asumiendo que tienes una lista de ranas ordenadas por ID
+            var ultimaRana = FormPrincipalRef.listaRanasRefugiadas.animalesRefugiados.LastOrDefault();
+
+            // Si hay alguna rana en la lista, devuelve el próximo ID incrementado
+            if (ultimaRana is not null)
+            {
+                return ultimaRana.Id;
+            }
+            // Si la lista está vacía, devuelve 1 como el primer ID
+            else
+            {
+                return 1;
+            }
+        }
+
     }
 }

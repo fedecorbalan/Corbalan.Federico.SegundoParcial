@@ -51,5 +51,13 @@ namespace PrimerParcial
         {
             return cantidadExtremidades;
         }
+        public void ActualizarRana(Rana r)
+        {
+            this.nombre = r.nombre;
+            this.especie = r.especie;
+            this.esPeludo = r.esPeludo;
+            this.esVenenosa = r.esVenenosa;
+            this.esArboricola = r.esArboricola;
+        }
     }
 }

@@ -21,6 +21,7 @@ namespace WinFormsPrimerParcial
         
         AccesoDatos ado = new AccesoDatos();
 
+
         public ListBox LstVisor { get; set; }
 
         public FormPrincipal()
@@ -88,16 +89,16 @@ namespace WinFormsPrimerParcial
         private void btnModificar_Click(object sender, EventArgs e)
         {
             int selectedIndex = lstVisor.SelectedIndex;
+
             if (selectedIndex >= 0)
             {
-                Animal animalAModificar = null;
-                Eespecies especie = Eespecies.Mamifero;
+                Animal animalAModificar;
+                Eespecies especie;
 
                 if (selectedIndex < listaRanasRefugiadas.animalesRefugiados.Count)
                 {
                     animalAModificar = listaRanasRefugiadas.animalesRefugiados[selectedIndex];
                     especie = Eespecies.Anfibio;
-
                 }
                 else if (selectedIndex < listaRanasRefugiadas.animalesRefugiados.Count + listaHornerosRefugiados.animalesRefugiados.Count)
                 {
@@ -112,28 +113,41 @@ namespace WinFormsPrimerParcial
                     especie = Eespecies.Mamifero;
                 }
 
-                FormModificar frmModificar = new FormModificar(animalAModificar);
-                
-                frmModificar.StartPosition = FormStartPosition.CenterScreen;
-                frmModificar.ShowDialog();
+                // Verifica si el animal a modificar es una rana y abre el formulario correspondiente
+                if (especie == Eespecies.Anfibio && animalAModificar is Rana ranaAModificar)
+                {
+                    FormAgregarRana frmModificarRana = new FormAgregarRana(ranaAModificar);
+                    frmModificarRana.OperacionCompletada += ManejarOperacionCompleta;
+                    frmModificarRana.IndiceSeleccionado = selectedIndex;
 
-                // Dependiendo de cómo manejes las modificaciones en FormModificar, actualiza las listas correspondientes
-                // Puede requerir reemplazar o actualizar el elemento en la lista
-                if (especie == Eespecies.Anfibio)
-                {
-                    listaRanasRefugiadas.animalesRefugiados[selectedIndex] = (Rana)animalAModificar;
+                    frmModificarRana.StartPosition = FormStartPosition.CenterScreen;
+                    frmModificarRana.ShowDialog();
                 }
-                else if (especie == Eespecies.Ave)
+                if (especie == Eespecies.Ave && animalAModificar is Hornero horneroAModificar)
                 {
-                    listaHornerosRefugiados.animalesRefugiados[selectedIndex - listaRanasRefugiadas.animalesRefugiados.Count] = (Hornero)animalAModificar;
+                    FormAgregarHornero frmModificarHornero = new FormAgregarHornero(horneroAModificar);
+                    frmModificarHornero.OperacionCompletada += ManejarOperacionCompleta;
+                    
+                    frmModificarHornero.StartPosition = FormStartPosition.CenterScreen;
+                    frmModificarHornero.ShowDialog();
                 }
-                else if (especie == Eespecies.Mamifero)
+                if (especie == Eespecies.Mamifero && animalAModificar is Ornitorrinco ornitorrincoAModificar)
                 {
-                    listaOrnitorrincosRefugiados.animalesRefugiados[selectedIndex - listaRanasRefugiadas.animalesRefugiados.Count - listaHornerosRefugiados.animalesRefugiados.Count] = (Ornitorrinco)animalAModificar;
+                    FormAgregarOrnitorrinco frmModificarOrnitorrinco = new FormAgregarOrnitorrinco(ornitorrincoAModificar);
+                    frmModificarOrnitorrinco.OperacionCompletada += ManejarOperacionCompleta;
+
+                    frmModificarOrnitorrinco.StartPosition = FormStartPosition.CenterScreen;
+                    frmModificarOrnitorrinco.ShowDialog();
                 }
 
-                lstVisor.Items[selectedIndex] = animalAModificar.ToString();
+                // Agrega lógica similar para otros tipos de animales si es necesario
             }
+            else
+            {
+                MessageBox.Show("Selecciona un elemento para modificar.");
+            }
+            ActualizarVisor();
+
         }
         private void btnEliminar_Click(object sender, EventArgs e)
         {
@@ -192,7 +206,7 @@ namespace WinFormsPrimerParcial
         }
         private void FormPrincipal_Load(object sender, EventArgs e) 
         {
-            ado.ObtenerListaOrnitorrincos(listaOrnitorrincosRefugiados);
+            ado.ObtenerListaRanas(listaRanasRefugiadas);
             ActualizarVisor();
         }
  

@@ -33,17 +33,17 @@ namespace WinFormsSegundoParcial
 
         public FormAgregarHornero(Hornero h) : this()
         {
-            LblTitulo.Text = "Modificar Hornero";
+            LblTitulo = "Modificar Hornero";
 
             TxtNombre = h.nombre;
 
             if (h.esPeludo == true)
             {
-                TxtPeludo.Text = "si";
+                TxtPeludo = "si";
             }
             else
             {
-                TxtPeludo.Text = "no";
+                TxtPeludo = "no";
             }
 
 

@@ -33,17 +33,17 @@ namespace WinFormsSegundoParcial
         }
         public FormAgregarOrnitorrinco(Ornitorrinco o) : this()
         {
-            LblTitulo.Text = "Modificar Rana";
+            LblTitulo = "Modificar Rana";
 
             TxtNombre = o.nombre;
 
             if (o.esPeludo == true)
             {
-                TxtPeludo.Text = "si";
+                TxtPeludo = "si";
             }
             else
             {
-                TxtPeludo.Text = "no";
+                TxtPeludo = "no";
             }
 
 

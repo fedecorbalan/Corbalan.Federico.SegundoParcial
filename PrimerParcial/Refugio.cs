@@ -88,5 +88,18 @@ namespace Entidades
         {
             animalesRefugiados.Add(animal);
         }
+        // Dentro de la clase Refugio<T>
+        public void ActualizarAnimal(T animalModificado, int indice)
+        {
+            if (indice >= 0 && indice < animalesRefugiados.Count)
+            {
+                animalesRefugiados[indice] = animalModificado;
+            }
+            else
+            {
+                throw new IndexOutOfRangeException("El índice está fuera de rango.");
+            }
+        }
+
     }
 }

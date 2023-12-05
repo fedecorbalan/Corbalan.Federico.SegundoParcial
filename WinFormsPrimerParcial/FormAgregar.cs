@@ -45,7 +45,7 @@ namespace WinFormsPrimerParcial
             this.modificar = true;
         }
 
-        public Label LblTitulo { get; set; }
+        public string LblTitulo { get { return lblTitulo.Text; } set {lblTitulo.Text = value; } }
 
         public Button BtnAceptar
         {
@@ -59,7 +59,7 @@ namespace WinFormsPrimerParcial
         }
         public string TxtNombre { get { return txtNombre.Text; } set {txtNombre.Text = value; } }
 
-        public TextBox TxtPeludo { get; set; }
+        public string TxtPeludo { get {return txtEsPeludo.Text; } set {txtEsPeludo.Text = value;} }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
