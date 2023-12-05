@@ -24,8 +24,6 @@ namespace WinFormsPrimerParcial
 
         public ListBox LstVisor { get; set; }
 
-        public event EventHandler OperacionCompletadaFormAgregar;
-        
 
 
         public FormPrincipal()
@@ -54,161 +52,180 @@ namespace WinFormsPrimerParcial
         }
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            FormSeleccionAnimal frmSeleccionAnimal = new FormSeleccionAnimal();
-
-            if (frmSeleccionAnimal.ShowDialog() == DialogResult.OK)
+            if (perfilUsuario.ToLower() == "administrador" || perfilUsuario.ToLower() == "supervisor") 
             {
-                Type selectedAnimalType = frmSeleccionAnimal.GetSelectedAnimalType();
+                FormSeleccionAnimal frmSeleccionAnimal = new FormSeleccionAnimal();
 
-                if (selectedAnimalType != null)
+                if (frmSeleccionAnimal.ShowDialog() == DialogResult.OK)
                 {
-                    // Abre el formulario correspondiente según el tipo de animal seleccionado
-                    FormAgregar frmAgregar = Activator.CreateInstance(selectedAnimalType) as FormAgregar;
-                    frmAgregar.FormPrincipalRef = this;
-                    frmAgregar.StartPosition = FormStartPosition.CenterScreen;
+                    Type selectedAnimalType = frmSeleccionAnimal.GetSelectedAnimalType();
 
-
-                    if (frmAgregar.ShowDialog() == DialogResult.OK)
+                    if (selectedAnimalType != null)
                     {
-                        Animal nuevoAnimal = frmAgregar.NuevoAnimal;
+                        // Abre el formulario correspondiente según el tipo de animal seleccionado
+                        FormAgregar frmAgregar = Activator.CreateInstance(selectedAnimalType) as FormAgregar;
+                        frmAgregar.FormPrincipalRef = this;
+                        frmAgregar.StartPosition = FormStartPosition.CenterScreen;
 
-                        // Agrega el nuevo animal a la lista correspondiente
-                        if (nuevoAnimal is Rana)
+
+                        if (frmAgregar.ShowDialog() == DialogResult.OK)
                         {
-                            listaRanasRefugiadas.AgregarAnimal((Rana)nuevoAnimal);
-                            
-                        }
-                        else if (nuevoAnimal is Hornero)
-                        {
-                            listaHornerosRefugiados.AgregarAnimal((Hornero)nuevoAnimal);
-                            
-                        }
-                        else if (nuevoAnimal is Ornitorrinco)
-                        {
-                            listaOrnitorrincosRefugiados.AgregarAnimal((Ornitorrinco)nuevoAnimal);
-                            
+                            Animal nuevoAnimal = frmAgregar.NuevoAnimal;
+
+                            // Agrega el nuevo animal a la lista correspondiente
+                            if (nuevoAnimal is Rana)
+                            {
+                                listaRanasRefugiadas.AgregarAnimal((Rana)nuevoAnimal);
+
+                            }
+                            else if (nuevoAnimal is Hornero)
+                            {
+                                listaHornerosRefugiados.AgregarAnimal((Hornero)nuevoAnimal);
+
+                            }
+                            else if (nuevoAnimal is Ornitorrinco)
+                            {
+                                listaOrnitorrincosRefugiados.AgregarAnimal((Ornitorrinco)nuevoAnimal);
+
+                            }
                         }
                     }
                 }
+                ActualizarVisor();
             }
-            ActualizarVisor();
+            else
+            {
+                MessageBox.Show("Usted no es administrador ni supervisor, por lo tanto, no posee permisos para agregar elementos");
+            }
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            int selectedIndex = lstVisor.SelectedIndex;
+            if (perfilUsuario.ToLower() == "administrador" || perfilUsuario.ToLower() == "supervisor") {
+                int selectedIndex = lstVisor.SelectedIndex;
 
-            if (selectedIndex >= 0)
-            {
-                Animal animalAModificar;
-                Eespecies especie;
+                if (selectedIndex >= 0)
+                {
+                    Animal animalAModificar;
+                    Eespecies especie;
 
-                if (selectedIndex < listaRanasRefugiadas.animalesRefugiados.Count)
-                {
-                    animalAModificar = listaRanasRefugiadas.animalesRefugiados[selectedIndex];
-                    especie = Eespecies.Anfibio;
-                }
-                else if (selectedIndex < listaRanasRefugiadas.animalesRefugiados.Count + listaHornerosRefugiados.animalesRefugiados.Count)
-                {
-                    int index = selectedIndex - listaRanasRefugiadas.animalesRefugiados.Count;
-                    animalAModificar = listaHornerosRefugiados.animalesRefugiados[index];
-                    especie = Eespecies.Ave;
+                    if (selectedIndex < listaRanasRefugiadas.animalesRefugiados.Count)
+                    {
+                        animalAModificar = listaRanasRefugiadas.animalesRefugiados[selectedIndex];
+                        especie = Eespecies.Anfibio;
+                    }
+                    else if (selectedIndex < listaRanasRefugiadas.animalesRefugiados.Count + listaHornerosRefugiados.animalesRefugiados.Count)
+                    {
+                        int index = selectedIndex - listaRanasRefugiadas.animalesRefugiados.Count;
+                        animalAModificar = listaHornerosRefugiados.animalesRefugiados[index];
+                        especie = Eespecies.Ave;
+                    }
+                    else
+                    {
+                        int index = selectedIndex - listaRanasRefugiadas.animalesRefugiados.Count - listaHornerosRefugiados.animalesRefugiados.Count;
+                        animalAModificar = listaOrnitorrincosRefugiados.animalesRefugiados[index];
+                        especie = Eespecies.Mamifero;
+                    }
+
+                    // Verifica si el animal a modificar es una rana y abre el formulario correspondiente
+                    if (especie == Eespecies.Anfibio && animalAModificar is Rana ranaAModificar)
+                    {
+                        FormAgregarRana frmModificarRana = new FormAgregarRana(ranaAModificar);
+                        frmModificarRana.OperacionCompletada += ManejarOperacionCompleta;
+                        frmModificarRana.IndiceSeleccionado = selectedIndex;
+
+                        frmModificarRana.StartPosition = FormStartPosition.CenterScreen;
+                        frmModificarRana.ShowDialog();
+                    }
+                    if (especie == Eespecies.Ave && animalAModificar is Hornero horneroAModificar)
+                    {
+                        FormAgregarHornero frmModificarHornero = new FormAgregarHornero(horneroAModificar);
+                        frmModificarHornero.OperacionCompletada += ManejarOperacionCompleta;
+
+                        frmModificarHornero.StartPosition = FormStartPosition.CenterScreen;
+                        frmModificarHornero.ShowDialog();
+                    }
+                    if (especie == Eespecies.Mamifero && animalAModificar is Ornitorrinco ornitorrincoAModificar)
+                    {
+                        FormAgregarOrnitorrinco frmModificarOrnitorrinco = new FormAgregarOrnitorrinco(ornitorrincoAModificar);
+                        frmModificarOrnitorrinco.OperacionCompletada += ManejarOperacionCompleta;
+
+                        frmModificarOrnitorrinco.StartPosition = FormStartPosition.CenterScreen;
+                        frmModificarOrnitorrinco.ShowDialog();
+                    }
+
+                    // Agrega lógica similar para otros tipos de animales si es necesario
                 }
                 else
                 {
-                    int index = selectedIndex - listaRanasRefugiadas.animalesRefugiados.Count - listaHornerosRefugiados.animalesRefugiados.Count;
-                    animalAModificar = listaOrnitorrincosRefugiados.animalesRefugiados[index];
-                    especie = Eespecies.Mamifero;
+                    MessageBox.Show("Selecciona un elemento para modificar.");
                 }
-
-                // Verifica si el animal a modificar es una rana y abre el formulario correspondiente
-                if (especie == Eespecies.Anfibio && animalAModificar is Rana ranaAModificar)
-                {
-                    FormAgregarRana frmModificarRana = new FormAgregarRana(ranaAModificar);
-                    frmModificarRana.OperacionCompletada += ManejarOperacionCompleta;
-                    frmModificarRana.IndiceSeleccionado = selectedIndex;
-
-                    frmModificarRana.StartPosition = FormStartPosition.CenterScreen;
-                    frmModificarRana.ShowDialog();
-                }
-                if (especie == Eespecies.Ave && animalAModificar is Hornero horneroAModificar)
-                {
-                    FormAgregarHornero frmModificarHornero = new FormAgregarHornero(horneroAModificar);
-                    frmModificarHornero.OperacionCompletada += ManejarOperacionCompleta;
-                    
-                    frmModificarHornero.StartPosition = FormStartPosition.CenterScreen;
-                    frmModificarHornero.ShowDialog();
-                }
-                if (especie == Eespecies.Mamifero && animalAModificar is Ornitorrinco ornitorrincoAModificar)
-                {
-                    FormAgregarOrnitorrinco frmModificarOrnitorrinco = new FormAgregarOrnitorrinco(ornitorrincoAModificar);
-                    frmModificarOrnitorrinco.OperacionCompletada += ManejarOperacionCompleta;
-
-                    frmModificarOrnitorrinco.StartPosition = FormStartPosition.CenterScreen;
-                    frmModificarOrnitorrinco.ShowDialog();
-                }
-
-                // Agrega lógica similar para otros tipos de animales si es necesario
+                ActualizarVisor();
             }
             else
             {
-                MessageBox.Show("Selecciona un elemento para modificar.");
+                MessageBox.Show("Usted no es administrador ni supervisor, por lo tanto, no posee permisos para modificar elementos");
             }
-            ActualizarVisor();
 
         }
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-
-            int selectedIndex = lstVisor.SelectedIndex;
-
-            if (selectedIndex >= 0)
+            if (perfilUsuario.ToLower() == "administrador")
             {
-                DialogResult resultado = MessageBox.Show("¿Esta seguro que desea eliminar el registro?\nEsto tambien lo eliminara de la base de datos", "Pregunta", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (resultado == DialogResult.Yes)
+                int selectedIndex = lstVisor.SelectedIndex;
+
+                if (selectedIndex >= 0)
                 {
-                    if (selectedIndex < listaRanasRefugiadas.animalesRefugiados.Count)
+                    DialogResult resultado = MessageBox.Show("¿Esta seguro que desea eliminar el registro?\nEsto tambien lo eliminara de la base de datos", "Pregunta", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (resultado == DialogResult.Yes)
                     {
-                        //listaRanasRefugiadas.animalesRefugiados.RemoveAt(selectedIndex);
-                        Rana ranaAEliminar = listaRanasRefugiadas.animalesRefugiados[selectedIndex];
-
-                        // Elimina la rana de la base de datos
-                        bool eliminacionExitosa = ado.EliminarRana(ranaAEliminar);
-
-                        if (eliminacionExitosa)
+                        if (selectedIndex < listaRanasRefugiadas.animalesRefugiados.Count)
                         {
-                            listaRanasRefugiadas.animalesRefugiados.RemoveAt(selectedIndex);
-                            lstVisor.Items.RemoveAt(selectedIndex);
+                            //listaRanasRefugiadas.animalesRefugiados.RemoveAt(selectedIndex);
+                            Rana ranaAEliminar = listaRanasRefugiadas.animalesRefugiados[selectedIndex];
+
+                            // Elimina la rana de la base de datos
+                            bool eliminacionExitosa = ado.EliminarRana(ranaAEliminar);
+
+                            if (eliminacionExitosa)
+                            {
+                                listaRanasRefugiadas.animalesRefugiados.RemoveAt(selectedIndex);
+                                lstVisor.Items.RemoveAt(selectedIndex);
+                            }
                         }
-                    }
-                    else if (selectedIndex < listaRanasRefugiadas.animalesRefugiados.Count + listaHornerosRefugiados.animalesRefugiados.Count)
-                    {
-                        Hornero horneroAEliminar = listaHornerosRefugiados.animalesRefugiados[selectedIndex];
-
-                        bool eliminacionExitosa = ado.EliminarHornero(horneroAEliminar);
-
-                        if (eliminacionExitosa)
+                        else if (selectedIndex < listaRanasRefugiadas.animalesRefugiados.Count + listaHornerosRefugiados.animalesRefugiados.Count)
                         {
-                            listaHornerosRefugiados.animalesRefugiados.RemoveAt(selectedIndex);
-                            lstVisor.Items.RemoveAt(selectedIndex);
+                            Hornero horneroAEliminar = listaHornerosRefugiados.animalesRefugiados[selectedIndex];
+
+                            bool eliminacionExitosa = ado.EliminarHornero(horneroAEliminar);
+
+                            if (eliminacionExitosa)
+                            {
+                                listaHornerosRefugiados.animalesRefugiados.RemoveAt(selectedIndex);
+                                lstVisor.Items.RemoveAt(selectedIndex);
+                            }
+                        }
+                        else
+                        {
+                            Ornitorrinco ornitorrincoAEliminar = listaOrnitorrincosRefugiados.animalesRefugiados[selectedIndex];
+
+                            bool eliminacionExitosa = ado.EliminarOrnitorrinco(ornitorrincoAEliminar);
+
+                            if (eliminacionExitosa)
+                            {
+                                listaOrnitorrincosRefugiados.animalesRefugiados.RemoveAt(selectedIndex);
+                                lstVisor.Items.RemoveAt(selectedIndex);
+                            }
                         }
                     }
                     else
                     {
-                        Ornitorrinco ornitorrincoAEliminar = listaOrnitorrincosRefugiados.animalesRefugiados[selectedIndex];
-
-                        bool eliminacionExitosa = ado.EliminarOrnitorrinco(ornitorrincoAEliminar);
-
-                        if (eliminacionExitosa)
-                        {
-                            listaOrnitorrincosRefugiados.animalesRefugiados.RemoveAt(selectedIndex);
-                            lstVisor.Items.RemoveAt(selectedIndex);
-                        }
+                        MessageBox.Show("Selecciona un elemento para eliminar.");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Selecciona un elemento para eliminar.");
+                    MessageBox.Show("Usted no es administrador por lo tanto, no posee permisos para eliminar elementos");
                 }
             }
         }
@@ -266,6 +283,33 @@ namespace WinFormsPrimerParcial
             }
         }
 
+        private void ActualizarRanas()
+        {
+            lstVisor.Items.Clear();
+            foreach (Rana rana in listaRanasRefugiadas.animalesRefugiados)
+            {
+                lstVisor.Items.Add(rana.ToString());
+            }
+        }
+        private void ActualizarHorneros()
+        {
+            lstVisor.Items.Clear();
+            foreach (Hornero h in listaHornerosRefugiados.animalesRefugiados)
+            {
+                lstVisor.Items.Add(h.ToString());
+            }
+        }
+        private void ActualizarOrnitorrincos()
+        {
+            lstVisor.Items.Clear();
+            foreach (Ornitorrinco o in listaOrnitorrincosRefugiados.animalesRefugiados)
+            {
+                lstVisor.Items.Add(o.ToString());
+            }
+        }
+
+
+
         private void ManejarOperacionCompleta(bool exito, string mensaje)
         {
             if (exito)
@@ -318,20 +362,22 @@ namespace WinFormsPrimerParcial
                 string rutaArchivoEntrada = openFileDialogDeserializar.FileName;
 
                 string archivoSeleccionado = Path.GetFileName(rutaArchivoEntrada);
+
                 if (archivoSeleccionado == "ranas.json")
                 {
+                    
                     ado.ObtenerListaRanas(listaRanasRefugiadas);
-                    ActualizarVisor();
+                    ActualizarRanas();
                 }
                 else if (archivoSeleccionado == "ornitorrincos.json")
-                {
+                { 
                     ado.ObtenerListaOrnitorrincos(listaOrnitorrincosRefugiados);
-                    ActualizarVisor();
+                    ActualizarOrnitorrincos();
                 }
                 else if (archivoSeleccionado == "horneros.json")
                 {
                     ado.ObtenerListaHorneros(listaHornerosRefugiados);
-                    ActualizarVisor();
+                    ActualizarHorneros();
                 }
             }
         }
