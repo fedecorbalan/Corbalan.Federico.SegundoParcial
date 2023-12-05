@@ -65,18 +65,6 @@ namespace WinFormsPrimerParcial
         {
            
         }
-
-        //public void CrearOrnitorrinco()
-        //{
-        //    string nombre = txtNombre.Text;
-        //    bool esPeludo = VerificarEsPeludo();
-
-        //    nuevoOrnitorrinco = new Ornitorrinco(esPeludo, true, true, Eespecies.Mamifero, nombre);
-        //    _ = FormPrincipalRef.listaOrnitorrincosRefugiados + nuevoOrnitorrinco;
-        //    NuevoAnimal = nuevoOrnitorrinco;
-        //    ado.AgregarOrnitorrinco(nuevoOrnitorrinco);
-
-        //}
         public bool VerificarEsPeludo()
         {
             string textoPeludo = txtEsPeludo.Text.ToLower();

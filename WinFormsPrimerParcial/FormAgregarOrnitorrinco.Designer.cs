@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             label2 = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
+            txtTieneCola = new TextBox();
+            txtOviparo = new TextBox();
             label3 = new Label();
             SuspendLayout();
             // 
@@ -43,19 +43,19 @@
             label2.TabIndex = 12;
             label2.Text = "Tiene Cola?";
             // 
-            // textBox1
+            // txtTieneCola
             // 
-            textBox1.Location = new Point(23, 284);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(293, 31);
-            textBox1.TabIndex = 13;
+            txtTieneCola.Location = new Point(23, 284);
+            txtTieneCola.Name = "txtTieneCola";
+            txtTieneCola.Size = new Size(293, 31);
+            txtTieneCola.TabIndex = 13;
             // 
-            // textBox2
+            // txtOviparo
             // 
-            textBox2.Location = new Point(23, 369);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(293, 31);
-            textBox2.TabIndex = 14;
+            txtOviparo.Location = new Point(23, 369);
+            txtOviparo.Name = "txtOviparo";
+            txtOviparo.Size = new Size(293, 31);
+            txtOviparo.TabIndex = 14;
             // 
             // label3
             // 
@@ -72,14 +72,14 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(356, 524);
             Controls.Add(label3);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            Controls.Add(txtOviparo);
+            Controls.Add(txtTieneCola);
             Controls.Add(label2);
             Name = "FormAgregarOrnitorrinco";
             Text = "FormAgregarOrnitorrinco";
             Controls.SetChildIndex(label2, 0);
-            Controls.SetChildIndex(textBox1, 0);
-            Controls.SetChildIndex(textBox2, 0);
+            Controls.SetChildIndex(txtTieneCola, 0);
+            Controls.SetChildIndex(txtOviparo, 0);
             Controls.SetChildIndex(label3, 0);
             ResumeLayout(false);
             PerformLayout();
@@ -88,8 +88,8 @@
         #endregion
 
         private Label label2;
-        private TextBox textBox1;
-        private TextBox textBox2;
+        private TextBox txtTieneCola;
+        private TextBox txtOviparo;
         private Label label3;
     }
 }

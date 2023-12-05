@@ -46,6 +46,14 @@ namespace Entidades
     {
         public ExcepcionTieneColaVacio() : base("El campo Tiene Cola esta vacio") { }
     }
+    public class ExcepcionEsOviparoErroneo : Exception
+    {
+        public ExcepcionEsOviparoErroneo() : base("El campo Es Oviparo es invalido") { }
+    }
+    public class ExcepcionTieneColaErroneo : Exception
+    {
+        public ExcepcionTieneColaErroneo() : base("El campo Tiene Cola es invalido") { }
+    }
     public class ExcepcionTieneAlasVacio : Exception
     {
         public ExcepcionTieneAlasVacio() : base("El campo Tiene Alas esta vacio") { }
@@ -62,12 +70,5 @@ namespace Entidades
     {
         public ExcepcionVelocidadErroneo() : base("El campo Velocidad en KM/H es invalido") { }
     }
-    public class ExcepcionIdErroneo : Exception
-    {
-        public ExcepcionIdErroneo() : base("El tipo de dato del identificador es incorrecto.") { }
-    }
-    public class ExcepcionIdExistente : Exception
-    {
-        public ExcepcionIdExistente() : base("El identificador ya esta registrado.") { }
-    }
+    
 }

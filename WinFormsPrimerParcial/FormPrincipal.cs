@@ -142,53 +142,57 @@ namespace WinFormsPrimerParcial
 
             if (selectedIndex >= 0)
             {
-                if (selectedIndex < listaRanasRefugiadas.animalesRefugiados.Count)
+                DialogResult resultado = MessageBox.Show("¿Esta seguro que desea eliminar el registro?\nEsto tambien lo eliminara de la base de datos", "Pregunta", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (resultado == DialogResult.Yes)
                 {
-                    //listaRanasRefugiadas.animalesRefugiados.RemoveAt(selectedIndex);
-                    Rana ranaAEliminar = listaRanasRefugiadas.animalesRefugiados[selectedIndex];
-
-                    // Elimina la rana de la base de datos
-                    bool eliminacionExitosa = ado.EliminarRana(ranaAEliminar);
-
-                    if (eliminacionExitosa)
+                    if (selectedIndex < listaRanasRefugiadas.animalesRefugiados.Count)
                     {
-                        listaRanasRefugiadas.animalesRefugiados.RemoveAt(selectedIndex);
-                        lstVisor.Items.RemoveAt(selectedIndex);
+                        //listaRanasRefugiadas.animalesRefugiados.RemoveAt(selectedIndex);
+                        Rana ranaAEliminar = listaRanasRefugiadas.animalesRefugiados[selectedIndex];
+
+                        // Elimina la rana de la base de datos
+                        bool eliminacionExitosa = ado.EliminarRana(ranaAEliminar);
+
+                        if (eliminacionExitosa)
+                        {
+                            listaRanasRefugiadas.animalesRefugiados.RemoveAt(selectedIndex);
+                            lstVisor.Items.RemoveAt(selectedIndex);
+                        }
                     }
-                }
-                else if (selectedIndex < listaRanasRefugiadas.animalesRefugiados.Count + listaHornerosRefugiados.animalesRefugiados.Count)
-                {
-                    Hornero horneroAEliminar = listaHornerosRefugiados.animalesRefugiados[selectedIndex];
-
-                    bool eliminacionExitosa = ado.EliminarHornero(horneroAEliminar);
-
-                    if (eliminacionExitosa)
+                    else if (selectedIndex < listaRanasRefugiadas.animalesRefugiados.Count + listaHornerosRefugiados.animalesRefugiados.Count)
                     {
-                        listaHornerosRefugiados.animalesRefugiados.RemoveAt(selectedIndex);
-                        lstVisor.Items.RemoveAt(selectedIndex);
+                        Hornero horneroAEliminar = listaHornerosRefugiados.animalesRefugiados[selectedIndex];
+
+                        bool eliminacionExitosa = ado.EliminarHornero(horneroAEliminar);
+
+                        if (eliminacionExitosa)
+                        {
+                            listaHornerosRefugiados.animalesRefugiados.RemoveAt(selectedIndex);
+                            lstVisor.Items.RemoveAt(selectedIndex);
+                        }
+                    }
+                    else
+                    {
+                        Ornitorrinco ornitorrincoAEliminar = listaOrnitorrincosRefugiados.animalesRefugiados[selectedIndex];
+
+                        bool eliminacionExitosa = ado.EliminarOrnitorrinco(ornitorrincoAEliminar);
+
+                        if (eliminacionExitosa)
+                        {
+                            listaOrnitorrincosRefugiados.animalesRefugiados.RemoveAt(selectedIndex);
+                            lstVisor.Items.RemoveAt(selectedIndex);
+                        }
                     }
                 }
                 else
                 {
-                    Ornitorrinco ornitorrincoAEliminar = listaOrnitorrincosRefugiados.animalesRefugiados[selectedIndex];
-
-                    bool eliminacionExitosa = ado.EliminarOrnitorrinco(ornitorrincoAEliminar);
-
-                    if (eliminacionExitosa)
-                    {
-                        listaOrnitorrincosRefugiados.animalesRefugiados.RemoveAt(selectedIndex);
-                        lstVisor.Items.RemoveAt(selectedIndex);
-                    }
+                    MessageBox.Show("Selecciona un elemento para eliminar.");
                 }
-            }
-            else
-            {
-                MessageBox.Show("Selecciona un elemento para eliminar.");
             }
         }
         private void FormPrincipal_Load(object sender, EventArgs e) 
         {
-            ado.ObtenerListaHorneros(listaHornerosRefugiados);
+            ado.ObtenerListaOrnitorrincos(listaOrnitorrincosRefugiados);
             ActualizarVisor();
         }
  
