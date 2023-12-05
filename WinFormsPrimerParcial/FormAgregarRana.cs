@@ -15,7 +15,6 @@ namespace WinFormsSegundoParcial
 {
     public partial class FormAgregarRana : FormAgregar
     {
-        public Animal NuevoAnimal { get; private set; }
 
         public Rana nuevaRana;
 
@@ -37,6 +36,18 @@ namespace WinFormsSegundoParcial
         public FormAgregarRana(Rana r) : this()
         {
             LblTitulo.Text = "Modificar Rana";
+
+            TxtNombre = r.nombre;
+
+            if (r.esPeludo == true)
+            {
+                TxtPeludo.Text = "si";
+            }
+            else
+            {
+                TxtPeludo.Text = "no";
+            }
+
 
             if (r.esVenenosa)
             {

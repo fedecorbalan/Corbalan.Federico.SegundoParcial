@@ -10,7 +10,7 @@ namespace PrimerParcial
         public Eespecies especie { get; set; }
         public string nombre { get; set; }
 
-        public static int idCounter = 1;
+        public int idCounter = 1;
 
         public int Id { get; set; }
 

@@ -18,15 +18,10 @@ namespace WinFormsPrimerParcial
         public Rana nuevaRana;
         public Hornero nuevoHornero;
 
-        public Ornitorrinco NuevoOrnitorrinco { get; private set; }
-        public Hornero NuevoHornero { get; private set; }
-        public Rana NuevaRana { get; private set; }
-
         public Animal NuevoAnimal { get; private set; }
         
         public FormPrincipal FormPrincipalRef { get; set; }
 
-        AccesoDatos ado = new AccesoDatos();
 
         public bool modificar = false;
 
@@ -62,15 +57,14 @@ namespace WinFormsPrimerParcial
             get { return btnCancelar;}
             set { btnCancelar = value; }
         }
-        public string TxtNombre { get { return txtNombre.Text; } }
+        public string TxtNombre { get { return txtNombre.Text; } set {txtNombre.Text = value; } }
+
         public TextBox TxtPeludo { get; set; }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
            
         }
-
-
 
         //public void CrearOrnitorrinco()
         //{
@@ -83,19 +77,6 @@ namespace WinFormsPrimerParcial
         //    ado.AgregarOrnitorrinco(nuevoOrnitorrinco);
 
         //}
-
-        //public void CrearHornero()
-        //{
-        //    string nombre = txtNombre.Text;
-        //    bool esPeludo = VerificarEsPeludo();
-
-        //    nuevoHornero = new Hornero(40, true, esPeludo, Eespecies.Ave, nombre);
-        //    _ = FormPrincipalRef.listaHornerosRefugiados + nuevoHornero;
-        //    NuevoAnimal = nuevoHornero;
-        //    ado.AgregarHornero(nuevoHornero);
-        //}
-
-
         public bool VerificarEsPeludo()
         {
             string textoPeludo = txtEsPeludo.Text.ToLower();
@@ -111,9 +92,6 @@ namespace WinFormsPrimerParcial
             }
             return esPeludo;
         }
-        
-        
-
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();

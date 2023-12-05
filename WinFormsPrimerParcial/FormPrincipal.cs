@@ -79,48 +79,10 @@ namespace WinFormsPrimerParcial
                         {
                             listaOrnitorrincosRefugiados.AgregarAnimal((Ornitorrinco)nuevoAnimal);
                         }
-
-                        // Actualiza la lista en el formulario principal
-                        
                     }
                 }
             }
             ActualizarVisor();
-
-
-
-
-            //FormSeleccionAnimal frmSeleccionAnimal = new FormSeleccionAnimal();
-
-            //if (frmSeleccionAnimal.ShowDialog() == DialogResult.OK)
-            //{ 
-            //    FormAgregar frmAgregar = new FormAgregar();
-            //    frmAgregar.FormPrincipalRef = this;
-            //    frmAgregar.StartPosition = FormStartPosition.CenterScreen;
-
-            //    if (frmAgregar.ShowDialog() == DialogResult.OK)
-            //    {
-            //        Animal nuevoAnimal = frmAgregar.NuevoAnimal;
-
-            //        if (lstVisor.Items.Count >= 0)
-            //        {
-            //            if (nuevoAnimal is Ornitorrinco)
-            //            {
-            //                lstVisor.Items.Add(nuevoAnimal.ToString());
-            //            }
-            //            if (nuevoAnimal is Rana)
-            //            {
-            //                lstVisor.Items.Add(nuevoAnimal.ToString());
-
-            //            }
-            //            if (nuevoAnimal is Hornero)
-            //            {
-            //                lstVisor.Items.Add(nuevoAnimal.ToString());
-            //            }
-            //        }
-            //    }
-            //}
-
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -226,9 +188,8 @@ namespace WinFormsPrimerParcial
         }
         private void FormPrincipal_Load(object sender, EventArgs e) 
         {
-            ado.ObtenerListaRanas(listaRanasRefugiadas);
+            ado.ObtenerListaHorneros(listaHornerosRefugiados);
             ActualizarVisor();
-          
         }
  
 
@@ -279,6 +240,19 @@ namespace WinFormsPrimerParcial
                 lstVisor.Items.Add(hornero.ToString());
             }
         }
+
+        private void ManejarOperacionCompleta(bool exito, string mensaje)
+        {
+            if (exito)
+            {
+                MessageBox.Show($"{mensaje}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show($"{mensaje}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void ActualizarPermisosFormPrincipal(bool permiteAgregar, bool permiteVer, bool permiteModificar, bool permiteEliminar)
         {
             // Implementa la lógica para ajustar la interfaz de usuario según los permisos

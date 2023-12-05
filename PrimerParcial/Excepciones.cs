@@ -50,9 +50,17 @@ namespace Entidades
     {
         public ExcepcionTieneAlasVacio() : base("El campo Tiene Alas esta vacio") { }
     }
+    public class ExcepcionTieneAlasErroneo : Exception
+    {
+        public ExcepcionTieneAlasErroneo() : base("El campo Tiene Alas es invalido") { }
+    }
     public class ExcepcionVelocidadVacio : Exception
     {
         public ExcepcionVelocidadVacio() : base("El campo Velocidad en KM/H esta vacio") { }
+    }
+    public class ExcepcionVelocidadErroneo : Exception
+    {
+        public ExcepcionVelocidadErroneo() : base("El campo Velocidad en KM/H es invalido") { }
     }
     public class ExcepcionIdErroneo : Exception
     {

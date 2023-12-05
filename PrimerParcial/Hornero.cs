@@ -34,7 +34,7 @@ namespace PrimerParcial
             string rta = base.Mostrar();
 
             sb.Append(rta);
-            sb.Append($"- Animal: Hornero - Tiene alas: {this.tieneAlas} - Velocidad de vuelo en KM/H{this.velocidadVueloKMporH}");
+            sb.Append($"- Animal: Hornero - Tiene alas: {this.tieneAlas} - Velocidad de vuelo en KM/H: {this.velocidadVueloKMporH}");
 
             return sb.ToString();
 

@@ -211,7 +211,7 @@ namespace Entidades
 
                 // Utilizar parámetros para evitar la inyección de SQL
                 this.comando.CommandText = "INSERT INTO horneros(nombre, especie, esPeludo, tieneAlas, velocidadKmH) " +
-                    "VALUES(@nombre, @especie, @esPeludo, @esVenenosa, @velocidadKmH)"; 
+                    "VALUES(@nombre, @especie, @esPeludo, @tieneAlas, @velocidadKmH)"; 
 
                 // Añadir parámetros
                 this.comando.Parameters.AddWithValue("@nombre", h.nombre);
@@ -228,7 +228,7 @@ namespace Entidades
 
                 if (filasAfectadas > 0)
                 {
-                    this.comando.CommandText = "SELECT MAX(id) FROM horneros;";
+                    this.comando.CommandText = "SELECT IDENT_CURRENT('horneros')";
                     int nuevoId = Convert.ToInt32(this.comando.ExecuteScalar());
 
                     h.Id = nuevoId;
@@ -276,7 +276,7 @@ namespace Entidades
 
                 if (filasAfectadas > 0)
                 {
-                    this.comando.CommandText = "SELECT MAX(id) FROM ornitorrincos;";
+                    this.comando.CommandText = "SELECT IDENT_CURRENT('ornitorrincos')";
                     int nuevoId = Convert.ToInt32(this.comando.ExecuteScalar());
 
                     o.Id = nuevoId;
