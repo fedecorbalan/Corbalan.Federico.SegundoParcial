@@ -2,6 +2,7 @@
 using PrimerParcial;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -99,7 +100,7 @@ namespace Entidades
                     hornero.especie = (Eespecies)this.lector["especie"];
                     hornero.esPeludo = (bool)this.lector["esPeludo"];
                     hornero.tieneAlas = (bool)this.lector["tieneAlas"];
-                    hornero.velocidadVueloKMporH = (int)this.lector["velocidadKmH"];
+                    hornero.velocidadKmH = (int)this.lector["velocidadKmH"];
 
                     lista.animalesRefugiados.Add(hornero);
                 }
@@ -218,7 +219,7 @@ namespace Entidades
                 this.comando.Parameters.AddWithValue("@especie", (int)h.especie);
                 this.comando.Parameters.AddWithValue("@esPeludo", h.esPeludo);
                 this.comando.Parameters.AddWithValue("@tieneAlas", h.tieneAlas);
-                this.comando.Parameters.AddWithValue("@velocidadKmH", (int)h.velocidadVueloKMporH);
+                this.comando.Parameters.AddWithValue("@velocidadKmH", (int)h.velocidadKmH);
 
                 this.comando.Connection = this.conexion;
 
@@ -339,6 +340,7 @@ namespace Entidades
             }
             return retorno;
         }
+
         public bool ModificarHornero(Hornero h)
         {
             bool retorno = false;
@@ -351,7 +353,7 @@ namespace Entidades
                 this.comando.Parameters.AddWithValue("@especie", h.especie);
                 this.comando.Parameters.AddWithValue("@esPeludo", h.esPeludo);
                 this.comando.Parameters.AddWithValue("@tieneAlas", h.tieneAlas);
-                this.comando.Parameters.AddWithValue("@velocidadKmH", h.velocidadVueloKMporH);
+                this.comando.Parameters.AddWithValue("@velocidadKmH", h.velocidadKmH);
 
                 this.comando.CommandType = System.Data.CommandType.Text;
 
@@ -368,7 +370,9 @@ namespace Entidades
                 }
 
             }
-            catch (Exception w) { }
+            catch (Exception w) 
+            { 
+            }
             finally
             {
                 if (this.conexion.State == System.Data.ConnectionState.Open)
@@ -378,6 +382,9 @@ namespace Entidades
             }
             return retorno;
         }
+
+
+
         public bool ModificarOrnitorrinco(Ornitorrinco o)
         {
             bool retorno = false;

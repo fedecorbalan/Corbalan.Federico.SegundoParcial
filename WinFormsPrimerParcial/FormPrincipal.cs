@@ -18,14 +18,9 @@ namespace WinFormsPrimerParcial
         public Refugio<Ornitorrinco> listaOrnitorrincosRefugiados;
 
         public string perfilUsuario;
-        
+
         AccesoDatos ado = new AccesoDatos();
-
-
         public ListBox LstVisor { get; set; }
-
-
-
         public FormPrincipal()
         {
             InitializeComponent();
@@ -34,9 +29,6 @@ namespace WinFormsPrimerParcial
             this.listaHornerosRefugiados = new Refugio<Hornero>();
             this.listaOrnitorrincosRefugiados = new Refugio<Ornitorrinco>();
             this.listaRanasRefugiadas = new Refugio<Rana>();
-
-            var formLogin = new FormLogin();
-            formLogin.ActualizarPermisos += ActualizarPermisosFormPrincipal;
         }
         public FormPrincipal(Usuario usuario) : this()
         {
@@ -52,7 +44,7 @@ namespace WinFormsPrimerParcial
         }
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            if (perfilUsuario.ToLower() == "administrador" || perfilUsuario.ToLower() == "supervisor") 
+            if (perfilUsuario.ToLower() == "administrador" || perfilUsuario.ToLower() == "supervisor")
             {
                 FormSeleccionAnimal frmSeleccionAnimal = new FormSeleccionAnimal();
 
@@ -101,7 +93,8 @@ namespace WinFormsPrimerParcial
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            if (perfilUsuario.ToLower() == "administrador" || perfilUsuario.ToLower() == "supervisor") {
+            if (perfilUsuario.ToLower() == "administrador" || perfilUsuario.ToLower() == "supervisor")
+            {
                 int selectedIndex = lstVisor.SelectedIndex;
 
                 if (selectedIndex >= 0)
@@ -130,7 +123,10 @@ namespace WinFormsPrimerParcial
                     // Verifica si el animal a modificar es una rana y abre el formulario correspondiente
                     if (especie == Eespecies.Anfibio && animalAModificar is Rana ranaAModificar)
                     {
-                        FormAgregarRana frmModificarRana = new FormAgregarRana(ranaAModificar);
+                        // Mostrar mensaje con el ID del Hornero seleccionado antes de abrir el formulario
+                        MostrarMensajeID(ranaAModificar.Id);
+
+                        FormModificarRana frmModificarRana = new FormModificarRana(ranaAModificar);
                         frmModificarRana.OperacionCompletada += ManejarOperacionCompleta;
                         frmModificarRana.IndiceSeleccionado = selectedIndex;
 
@@ -139,16 +135,24 @@ namespace WinFormsPrimerParcial
                     }
                     if (especie == Eespecies.Ave && animalAModificar is Hornero horneroAModificar)
                     {
-                        FormAgregarHornero frmModificarHornero = new FormAgregarHornero(horneroAModificar);
+                        // Mostrar mensaje con el ID del Hornero seleccionado antes de abrir el formulario
+                        MostrarMensajeID(horneroAModificar.Id);
+
+                        FormModificararHornero frmModificarHornero = new FormModificarHornero(horneroAModificar);
                         frmModificarHornero.OperacionCompletada += ManejarOperacionCompleta;
+                        frmModificarHornero.IndiceSeleccionado = selectedIndex;
 
                         frmModificarHornero.StartPosition = FormStartPosition.CenterScreen;
                         frmModificarHornero.ShowDialog();
                     }
                     if (especie == Eespecies.Mamifero && animalAModificar is Ornitorrinco ornitorrincoAModificar)
                     {
+                        // Mostrar mensaje con el ID del Hornero seleccionado antes de abrir el formulario
+                        MostrarMensajeID(ornitorrincoAModificar.Id);
+
                         FormAgregarOrnitorrinco frmModificarOrnitorrinco = new FormAgregarOrnitorrinco(ornitorrincoAModificar);
                         frmModificarOrnitorrinco.OperacionCompletada += ManejarOperacionCompleta;
+                        frmModificarOrnitorrinco.IndiceSeleccionado = selectedIndex;
 
                         frmModificarOrnitorrinco.StartPosition = FormStartPosition.CenterScreen;
                         frmModificarOrnitorrinco.ShowDialog();
@@ -166,7 +170,11 @@ namespace WinFormsPrimerParcial
             {
                 MessageBox.Show("Usted no es administrador ni supervisor, por lo tanto, no posee permisos para modificar elementos");
             }
-
+        
+        }
+        private void MostrarMensajeID(int idAnimal)
+        {
+            MessageBox.Show($"ID del animal seleccionado: {idAnimal}", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         private void btnEliminar_Click(object sender, EventArgs e)
         {
@@ -181,10 +189,8 @@ namespace WinFormsPrimerParcial
                     {
                         if (selectedIndex < listaRanasRefugiadas.animalesRefugiados.Count)
                         {
-                            //listaRanasRefugiadas.animalesRefugiados.RemoveAt(selectedIndex);
                             Rana ranaAEliminar = listaRanasRefugiadas.animalesRefugiados[selectedIndex];
 
-                            // Elimina la rana de la base de datos
                             bool eliminacionExitosa = ado.EliminarRana(ranaAEliminar);
 
                             if (eliminacionExitosa)
@@ -234,8 +240,6 @@ namespace WinFormsPrimerParcial
         {
             
         }
- 
-
         private void btnSalir_Click(object sender, EventArgs e)
         {
             DialogResult resultado = MessageBox.Show("¿Estas seguro que quieres salir?", "SALIR", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -283,7 +287,6 @@ namespace WinFormsPrimerParcial
                 lstVisor.Items.Add(hornero.ToString());
             }
         }
-
         private void ActualizarRanas()
         {
             lstVisor.Items.Clear();
@@ -308,9 +311,6 @@ namespace WinFormsPrimerParcial
                 lstVisor.Items.Add(o.ToString());
             }
         }
-
-
-
         private void ManejarOperacionCompleta(bool exito, string mensaje)
         {
             if (exito)
@@ -322,15 +322,6 @@ namespace WinFormsPrimerParcial
                 MessageBox.Show($"{mensaje}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void ActualizarPermisosFormPrincipal(bool permiteAgregar, bool permiteVer, bool permiteModificar, bool permiteEliminar)
-        {
-            // Implementa la lógica para ajustar la interfaz de usuario según los permisos
-            btnAgregar.Enabled = permiteAgregar;
-            btnModificar.Enabled = permiteModificar;
-            btnEliminar.Enabled = permiteEliminar;
-        }
-
         private void btnVisualizador_Click(object sender, EventArgs e)
         {
             string rutaArchivoLog = @"..\..\..\usuarios.log";
@@ -366,7 +357,6 @@ namespace WinFormsPrimerParcial
 
                 if (archivoSeleccionado == "ranas.json")
                 {
-                    
                     ado.ObtenerListaRanas(listaRanasRefugiadas);
                     ActualizarRanas();
                 }
@@ -382,7 +372,6 @@ namespace WinFormsPrimerParcial
                 }
             }
         }
-
         private void btnArchivoSalida_Click(object sender, EventArgs e)
         {
             if (perfilUsuario.ToLower() == "administrador" || perfilUsuario.ToLower() == "supervisor")
@@ -411,7 +400,6 @@ namespace WinFormsPrimerParcial
                 MessageBox.Show("Usted es vendedor, por lo que solo puede leer los elementos, no guardarlos");
             }
         }
-        
         public void SerializarAArchivoRana(string rutaArchivo, Refugio<Rana> lista)
         {
             string json = JsonConvert.SerializeObject(lista, Formatting.Indented);

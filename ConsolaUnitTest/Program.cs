@@ -25,8 +25,6 @@ namespace ConsolaUnitTest
 
             Console.WriteLine("Ejecutando prueba Sonido Hornero");
             Pruebas.TestSonido();
-
-
         }
     }
 }

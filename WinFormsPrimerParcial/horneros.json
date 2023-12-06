@@ -2,24 +2,35 @@
   "animalesRefugiados": [
     {
       "tieneAlas": true,
-      "velocidadVueloKMporH": 40,
+      "velocidadKmH": 12,
       "esPeludo": false,
       "especie": 1,
-      "nombre": "henry"
+      "nombre": "pepe",
+      "Id": 1
     },
     {
       "tieneAlas": true,
-      "velocidadVueloKMporH": 40,
+      "velocidadKmH": 18,
       "esPeludo": false,
       "especie": 1,
-      "nombre": "romelu"
+      "nombre": "massi",
+      "Id": 5
     },
     {
       "tieneAlas": true,
-      "velocidadVueloKMporH": 40,
-      "esPeludo": true,
+      "velocidadKmH": 11,
+      "esPeludo": false,
       "especie": 1,
-      "nombre": "black"
+      "nombre": "ramon",
+      "Id": 6
+    },
+    {
+      "tieneAlas": true,
+      "velocidadKmH": 14,
+      "esPeludo": false,
+      "especie": 1,
+      "nombre": "raul",
+      "Id": 9
     }
   ]
 }

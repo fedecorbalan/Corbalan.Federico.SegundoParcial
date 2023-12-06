@@ -91,18 +91,9 @@ namespace WinFormsSegundoParcial
             else
             {
                 nuevaRana = CrearRana();
-                if (modificar)
-                {
-                    await ModificarRanaAsync(nuevaRana);
-                    OperacionCompletada?.Invoke(true, "Modificación de datos exitoso");
-                    FormPrincipalRef.listaRanasRefugiadas.ActualizarAnimal(nuevaRana, IndiceSeleccionado);
-                }
-                else
-                {
-                    await AgregarRanaAsync(nuevaRana);
-                    OperacionCompletada?.Invoke(true, "Agregado de datos exitoso");
-                }
-                this.DialogResult = DialogResult.OK;
+                await AgregarRanaAsync(nuevaRana);
+                OperacionCompletada?.Invoke(true, "Agregado de datos exitoso");
+                FormPrincipalRef.listaRanasRefugiadas.ActualizarAnimal(nuevaRana, IndiceSeleccionado);
             }
         }
         private void BtnCancelar_Click(object? sender, EventArgs e)
@@ -194,60 +185,27 @@ namespace WinFormsSegundoParcial
             {
                 OperacionCompletada?.Invoke(false, $"Error al agregar la rana: {ex.Message}");
             }
-
-        }
-
-        public async Task ModificarRanaAsync(Rana r)
-        {
-            try
-            {
-                await Task.Run(() =>
-                {
-                    nuevaRana.ActualizarRana(r);
-
-                    nuevaRana.Id = ObtenerIdCorrecto();
-                    
-                    this.ado.ModificarRana(r);
-
-                });
-            }
-            catch (Exception ex)
-            {
-                OperacionCompletada?.Invoke(false, $"Error al modificar la rana: {ex.Message}");
-            }
         }
         public int ObtenerIdCorrecto()
         {
-            var ultimaRana = FormPrincipalRef.listaRanasRefugiadas.animalesRefugiados.LastOrDefault();
-
             if (modificar)
             {
-                return ultimaRana.Id;
+                return nuevaRana.Id;
             }
-            if (ultimaRana is not null)
+
+            var ultimaRana = FormPrincipalRef.listaRanasRefugiadas.animalesRefugiados.LastOrDefault();
+
+            if (!(modificar) && ultimaRana is not null)
             {
                 return ultimaRana.Id + 1;
             }
             // Si la lista está vacía, devuelve 1 como el primer ID
             else
             {
-                return ObtenerNuevoIdUnico();
+                return 1;
             }
         }
-        private int ObtenerNuevoIdUnico()
-        {
-            // Reinicia el contador cuando la lista está vacía
-            idCounter = 1;
 
-            // Encuentra el siguiente ID no utilizado
-            int newId = 1;
-            while (FormPrincipalRef.listaRanasRefugiadas.animalesRefugiados.Any(rana => rana.Id == newId))
-            {
-                newId++;
-            }
-
-            return newId;
-        }
 
     }
 }

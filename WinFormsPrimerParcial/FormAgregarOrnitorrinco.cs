@@ -22,6 +22,8 @@ namespace WinFormsSegundoParcial
         public event OperacionCompletaEventHandler OperacionCompletada;
 
         AccesoDatos ado = new AccesoDatos();
+
+        public int IndiceSeleccionado { get; set; }
         public FormAgregarOrnitorrinco()
         {
             InitializeComponent();

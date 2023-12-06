@@ -51,3 +51,7 @@ C:\Users\User\source\repos\Corbalan.Federico.SegundoParcial\WinFormsPrimerParcia
 C:\Users\User\source\repos\Corbalan.Federico.SegundoParcial\WinFormsPrimerParcial\obj\Debug\net6.0-windows\WinFormsSegundoParcial.FormSeleccionAnimal.resources
 C:\Users\User\source\repos\Corbalan.Federico.SegundoParcial\WinFormsPrimerParcial\obj\Debug\net6.0-windows\WinFormsSegundoParcial.FormAgregarHornero.resources
 C:\Users\User\source\repos\Corbalan.Federico.SegundoParcial\WinFormsPrimerParcial\obj\Debug\net6.0-windows\WinFormsSegundoParcial.FormAgregarOrnitorrinco.resources
+C:\Users\User\source\repos\Corbalan.Federico.SegundoParcial\WinFormsPrimerParcial\obj\Debug\net6.0-windows\WinFormsSegundoParcial.FormModificar.resources
+C:\Users\User\source\repos\Corbalan.Federico.SegundoParcial\WinFormsPrimerParcial\obj\Debug\net6.0-windows\WinFormsSegundoParcial.FormModificarHornero.resources
+C:\Users\User\source\repos\Corbalan.Federico.SegundoParcial\WinFormsPrimerParcial\obj\Debug\net6.0-windows\WinFormsSegundoParcial.FormModificarRana.resources
+C:\Users\User\source\repos\Corbalan.Federico.SegundoParcial\WinFormsPrimerParcial\obj\Debug\net6.0-windows\WinFormsSegundoParcial.FormModificarOrnitorrinco.resources

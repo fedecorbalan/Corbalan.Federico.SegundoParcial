@@ -10,21 +10,21 @@ namespace PrimerParcial
     public class Hornero : Animal
     {
         public bool tieneAlas;
-        public int velocidadVueloKMporH;
+        public int velocidadKmH;
 
         public Hornero() 
         {
             this.tieneAlas = true;
-            this.velocidadVueloKMporH = 30;
+            this.velocidadKmH = 30;
         }
         public Hornero(bool tieneAlas, string nombre, bool esPeludo, Eespecies especie) : base(nombre, esPeludo, especie)
         {
             this.tieneAlas = tieneAlas;
         }
-        public Hornero(int velocidadVueloKMporH,bool tieneAlas, bool esPeludo, Eespecies especie, string nombre) : this(tieneAlas, nombre, esPeludo, especie)
+        public Hornero(int velocidadKmH, bool tieneAlas, bool esPeludo, Eespecies especie, string nombre) : this(tieneAlas, nombre, esPeludo, especie)
         {
             this.tieneAlas = tieneAlas;
-            this.velocidadVueloKMporH = velocidadVueloKMporH;
+            this.velocidadKmH = velocidadKmH;
         }
 
         public override string Mostrar()
@@ -34,7 +34,7 @@ namespace PrimerParcial
             string rta = base.Mostrar();
 
             sb.Append(rta);
-            sb.Append($"- Animal: Hornero - Tiene alas: {this.tieneAlas} - Velocidad de vuelo en KM/H: {this.velocidadVueloKMporH}");
+            sb.Append($"- Animal: Hornero - Tiene alas: {this.tieneAlas} - Velocidad de vuelo en KM/H: {this.velocidadKmH}");
 
             return sb.ToString();
 
@@ -57,5 +57,15 @@ namespace PrimerParcial
         {
             return cantidadExtremidades;
         }
+
+        public void ActualizarHornero(Hornero h)
+        {
+            this.nombre = h.nombre;
+            this.especie = h.especie;
+            this.esPeludo = h.esPeludo;
+            this.tieneAlas = h.tieneAlas;
+            this.velocidadKmH = h.velocidadKmH;
+        }
+
     }
 }

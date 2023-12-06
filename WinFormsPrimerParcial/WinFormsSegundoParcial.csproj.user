@@ -17,6 +17,18 @@
     <Compile Update="FormLogin.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FormModificar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormModificarHornero.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormModificarOrnitorrinco.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormModificarRana.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FormPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>

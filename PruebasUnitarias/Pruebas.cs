@@ -59,11 +59,7 @@ namespace PruebasUnitarias
                 Assert.Fail($"Se ha proucido un error:{ex.Message}");
               
             }
-            
         }
-
-
-
         public static int OrdenarAnimalesPorCantidadDeExtremidades(Ornitorrinco ornitorrinco, Rana rana)
         {
 
@@ -81,7 +77,6 @@ namespace PruebasUnitarias
             }
 
         }
-    
         public static int OrdenarAnimalesPorEspecie(Ornitorrinco ornitorrinco, Rana rana)
         {
             if (ornitorrinco.especie == rana.especie)
@@ -97,7 +92,6 @@ namespace PruebasUnitarias
                 return -1;
             }
         }
-
         public static string EmitirSonido()
         {
             string sonidoHornero = "Pi-pi-pi!";

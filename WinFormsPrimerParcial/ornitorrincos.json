@@ -5,21 +5,32 @@
       "tieneCola": true,
       "esPeludo": true,
       "especie": 0,
-      "nombre": "mikel"
+      "nombre": "perry",
+      "Id": 1
     },
     {
       "oviparo": true,
       "tieneCola": true,
       "esPeludo": true,
       "especie": 0,
-      "nombre": "andres"
+      "nombre": "perry",
+      "Id": 2
     },
     {
       "oviparo": true,
       "tieneCola": true,
       "esPeludo": true,
       "especie": 0,
-      "nombre": "aaron"
+      "nombre": "perry",
+      "Id": 3
+    },
+    {
+      "oviparo": true,
+      "tieneCola": true,
+      "esPeludo": true,
+      "especie": 0,
+      "nombre": "cris",
+      "Id": 5
     }
   ]
 }

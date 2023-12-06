@@ -14,9 +14,6 @@ namespace WinFormsPrimerParcial
 {
     public partial class FormAgregar : Form
     {
-        public Ornitorrinco nuevoOrnitorrinco;
-        public Rana nuevaRana;
-        public Hornero nuevoHornero;
 
         public Animal NuevoAnimal { get; private set; }
         
