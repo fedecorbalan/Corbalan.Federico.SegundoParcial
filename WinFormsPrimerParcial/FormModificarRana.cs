@@ -170,14 +170,4 @@ namespace WinFormsSegundoParcial
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
 }

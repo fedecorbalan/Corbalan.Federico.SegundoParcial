@@ -32,7 +32,6 @@
             label4 = new Label();
             txtVelocidad = new TextBox();
             txtTieneAlas = new TextBox();
-            lblId = new Label();
             SuspendLayout();
             // 
             // label3
@@ -67,21 +66,11 @@
             txtTieneAlas.Size = new Size(293, 31);
             txtTieneAlas.TabIndex = 16;
             // 
-            // lblId
-            // 
-            lblId.AutoSize = true;
-            lblId.Location = new Point(155, 422);
-            lblId.Name = "lblId";
-            lblId.Size = new Size(28, 25);
-            lblId.TabIndex = 17;
-            lblId.Text = "Id";
-            // 
             // FormAgregarHornero
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(349, 512);
-            Controls.Add(lblId);
             Controls.Add(txtTieneAlas);
             Controls.Add(txtVelocidad);
             Controls.Add(label4);
@@ -92,7 +81,6 @@
             Controls.SetChildIndex(label4, 0);
             Controls.SetChildIndex(txtVelocidad, 0);
             Controls.SetChildIndex(txtTieneAlas, 0);
-            Controls.SetChildIndex(lblId, 0);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -102,6 +90,5 @@
         private Label label4;
         private TextBox txtVelocidad;
         private TextBox txtTieneAlas;
-        private Label lblId;
     }
 }
