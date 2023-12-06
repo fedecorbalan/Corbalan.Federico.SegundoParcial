@@ -182,21 +182,6 @@ namespace WinFormsSegundoParcial
             }
 
         }
-
-        public async Task ModificarOrnitorrincoAsync(Ornitorrinco o)
-        {
-            try
-            {
-                await Task.Run(() =>
-                {
-                    this.ado.ModificarOrnitorrinco(o);
-                });
-            }
-            catch (Exception ex)
-            {
-                OperacionCompletada?.Invoke(false, $"Error al modificar el Ornitorrinco: {ex.Message}");
-            }
-        }
         public int ObtenerIdCorrecto()
         {
             var ultimoOrnitorrinco = FormPrincipalRef.listaOrnitorrincosRefugiados.animalesRefugiados.LastOrDefault();
