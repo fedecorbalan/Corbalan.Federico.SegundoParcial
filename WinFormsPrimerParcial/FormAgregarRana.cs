@@ -24,9 +24,6 @@ namespace WinFormsSegundoParcial
         public event OperacionCompletaEventHandler OperacionCompletada;
 
         AccesoDatos ado = new AccesoDatos();
-        public int IndiceSeleccionado { get; set; }
-        public int idCounter { get; private set; }
-
         public FormAgregarRana()
         {
             InitializeComponent();
@@ -36,45 +33,6 @@ namespace WinFormsSegundoParcial
             BtnCancelar.Click += BtnCancelar_Click;
             this.FormPrincipalRef = (FormPrincipal)Application.OpenForms["FormPrincipal"];
         }
-
-        public FormAgregarRana(Rana r) : this()
-        {
-            LblTitulo = "Modificar Rana";
-
-            TxtNombre = r.nombre;
-
-            if (r.esPeludo == true)
-            {
-                TxtPeludo = "si";
-            }
-            else
-            {   
-                TxtPeludo = "no";
-            }
-
-
-            if (r.esVenenosa)
-            {
-                txtVenenosa.Text = "si";
-            }
-            else
-            {
-                txtVenenosa.Text = "no";
-            }
-
-            if (r.esArboricola)
-            {
-                txtArboricola.Text = "si";
-            }
-            else
-            {
-                txtArboricola.Text = "no";
-            }
-
-            nuevaRana = r;
-            this.modificar = true;
-        }
-
         private async void BtnAceptar_Click(object? sender, EventArgs e)
         {
             List<string> errores = new List<string>();
@@ -93,7 +51,7 @@ namespace WinFormsSegundoParcial
                 nuevaRana = CrearRana();
                 await AgregarRanaAsync(nuevaRana);
                 OperacionCompletada?.Invoke(true, "Agregado de datos exitoso");
-                FormPrincipalRef.listaRanasRefugiadas.ActualizarAnimal(nuevaRana, IndiceSeleccionado);
+                this.DialogResult = DialogResult.OK;
             }
         }
         private void BtnCancelar_Click(object? sender, EventArgs e)
@@ -169,7 +127,6 @@ namespace WinFormsSegundoParcial
                 excepciones.Add(new ExcepcionEsVenenosaErroneo());
             }
         }
-
         public async Task AgregarRanaAsync(Rana r)
         {
             try
@@ -188,24 +145,16 @@ namespace WinFormsSegundoParcial
         }
         public int ObtenerIdCorrecto()
         {
-            if (modificar)
-            {
-                return nuevaRana.Id;
-            }
-
             var ultimaRana = FormPrincipalRef.listaRanasRefugiadas.animalesRefugiados.LastOrDefault();
 
-            if (!(modificar) && ultimaRana is not null)
+            if (ultimaRana is not null)
             {
                 return ultimaRana.Id + 1;
             }
-            // Si la lista está vacía, devuelve 1 como el primer ID
             else
             {
                 return 1;
             }
         }
-
-
     }
 }

@@ -22,8 +22,6 @@ namespace WinFormsSegundoParcial
         public event OperacionCompletaEventHandler OperacionCompletada;
 
         AccesoDatos ado = new AccesoDatos();
-        public int IndiceSeleccionado { get; set; }
-        public int idCounter { get; private set; }
         public FormModificarRana()
         {
             InitializeComponent();

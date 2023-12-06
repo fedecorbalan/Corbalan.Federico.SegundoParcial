@@ -123,42 +123,28 @@ namespace WinFormsPrimerParcial
                     // Verifica si el animal a modificar es una rana y abre el formulario correspondiente
                     if (especie == Eespecies.Anfibio && animalAModificar is Rana ranaAModificar)
                     {
-                        // Mostrar mensaje con el ID del Hornero seleccionado antes de abrir el formulario
-                        MostrarMensajeID(ranaAModificar.Id);
-
                         FormModificarRana frmModificarRana = new FormModificarRana(ranaAModificar);
                         frmModificarRana.OperacionCompletada += ManejarOperacionCompleta;
-                        frmModificarRana.IndiceSeleccionado = selectedIndex;
 
                         frmModificarRana.StartPosition = FormStartPosition.CenterScreen;
                         frmModificarRana.ShowDialog();
                     }
                     if (especie == Eespecies.Ave && animalAModificar is Hornero horneroAModificar)
                     {
-                        // Mostrar mensaje con el ID del Hornero seleccionado antes de abrir el formulario
-                        MostrarMensajeID(horneroAModificar.Id);
-
-                        FormModificararHornero frmModificarHornero = new FormModificarHornero(horneroAModificar);
+                        FormModificarHornero frmModificarHornero = new FormModificarHornero(horneroAModificar);
                         frmModificarHornero.OperacionCompletada += ManejarOperacionCompleta;
-                        frmModificarHornero.IndiceSeleccionado = selectedIndex;
 
                         frmModificarHornero.StartPosition = FormStartPosition.CenterScreen;
                         frmModificarHornero.ShowDialog();
                     }
                     if (especie == Eespecies.Mamifero && animalAModificar is Ornitorrinco ornitorrincoAModificar)
                     {
-                        // Mostrar mensaje con el ID del Hornero seleccionado antes de abrir el formulario
-                        MostrarMensajeID(ornitorrincoAModificar.Id);
-
-                        FormAgregarOrnitorrinco frmModificarOrnitorrinco = new FormAgregarOrnitorrinco(ornitorrincoAModificar);
+                        FormModificarOrnitorrinco frmModificarOrnitorrinco = new FormModificarOrnitorrinco(ornitorrincoAModificar);
                         frmModificarOrnitorrinco.OperacionCompletada += ManejarOperacionCompleta;
-                        frmModificarOrnitorrinco.IndiceSeleccionado = selectedIndex;
 
                         frmModificarOrnitorrinco.StartPosition = FormStartPosition.CenterScreen;
                         frmModificarOrnitorrinco.ShowDialog();
                     }
-
-                    // Agrega lógica similar para otros tipos de animales si es necesario
                 }
                 else
                 {

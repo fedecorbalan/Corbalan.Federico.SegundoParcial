@@ -13,7 +13,7 @@
       "tieneCola": true,
       "esPeludo": true,
       "especie": 0,
-      "nombre": "perry",
+      "nombre": "tomas",
       "Id": 2
     },
     {
@@ -21,7 +21,7 @@
       "tieneCola": true,
       "esPeludo": true,
       "especie": 0,
-      "nombre": "perry",
+      "nombre": "carlos",
       "Id": 3
     },
     {
@@ -31,6 +31,14 @@
       "especie": 0,
       "nombre": "cris",
       "Id": 5
+    },
+    {
+      "oviparo": true,
+      "tieneCola": true,
+      "esPeludo": true,
+      "especie": 0,
+      "nombre": "raul",
+      "Id": 6
     }
   ]
 }

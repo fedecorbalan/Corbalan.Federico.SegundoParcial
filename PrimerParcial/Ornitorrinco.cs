@@ -52,5 +52,15 @@ namespace PrimerParcial
         {
             return cantidadExtremidades;
         }
+
+        public void ActualizarOrnitorrinco(Ornitorrinco o)
+        {
+            this.nombre = o.nombre;
+            this.especie = o.especie;
+            this.esPeludo = o.esPeludo;
+            this.tieneCola = o.tieneCola;
+            this.oviparo = o.oviparo;
+        }
+
     }
 }

@@ -22,5 +22,5 @@
 "clave":"12345678","perfil":"supervisor"},
 
 
-{"apellido":"Jordan","nombre":"Futbol","legajo":5,"correo":"admin",
-"clave":"123","perfil":"administrador"}]
+{"apellido":"Jordan","nombre":"Futbol","legajo":5,"correo":"admin@admin.com",
+"clave":"12345678","perfil":"administrador"}]

@@ -23,7 +23,6 @@ namespace WinFormsSegundoParcial
 
         AccesoDatos ado = new AccesoDatos();
 
-        public int IndiceSeleccionado { get; set; }
         public FormAgregarOrnitorrinco()
         {
             InitializeComponent();
@@ -35,7 +34,7 @@ namespace WinFormsSegundoParcial
         }
         public FormAgregarOrnitorrinco(Ornitorrinco o) : this()
         {
-            LblTitulo = "Modificar Rana";
+            LblTitulo = "Modificar Ornitorrinco";
 
             TxtNombre = o.nombre;
 
@@ -86,23 +85,15 @@ namespace WinFormsSegundoParcial
             else
             {
                 nuevoOrnitorrinco = CrearOrnitorrinco();
-                if (modificar)
-                {
-                    await ModificarOrnitorrincoAsync(nuevoOrnitorrinco);
-                    OperacionCompletada?.Invoke(true, "Modificación de datos exitoso");
-                }
-                else
-                {
-                    await AgregarOrnitorrincoAsync(nuevoOrnitorrinco);
-                    OperacionCompletada?.Invoke(true, "Agregado de datos exitoso");
-                }
+                await AgregarOrnitorrincoAsync(nuevoOrnitorrinco);
+                OperacionCompletada?.Invoke(true, "Agregado de datos exitoso");
                 this.DialogResult = DialogResult.OK;
             }
         }
 
         private void BtnCancelar_Click(object? sender, EventArgs e)
         {
-
+            this.DialogResult = DialogResult.Cancel;
         }
         public Ornitorrinco CrearOrnitorrinco()
         {
@@ -180,6 +171,7 @@ namespace WinFormsSegundoParcial
             {
                 await Task.Run(() =>
                 {
+                    nuevoOrnitorrinco.Id = ObtenerIdCorrecto();
                     this.ado.AgregarOrnitorrinco(o);
                     FormPrincipalRef.listaOrnitorrincosRefugiados.AgregarAnimal(nuevoOrnitorrinco);
                 });
@@ -205,6 +197,19 @@ namespace WinFormsSegundoParcial
                 OperacionCompletada?.Invoke(false, $"Error al modificar el Ornitorrinco: {ex.Message}");
             }
         }
+        public int ObtenerIdCorrecto()
+        {
+            var ultimoOrnitorrinco = FormPrincipalRef.listaOrnitorrincosRefugiados.animalesRefugiados.LastOrDefault();
 
+            if (!(modificar) && ultimoOrnitorrinco is not null)
+            {
+                return ultimoOrnitorrinco.Id + 1;
+            }
+            // Si la lista está vacía, devuelve 1 como el primer ID
+            else
+            {
+                return 1;
+            }
+        }
     }
 }

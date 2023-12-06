@@ -22,8 +22,6 @@ namespace WinFormsSegundoParcial
         public event OperacionCompletaEventHandler OperacionCompletada;
 
         AccesoDatos ado = new AccesoDatos();
-        public int IndiceSeleccionado { get; set; }
-        public int idCounter { get; private set; }
 
         public FormAgregarHornero()
         {
@@ -33,41 +31,7 @@ namespace WinFormsSegundoParcial
             BtnAceptar.Click += BtnAceptar_Click;
             BtnCancelar.Click += BtnCancelar_Click;
             this.FormPrincipalRef = (FormPrincipal)Application.OpenForms["FormPrincipal"];
-            
         }
-
-        public FormAgregarHornero(Hornero h) : this()
-        {
-            LblTitulo = "Modificar Hornero";
-
-            TxtNombre = h.nombre;
-
-            if (h.esPeludo == true)
-            {
-                TxtPeludo = "si";
-            }
-            else
-            {
-                TxtPeludo = "no";
-            }
-
-
-            if (h.tieneAlas)
-            {
-                txtTieneAlas.Text = "si";
-            }
-            else
-            {
-                txtTieneAlas.Text = "no";
-            }
-
-            txtVelocidad.Text = h.velocidadKmH.ToString();
-
-            nuevoHornero = h;
-            lblId.Text = nuevoHornero.Id.ToString();
-            this.modificar = true;
-        }
-
         private async void BtnAceptar_Click(object? sender, EventArgs e)
         {
             List<string> errores = new List<string>();
@@ -83,23 +47,9 @@ namespace WinFormsSegundoParcial
             }
             else
             {
-
                 nuevoHornero = CrearHornero();
-
-                if (modificar)
-                {
-                    MostrarMensajeID(nuevoHornero.Id);
-
-                    await ModificarHorneroAsync(nuevoHornero);
-
-                    OperacionCompletada?.Invoke(true, "Modificación de datos exitosa");
-
-                }
-                else
-                {
-                    await AgregarHorneroAsync(nuevoHornero);
-                    OperacionCompletada?.Invoke(true, "Agregado de datos exitoso");
-                }
+                await AgregarHorneroAsync(nuevoHornero);
+                OperacionCompletada?.Invoke(true, "Agregado de datos exitoso");
                 this.DialogResult = DialogResult.OK;
             }
         }
@@ -117,7 +67,6 @@ namespace WinFormsSegundoParcial
 
             nuevoHornero = new Hornero(velocidad, tieneAlas, esPeludo, Eespecies.Ave, nombre);
 
-            nuevoHornero.Id = ObtenerIdCorrecto();
             return nuevoHornero;
         }
 
@@ -127,6 +76,7 @@ namespace WinFormsSegundoParcial
             {
                 await Task.Run(() =>
                 {
+                    nuevoHornero.Id = ObtenerIdCorrecto();
                     this.ado.AgregarHornero(h);
                     FormPrincipalRef.listaHornerosRefugiados.AgregarAnimal(nuevoHornero);
                 });
@@ -137,24 +87,6 @@ namespace WinFormsSegundoParcial
             }
 
         }
-
-        public async Task ModificarHorneroAsync(Hornero h)
-        {
-            try
-            {
-                await Task.Run(() =>
-                {
-                    h.ActualizarHornero(h);
-                    this.ado.ModificarHornero(h);
-                    FormPrincipalRef.listaHornerosRefugiados.ActualizarAnimal(nuevoHornero, IndiceSeleccionado);
-                });
-            }
-            catch (Exception ex)
-            {
-                OperacionCompletada?.Invoke(false, $"Error al modificar el hornero: {ex.Message}");
-            }
-        }
-
         public bool ValidarTieneAlas()
         {
             bool tieneAlas;
@@ -172,7 +104,6 @@ namespace WinFormsSegundoParcial
             }
             return tieneAlas;
         }
-
         public void ValidarDatosHornero(List<Exception> excepciones)
         {
             if (string.IsNullOrWhiteSpace(txtTieneAlas.Text))
@@ -196,27 +127,14 @@ namespace WinFormsSegundoParcial
         {
             var ultimoHornero = FormPrincipalRef.listaHornerosRefugiados.animalesRefugiados.LastOrDefault();
 
-            if (modificar)
+            if (ultimoHornero is not null)
             {
-                return nuevoHornero.Id; // Usa el ID existente para la modificación
-            }
-            else if (ultimoHornero is not null)
-            {
-                return ultimoHornero.Id + 1; // Incrementa el último ID para nuevas entradas
+                return ultimoHornero.Id + 1;
             }
             else
             {
                 return 1;
             }
-        }
-        private void MostrarMensajeID(int idHornero)
-        {
-            MessageBox.Show($"ID del Hornero seleccionado: {idHornero}", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-        public Hornero ObtenerHorneroExistente()
-        {
-            Hornero horneroExistente = FormPrincipalRef.listaHornerosRefugiados.animalesRefugiados[IndiceSeleccionado];
-            return horneroExistente;
         }
     }
 }
