@@ -1548,6 +1548,10 @@ namespace WinFormsPrimerParcial
 }
 ```
 3. `FormSeleccionAnimal`: Este formulario sirve para poder elegir el tipo de animal que deseemos crear entre los tipos de animales posibles, luego de seleccionar uno, se pasa al FormAgregar para poder darle los atributos correspondientes a la clase seleccionada.
+
+![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/82f0a92b-a5b3-45b7-9dcb-3d7dfa370dc3)
+
+
 ```c#
 using Entidades;
 using PrimerParcial;
@@ -1654,10 +1658,7 @@ namespace WinFormsSegundoParcial
 ```
 
 4. `FormAgregar`: Este formulario permite agregar un nuevo animal al refugio. El usuario puede modificar el nombre, si es peludo, y atributos específicos del animal que ha sido seleccionado en el visor, en este caso, este sirve como fomulario base, ya que FormAgregarRana, Ornitorrinco y Hornero heredan de este.
-
-![image](https://github.com/fedecorbalan/Corbalan.Federico.PrimerParcial/assets/123754871/fe109fb8-e409-4726-8542-bd9d9c176581)
-
-- FormAgregar
+   
 ```c#
 using Entidades;
 using PrimerParcial;
@@ -1778,6 +1779,10 @@ namespace WinFormsPrimerParcial
 
 ```
 - FormAgregarRana
+
+![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/4b076563-751a-4a31-ae66-f73b6153a168)
+
+  
 ```c#
 using Entidades;
 using PrimerParcial;
@@ -1943,6 +1948,10 @@ namespace WinFormsSegundoParcial
 
 ```
 - FormAgregarOrnitorrinco
+
+![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/84dbe50c-3608-4852-a0c0-de380b1afa73)
+
+
 ```c#
 
 using Entidades;
@@ -2163,6 +2172,10 @@ namespace WinFormsSegundoParcial
 
 ```
 - FormAgregarHornero
+
+![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/a9ca311f-4b0c-4d4e-a2c2-d822085c6601)
+
+  
 ```c#
 using Entidades;
 using PrimerParcial;
@@ -2429,6 +2442,10 @@ namespace WinFormsSegundoParcial
 
 ```
 - FormModificarRana
+
+![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/c85b7522-006a-4810-924e-6f6eed8e4001)
+
+
 ```c#
 
 using Entidades;
@@ -2607,6 +2624,10 @@ namespace WinFormsSegundoParcial
 
 ```
 - FormModificarOrnitorrinco
+
+![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/fcb35ce3-1113-4d26-9069-44eae530b5a8)
+
+
 ```c#
 using Entidades;
 using PrimerParcial;
@@ -2779,6 +2800,10 @@ namespace WinFormsSegundoParcial
 }
 ```
 - FormModificarHornero
+
+![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/1fe2e5e8-6a1d-4235-86f3-0d8d81e0106c)
+
+
 ```c#
 
 using Entidades;
