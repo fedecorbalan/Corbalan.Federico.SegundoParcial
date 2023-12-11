@@ -26,6 +26,7 @@ namespace WinFormsSegundoParcial
         public FormAgregarHornero()
         {
             InitializeComponent();
+            setRadioButtonHornero();
             BtnAceptar.Enabled = true;
             BtnCancelar.Enabled = true;
             BtnAceptar.Click += BtnAceptar_Click;
@@ -48,7 +49,15 @@ namespace WinFormsSegundoParcial
             else
             {
                 nuevoHornero = CrearHornero();
+
+                MessageBox.Show("Agregando Hornero, presione aceptar para continuar");
+
+                await Task.Delay(1000);
+
                 await AgregarHorneroAsync(nuevoHornero);
+
+                MessageBox.Show("Agregado de datos exitoso");
+
                 OperacionCompletada?.Invoke(true, "Agregado de datos exitoso");
                 this.DialogResult = DialogResult.OK;
             }
@@ -65,7 +74,7 @@ namespace WinFormsSegundoParcial
             int velocidad = int.Parse(txtVelocidad.Text);
             bool tieneAlas = ValidarTieneAlas();
 
-            nuevoHornero = new Hornero(velocidad, tieneAlas, esPeludo, Eespecies.Ave, nombre);
+            nuevoHornero = new Hornero(velocidad, tieneAlas, nombre, esPeludo, Eespecies.Ave);
 
             return nuevoHornero;
         }
@@ -90,29 +99,25 @@ namespace WinFormsSegundoParcial
         public bool ValidarTieneAlas()
         {
             bool tieneAlas;
-            if (txtTieneAlas.Text == "si")
+            if (rbtnSi.Checked)
             {
                 tieneAlas = true;
             }
-            else if (txtTieneAlas.Text == "no")
+            else if (rbtnNo.Checked)
             {
                 tieneAlas = false;
             }
             else
             {
-                throw new ExcepcionTieneAlasErroneo();
+                throw new ExcepcionTieneAlasVacio();
             }
             return tieneAlas;
         }
         public void ValidarDatosHornero(List<Exception> excepciones)
         {
-            if (string.IsNullOrWhiteSpace(txtTieneAlas.Text))
+            if (!(rbtnSi.Checked) && !(rbtnNo.Checked))
             {
                 excepciones.Add(new ExcepcionTieneAlasVacio());
-            }
-            else if (txtTieneAlas.Text.ToLower() != "si" && txtTieneAlas.Text.ToLower() != "no")
-            {
-                excepciones.Add(new ExcepcionTieneAlasErroneo());
             }
             if (string.IsNullOrWhiteSpace(txtVelocidad.Text))
             {
@@ -134,6 +139,17 @@ namespace WinFormsSegundoParcial
             else
             {
                 return 1;
+            }
+        }
+        public void setRadioButtonHornero()
+        {
+            if (rbtnSi.Checked)
+            {
+                rbtnNo.Checked = false;
+            }
+            else if (rbtnNo.Checked)
+            {
+                rbtnSi.Checked = false;
             }
         }
     }

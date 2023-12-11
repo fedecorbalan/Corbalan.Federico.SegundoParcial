@@ -16,7 +16,7 @@ namespace WinFormsPrimerParcial
     {
 
         public Animal NuevoAnimal { get; private set; }
-        
+
         public FormPrincipal FormPrincipalRef { get; set; }
 
 
@@ -26,23 +26,9 @@ namespace WinFormsPrimerParcial
         public FormAgregar()
         {
             InitializeComponent();
+            setRadioButtons();
         }
-
-        public FormAgregar(Animal a) : this()
-        {
-            txtNombre.Text = a.nombre;
-            if (a.esPeludo)
-            {
-                txtEsPeludo.Text = "si";
-            }
-            else
-            {
-                txtEsPeludo.Text = "no";
-            }
-            this.modificar = true;
-        }
-
-        public string LblTitulo { get { return lblTitulo.Text; } set {lblTitulo.Text = value; } }
+        public string LblTitulo { get { return lblTitulo.Text; } set { lblTitulo.Text = value; } }
 
         public Button BtnAceptar
         {
@@ -51,29 +37,29 @@ namespace WinFormsPrimerParcial
         }
         public Button BtnCancelar
         {
-            get { return btnCancelar;}
+            get { return btnCancelar; }
             set { btnCancelar = value; }
         }
-        public string TxtNombre { get { return txtNombre.Text; } set {txtNombre.Text = value; } }
-
-        public string TxtPeludo { get {return txtEsPeludo.Text; } set {txtEsPeludo.Text = value;} }
-
+        public string TxtNombre { get { return txtNombre.Text; } set { txtNombre.Text = value; } }
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-           
+
         }
         public bool VerificarEsPeludo()
         {
-            string textoPeludo = txtEsPeludo.Text.ToLower();
             bool esPeludo;
 
-            if (textoPeludo == "si")
+            if (rbtnPeludoSi.Checked)
             {
                 esPeludo = true;
             }
-            else
+            else if (rbtnPeludoNo.Checked)
             {
                 esPeludo = false;
+            }
+            else
+            {
+                throw new ExcepcionPeludoVacio();
             }
             return esPeludo;
         }
@@ -101,13 +87,20 @@ namespace WinFormsPrimerParcial
             {
                 excepciones.Add(new ExcepcionNombreVacio());
             }
-            if (string.IsNullOrWhiteSpace(txtEsPeludo.Text))
+            if (!(rbtnPeludoSi.Checked) && !(rbtnPeludoNo.Checked))
             {
                 excepciones.Add(new ExcepcionPeludoVacio());
             }
-            else if (txtEsPeludo.Text.ToLower() != "si" && txtEsPeludo.Text.ToLower() != "no")
+        }
+        public void setRadioButtons()
+        {
+            if (rbtnPeludoSi.Checked)
             {
-                excepciones.Add(new ExcepcionPeludoErroneo());
+                rbtnPeludoNo.Checked = false;
+            }
+            else if (rbtnPeludoNo.Checked)
+            {
+                rbtnPeludoSi.Checked = false;
             }
         }
 

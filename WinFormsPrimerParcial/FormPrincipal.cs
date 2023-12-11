@@ -68,17 +68,14 @@ namespace WinFormsPrimerParcial
                             if (nuevoAnimal is Rana)
                             {
                                 listaRanasRefugiadas.AgregarAnimal((Rana)nuevoAnimal);
-
                             }
                             else if (nuevoAnimal is Hornero)
                             {
                                 listaHornerosRefugiados.AgregarAnimal((Hornero)nuevoAnimal);
-
                             }
                             else if (nuevoAnimal is Ornitorrinco)
                             {
                                 listaOrnitorrincosRefugiados.AgregarAnimal((Ornitorrinco)nuevoAnimal);
-
                             }
                         }
                     }
@@ -158,17 +155,14 @@ namespace WinFormsPrimerParcial
             }
         
         }
-        private void MostrarMensajeID(int idAnimal)
-        {
-            MessageBox.Show($"ID del animal seleccionado: {idAnimal}", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             
             int selectedIndex = lstVisor.SelectedIndex;
-            if (perfilUsuario.ToLower() == "administrador")
+
+            if (selectedIndex >= 0)
             {
-                if (selectedIndex >= 0)
+                if (perfilUsuario.ToLower() == "administrador")
                 {
                     DialogResult resultado = MessageBox.Show("¿Esta seguro que desea eliminar el registro?\nEsto tambien lo eliminara de la base de datos", "Pregunta", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (resultado == DialogResult.Yes)
@@ -210,16 +204,15 @@ namespace WinFormsPrimerParcial
                             }
                         }
                     }
-                    else
-                    {
-                        MessageBox.Show("Selecciona un elemento para eliminar.");
-                    }
-
                 }
                 else
                 {
                     MessageBox.Show("Usted no es administrador por lo tanto, no posee permisos para eliminar elementos");
                 }
+            }
+            else
+            {
+                MessageBox.Show("Selecciona un elemento para eliminar.");
             }
         }
         private void FormPrincipal_Load(object sender, EventArgs e) 

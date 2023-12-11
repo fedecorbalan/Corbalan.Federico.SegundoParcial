@@ -28,25 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label3 = new Label();
             label4 = new Label();
             txtVelocidad = new TextBox();
-            txtTieneAlas = new TextBox();
+            rbtnSi = new RadioButton();
+            rbtnNo = new RadioButton();
+            groupBox1 = new GroupBox();
+            groupBox1.SuspendLayout();
             SuspendLayout();
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(23, 254);
-            label3.Name = "label3";
-            label3.Size = new Size(96, 25);
-            label3.TabIndex = 13;
-            label3.Text = "Tiene alas?";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(23, 337);
+            label4.Location = new Point(23, 366);
             label4.Name = "label4";
             label4.Size = new Size(174, 25);
             label4.TabIndex = 14;
@@ -54,41 +47,69 @@
             // 
             // txtVelocidad
             // 
-            txtVelocidad.Location = new Point(23, 365);
+            txtVelocidad.Location = new Point(23, 406);
             txtVelocidad.Name = "txtVelocidad";
             txtVelocidad.Size = new Size(293, 31);
             txtVelocidad.TabIndex = 15;
             // 
-            // txtTieneAlas
+            // rbtnSi
             // 
-            txtTieneAlas.Location = new Point(23, 282);
-            txtTieneAlas.Name = "txtTieneAlas";
-            txtTieneAlas.Size = new Size(293, 31);
-            txtTieneAlas.TabIndex = 16;
+            rbtnSi.AutoSize = true;
+            rbtnSi.Location = new Point(55, 47);
+            rbtnSi.Name = "rbtnSi";
+            rbtnSi.Size = new Size(51, 29);
+            rbtnSi.TabIndex = 16;
+            rbtnSi.TabStop = true;
+            rbtnSi.Text = "Si";
+            rbtnSi.UseVisualStyleBackColor = true;
+            // 
+            // rbtnNo
+            // 
+            rbtnNo.AutoSize = true;
+            rbtnNo.Location = new Point(171, 47);
+            rbtnNo.Name = "rbtnNo";
+            rbtnNo.Size = new Size(61, 29);
+            rbtnNo.TabIndex = 17;
+            rbtnNo.TabStop = true;
+            rbtnNo.Text = "No";
+            rbtnNo.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(rbtnSi);
+            groupBox1.Controls.Add(rbtnNo);
+            groupBox1.Location = new Point(23, 248);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(293, 103);
+            groupBox1.TabIndex = 18;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Tiene Alas?";
             // 
             // FormAgregarHornero
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(349, 512);
-            Controls.Add(txtTieneAlas);
+            Controls.Add(groupBox1);
             Controls.Add(txtVelocidad);
             Controls.Add(label4);
-            Controls.Add(label3);
             Name = "FormAgregarHornero";
             Text = "FormAgregarHornero";
-            Controls.SetChildIndex(label3, 0);
             Controls.SetChildIndex(label4, 0);
             Controls.SetChildIndex(txtVelocidad, 0);
-            Controls.SetChildIndex(txtTieneAlas, 0);
+            Controls.SetChildIndex(groupBox1, 0);
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private Label label3;
+
         private Label label4;
         private TextBox txtVelocidad;
-        private TextBox txtTieneAlas;
+        private RadioButton rbtnSi;
+        private RadioButton rbtnNo;
+        private GroupBox groupBox1;
     }
 }

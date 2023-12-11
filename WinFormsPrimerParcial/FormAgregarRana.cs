@@ -20,13 +20,14 @@ namespace WinFormsSegundoParcial
         public Rana nuevaRana;
 
         public delegate void OperacionCompletaEventHandler(bool exito, string mensaje);
-       
+
         public event OperacionCompletaEventHandler OperacionCompletada;
 
         AccesoDatos ado = new AccesoDatos();
         public FormAgregarRana()
         {
             InitializeComponent();
+            setRadioButtonsRana();
             BtnAceptar.Enabled = true;
             BtnCancelar.Enabled = true;
             BtnAceptar.Click += BtnAceptar_Click;
@@ -49,8 +50,15 @@ namespace WinFormsSegundoParcial
             else
             {
                 nuevaRana = CrearRana();
+
+                MessageBox.Show("Agregando Rana, presione aceptar para continuar");
+
+                await Task.Delay(1000);
                 await AgregarRanaAsync(nuevaRana);
+
+                MessageBox.Show("Agregado de datos exitoso");
                 OperacionCompletada?.Invoke(true, "Agregado de datos exitoso");
+
                 this.DialogResult = DialogResult.OK;
             }
         }
@@ -62,17 +70,17 @@ namespace WinFormsSegundoParcial
         public bool ValidarVenenosa()
         {
             bool esVenenosa;
-            if (txtVenenosa.Text.ToLower() == "si" )
+            if (rbtnVenenosaSi.Checked)
             {
                 esVenenosa = true;
             }
-            else if (txtVenenosa.Text.ToLower() == "no")
+            else if (rbtnVenenosaNo.Checked)
             {
                 esVenenosa = false;
             }
-            else 
-            { 
-                throw new ExcepcionEsArboricolaErroneo(); 
+            else
+            {
+                throw new ExcepcionEsVenenosaVacio();
             }
             return esVenenosa;
 
@@ -84,7 +92,7 @@ namespace WinFormsSegundoParcial
             bool esArboricola = ValidarArboricola();
             string nombre = TxtNombre.ToString();
 
-            nuevaRana = new Rana(esArboricola, esVenenosa, esPeludo, Eespecies.Anfibio, nombre);
+            nuevaRana = new Rana(esArboricola, esVenenosa, nombre, esPeludo, Eespecies.Anfibio);
 
             return nuevaRana;
         }
@@ -93,38 +101,30 @@ namespace WinFormsSegundoParcial
         {
             bool esArboricola;
 
-            if (txtArboricola.Text.ToLower() == "si")
+            if (rbtnArboricolaSi.Checked)
             {
                 esArboricola = true;
             }
-            else if  (txtArboricola.Text.ToLower() == "no")
+            else if (rbtnArboricolaNo.Checked)
             {
                 esArboricola = false;
             }
             else
             {
-                throw new ExcepcionEsArboricolaErroneo();
+                throw new ExcepcionEsArboricolaVacio();
             }
             return esArboricola;
         }
 
         public void ValidarDatosRana(List<Exception> excepciones)
         {
-            if (string.IsNullOrWhiteSpace(txtArboricola.Text))
+            if (!(rbtnArboricolaSi.Checked) && !(rbtnArboricolaNo.Checked))
             {
                 excepciones.Add(new ExcepcionEsArboricolaVacio());
             }
-            else if (txtArboricola.Text.ToLower() != "si" && txtArboricola.Text.ToLower() != "no")
-            {
-                excepciones.Add(new ExcepcionEsArboricolaErroneo());
-            }
-            if (string.IsNullOrWhiteSpace(txtVenenosa.Text))
+            if (!(rbtnVenenosaSi.Checked) && !(rbtnVenenosaNo.Checked))
             {
                 excepciones.Add(new ExcepcionEsVenenosaVacio());
-            }
-            else if (txtVenenosa.Text.ToLower() != "si" && txtVenenosa.Text.ToLower() != "no")
-            {
-                excepciones.Add(new ExcepcionEsVenenosaErroneo());
             }
         }
         public async Task AgregarRanaAsync(Rana r)
@@ -138,7 +138,7 @@ namespace WinFormsSegundoParcial
                     FormPrincipalRef.listaRanasRefugiadas.AgregarAnimal(nuevaRana);
                 });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 OperacionCompletada?.Invoke(false, $"Error al agregar la rana: {ex.Message}");
             }
@@ -156,5 +156,27 @@ namespace WinFormsSegundoParcial
                 return 1;
             }
         }
+
+        public void setRadioButtonsRana()
+        {
+            if (rbtnVenenosaSi.Checked)
+            {
+                rbtnVenenosaNo.Checked = false;
+            }
+            else if(rbtnVenenosaNo.Checked)
+            {
+                rbtnVenenosaSi.Checked = false;
+            }
+            if (rbtnArboricolaSi.Checked)
+            {
+                rbtnArboricolaNo.Checked = false;
+            }
+            else if (rbtnArboricolaNo.Checked)
+            {
+                rbtnArboricolaSi.Checked = false;
+            }
+        }
+
+
     }
 }

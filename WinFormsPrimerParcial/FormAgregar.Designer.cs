@@ -33,8 +33,10 @@
             btnAceptar = new Button();
             lblNombre = new Label();
             txtNombre = new TextBox();
-            txtEsPeludo = new TextBox();
-            lblEsPeludo = new Label();
+            groupBox1 = new GroupBox();
+            rbtnPeludoNo = new RadioButton();
+            rbtnPeludoSi = new RadioButton();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // lblTitulo
@@ -85,21 +87,38 @@
             txtNombre.Size = new Size(293, 31);
             txtNombre.TabIndex = 7;
             // 
-            // txtEsPeludo
+            // groupBox1
             // 
-            txtEsPeludo.Location = new Point(23, 197);
-            txtEsPeludo.Name = "txtEsPeludo";
-            txtEsPeludo.Size = new Size(293, 31);
-            txtEsPeludo.TabIndex = 8;
+            groupBox1.Controls.Add(rbtnPeludoNo);
+            groupBox1.Controls.Add(rbtnPeludoSi);
+            groupBox1.Location = new Point(23, 151);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(293, 88);
+            groupBox1.TabIndex = 8;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Es Peludo?";
             // 
-            // lblEsPeludo
+            // rbtnPeludoNo
             // 
-            lblEsPeludo.AutoSize = true;
-            lblEsPeludo.Location = new Point(23, 157);
-            lblEsPeludo.Name = "lblEsPeludo";
-            lblEsPeludo.Size = new Size(106, 25);
-            lblEsPeludo.TabIndex = 11;
-            lblEsPeludo.Text = "¿Es peludo?";
+            rbtnPeludoNo.AutoSize = true;
+            rbtnPeludoNo.Location = new Point(168, 42);
+            rbtnPeludoNo.Name = "rbtnPeludoNo";
+            rbtnPeludoNo.Size = new Size(61, 29);
+            rbtnPeludoNo.TabIndex = 1;
+            rbtnPeludoNo.TabStop = true;
+            rbtnPeludoNo.Text = "No";
+            rbtnPeludoNo.UseVisualStyleBackColor = true;
+            // 
+            // rbtnPeludoSi
+            // 
+            rbtnPeludoSi.AutoSize = true;
+            rbtnPeludoSi.Location = new Point(68, 42);
+            rbtnPeludoSi.Name = "rbtnPeludoSi";
+            rbtnPeludoSi.Size = new Size(51, 29);
+            rbtnPeludoSi.TabIndex = 0;
+            rbtnPeludoSi.TabStop = true;
+            rbtnPeludoSi.Text = "Si";
+            rbtnPeludoSi.UseVisualStyleBackColor = true;
             // 
             // FormAgregar
             // 
@@ -107,8 +126,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightPink;
             ClientSize = new Size(351, 519);
-            Controls.Add(lblEsPeludo);
-            Controls.Add(txtEsPeludo);
+            Controls.Add(groupBox1);
             Controls.Add(txtNombre);
             Controls.Add(lblNombre);
             Controls.Add(btnAceptar);
@@ -118,6 +136,8 @@
             Name = "FormAgregar";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -128,7 +148,8 @@
         private Button btnAceptar;
         private Label lblNombre;
         private TextBox txtNombre;
-        private TextBox txtEsPeludo;
-        private Label lblEsPeludo;
+        private GroupBox groupBox1;
+        private RadioButton rbtnPeludoNo;
+        private RadioButton rbtnPeludoSi;
     }
 }

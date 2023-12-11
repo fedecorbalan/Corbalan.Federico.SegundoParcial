@@ -26,48 +26,12 @@ namespace WinFormsSegundoParcial
         public FormAgregarOrnitorrinco()
         {
             InitializeComponent();
+            setRadioButtonsOrnitorrinco();
             BtnAceptar.Enabled = true;
             BtnCancelar.Enabled = true;
             BtnAceptar.Click += BtnAceptar_Click;
             BtnCancelar.Click += BtnCancelar_Click;
             this.FormPrincipalRef = (FormPrincipal)Application.OpenForms["FormPrincipal"];
-        }
-        public FormAgregarOrnitorrinco(Ornitorrinco o) : this()
-        {
-            LblTitulo = "Modificar Ornitorrinco";
-
-            TxtNombre = o.nombre;
-
-            if (o.esPeludo == true)
-            {
-                TxtPeludo = "si";
-            }
-            else
-            {
-                TxtPeludo = "no";
-            }
-
-
-            if (o.oviparo)
-            {
-                txtOviparo.Text = "si";
-            }
-            else
-            {
-                txtOviparo.Text = "no";
-            }
-
-            if (o.tieneCola)
-            {
-                txtTieneCola.Text = "si";
-            }
-            else
-            {
-                txtTieneCola.Text = "no";
-            }
-
-            nuevoOrnitorrinco = o;
-            this.modificar = true;
         }
         private async void BtnAceptar_Click(object? sender, EventArgs e)
         {
@@ -85,7 +49,12 @@ namespace WinFormsSegundoParcial
             else
             {
                 nuevoOrnitorrinco = CrearOrnitorrinco();
+
+                MessageBox.Show("Agregando Ornitorrinco, presione aceptar para continuar");
+                await Task.Delay(1000);
+
                 await AgregarOrnitorrincoAsync(nuevoOrnitorrinco);
+
                 OperacionCompletada?.Invoke(true, "Agregado de datos exitoso");
                 this.DialogResult = DialogResult.OK;
             }
@@ -107,21 +76,21 @@ namespace WinFormsSegundoParcial
             return nuevoOrnitorrinco;
         }
 
-        public bool VerificarOviparo() 
+        public bool VerificarOviparo()
         {
             bool esOviparo;
 
-            if(txtOviparo.Text == "si")
+            if (rbtnOviparoSi.Checked)
             {
                 esOviparo = true;
             }
-            else if(txtOviparo.Text == "no")
+            else if (rbtnOviparoNo.Checked)
             {
                 esOviparo = false;
             }
             else
             {
-                throw new ExcepcionEsOviparoErroneo();
+                throw new ExcepcionEsOviparoVacio();
             }
             return esOviparo;
         }
@@ -129,11 +98,11 @@ namespace WinFormsSegundoParcial
         {
             bool tieneCola;
 
-            if (txtTieneCola.Text == "si")
+            if (rbtnColaSi.Checked)
             {
                 tieneCola = true;
             }
-            else if (txtTieneCola.Text == "no")
+            else if (rbtnColaNo.Checked)
             {
                 tieneCola = false;
             }
@@ -147,24 +116,15 @@ namespace WinFormsSegundoParcial
 
         public void ValidarDatosOrnitorrinco(List<Exception> excepciones)
         {
-            if (string.IsNullOrWhiteSpace(txtTieneCola.Text))
+            if (!(rbtnColaSi.Checked) && !(rbtnColaNo.Checked))
             {
-                excepciones.Add(new ExcepcionEsArboricolaVacio());
+                excepciones.Add(new ExcepcionTieneColaVacio());
             }
-            else if (txtTieneCola.Text.ToLower() != "si" && txtTieneCola.Text.ToLower() != "no")
+            if (!(rbtnOviparoSi.Checked) && !(rbtnOviparoNo.Checked))
             {
-                excepciones.Add(new ExcepcionEsArboricolaErroneo());
-            }
-            if (string.IsNullOrWhiteSpace(txtOviparo.Text))
-            {
-                excepciones.Add(new ExcepcionEsVenenosaVacio());
-            }
-            else if (txtOviparo.Text.ToLower() != "si" && txtOviparo.Text.ToLower() != "no")
-            {
-                excepciones.Add(new ExcepcionEsVenenosaErroneo());
+                excepciones.Add(new ExcepcionEsOviparoVacio());
             }
         }
-
         public async Task AgregarOrnitorrincoAsync(Ornitorrinco o)
         {
             try
@@ -196,5 +156,26 @@ namespace WinFormsSegundoParcial
                 return 1;
             }
         }
+
+        public void setRadioButtonsOrnitorrinco()
+        {
+            if (rbtnOviparoSi.Checked)
+            {
+                rbtnOviparoNo.Checked = false;
+            }
+            else if (rbtnOviparoNo.Checked)
+            {
+                rbtnOviparoSi.Checked = false;
+            }
+            if (rbtnColaSi.Checked)
+            {
+                rbtnOviparoNo.Checked = false;
+            }
+            else if (rbtnColaNo.Checked)
+            {
+                rbtnOviparoSi.Checked = false;
+            }
+        }
+
     }
 }
