@@ -12,12 +12,12 @@ namespace PrimerParcial
         public bool oviparo;
         public bool tieneCola;
 
-        public Ornitorrinco() { }
-        public Ornitorrinco(bool oviparo, bool esPeludo, Eespecies especie, string nombre) : base(nombre, esPeludo, especie)
-        {
-            this.oviparo = oviparo;
+        public Ornitorrinco() 
+        { 
+            this.oviparo = true;
+            this.tieneCola = true;
         }
-        public Ornitorrinco(bool tieneCola, bool oviparo, bool esPeludo, Eespecies especie, string nombre) : this(oviparo,esPeludo, especie, nombre)
+        public Ornitorrinco(bool tieneCola, bool oviparo, bool esPeludo, Eespecies especie, string nombre) : base(nombre, esPeludo, especie)
         {
             this.oviparo = oviparo;
             this.tieneCola = tieneCola;

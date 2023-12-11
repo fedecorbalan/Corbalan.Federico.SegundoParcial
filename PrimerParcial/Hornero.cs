@@ -17,11 +17,7 @@ namespace PrimerParcial
             this.tieneAlas = true;
             this.velocidadKmH = 30;
         }
-        public Hornero(bool tieneAlas, string nombre, bool esPeludo, Eespecies especie) : base(nombre, esPeludo, especie)
-        {
-            this.tieneAlas = tieneAlas;
-        }
-        public Hornero(int velocidadKmH, bool tieneAlas, bool esPeludo, Eespecies especie, string nombre) : this(tieneAlas, nombre, esPeludo, especie)
+        public Hornero(int velocidadKmH, bool tieneAlas, string nombre, bool esPeludo, Eespecies especie) : base(nombre, esPeludo, especie)
         {
             this.tieneAlas = tieneAlas;
             this.velocidadKmH = velocidadKmH;

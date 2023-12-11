@@ -13,13 +13,14 @@ namespace PrimerParcial
         public bool esVenenosa;
         public bool esArboricola;
 
-        public Rana() { }
-        public Rana(bool esVenenosa,string nombre, bool esPeludo, Eespecies especie) : base(nombre, esPeludo, especie)
+        public Rana() 
+        { 
+            this.esVenenosa = false;
+            this.esArboricola = false;
+        }
+        public Rana(bool esArboricola, bool esVenenosa,string nombre, bool esPeludo, Eespecies especie) : base(nombre, esPeludo, especie)
         { 
             this.esVenenosa = esVenenosa;
-        }
-        public Rana(bool esArboricola,bool esVenenosa, bool esPeludo, Eespecies especie,string nombre) : this(esVenenosa,nombre, esPeludo, especie)
-        {
             this.esArboricola = esArboricola;
         }
 
