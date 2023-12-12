@@ -53,7 +53,7 @@ namespace WinFormsSegundoParcial
             }
             else
             {
-                rbtnVenenosaSi.Checked = false;
+                rbtnVenenosaNo.Checked = true;
             }
 
             if (r.esArboricola)

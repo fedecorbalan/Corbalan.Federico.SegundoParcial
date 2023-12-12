@@ -43,7 +43,7 @@ namespace WinFormsSegundoParcial
             }
             else
             {
-                RbtnPeludoNo.Checked = false;
+                RbtnPeludoNo.Checked = true;
             }
 
             if (h.tieneAlas)

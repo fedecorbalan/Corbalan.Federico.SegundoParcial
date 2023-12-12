@@ -18,10 +18,10 @@
     },
     {
       "tieneAlas": true,
-      "velocidadKmH": 11,
+      "velocidadKmH": 30,
       "esPeludo": false,
       "especie": 1,
-      "nombre": "ramon",
+      "nombre": "ruman",
       "Id": 6
     },
     {
@@ -31,6 +31,54 @@
       "especie": 1,
       "nombre": "raul",
       "Id": 9
+    },
+    {
+      "tieneAlas": true,
+      "velocidadKmH": 28,
+      "esPeludo": false,
+      "especie": 1,
+      "nombre": "carlos",
+      "Id": 10
+    },
+    {
+      "tieneAlas": true,
+      "velocidadKmH": 12,
+      "esPeludo": true,
+      "especie": 1,
+      "nombre": "juan",
+      "Id": 11
+    },
+    {
+      "tieneAlas": true,
+      "velocidadKmH": 9,
+      "esPeludo": true,
+      "especie": 1,
+      "nombre": "tomas",
+      "Id": 12
+    },
+    {
+      "tieneAlas": true,
+      "velocidadKmH": 32,
+      "esPeludo": true,
+      "especie": 1,
+      "nombre": "pedro",
+      "Id": 13
+    },
+    {
+      "tieneAlas": true,
+      "velocidadKmH": 21,
+      "esPeludo": true,
+      "especie": 1,
+      "nombre": "gabri",
+      "Id": 14
+    },
+    {
+      "tieneAlas": true,
+      "velocidadKmH": 12,
+      "esPeludo": false,
+      "especie": 1,
+      "nombre": "nico",
+      "Id": 15
     }
   ]
 }

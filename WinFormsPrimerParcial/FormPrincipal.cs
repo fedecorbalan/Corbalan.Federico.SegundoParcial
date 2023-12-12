@@ -177,6 +177,7 @@ namespace WinFormsPrimerParcial
                             {
                                 listaRanasRefugiadas.animalesRefugiados.RemoveAt(selectedIndex);
                                 lstVisor.Items.RemoveAt(selectedIndex);
+                                MessageBox.Show("Rana eliminada");
                             }
                         }
                         else if (selectedIndex < listaRanasRefugiadas.animalesRefugiados.Count + listaHornerosRefugiados.animalesRefugiados.Count)
@@ -189,6 +190,7 @@ namespace WinFormsPrimerParcial
                             {
                                 listaHornerosRefugiados.animalesRefugiados.RemoveAt(selectedIndex);
                                 lstVisor.Items.RemoveAt(selectedIndex);
+                                MessageBox.Show("Hornero eliminado");
                             }
                         }
                         else
@@ -201,6 +203,7 @@ namespace WinFormsPrimerParcial
                             {
                                 listaOrnitorrincosRefugiados.animalesRefugiados.RemoveAt(selectedIndex);
                                 lstVisor.Items.RemoveAt(selectedIndex);
+                                MessageBox.Show("Ornitorrinco Eliminado");
                             }
                         }
                     }
