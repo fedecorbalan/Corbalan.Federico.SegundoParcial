@@ -13,20 +13,31 @@ using System.Windows.Forms.VisualStyles;
 
 namespace WinFormsSegundoParcial
 {
+    /// <summary>
+    /// Formulario para la selección de un tipo de animal.
+    /// </summary>
     public partial class FormSeleccionAnimal : Form
     {
+        
+        /// <summary>
+        /// Constructor de la clase FormSeleccionAnimal.
+        /// </summary>
         public FormSeleccionAnimal()
         {
             InitializeComponent();
             SeleccionRadioButtons();
         }
-
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Aceptar.
+        /// </summary>
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             SeleccionAnimal();
             this.Close();
         }
-
+        /// <summary>
+        /// Abre el formulario correspondiente al tipo de animal seleccionado.
+        /// </summary>
         public void SeleccionAnimal()
         {
 
@@ -53,6 +64,10 @@ namespace WinFormsSegundoParcial
                 MessageBox.Show("Seleccione un Animal.");
             }
         }
+        /// <summary>
+        /// Obtiene el tipo de animal seleccionado.
+        /// </summary>
+        /// <returns>Tipo de animal.</returns>
         public Type GetSelectedAnimalType()
         {
             if (rbtnHornero.Checked)
@@ -72,7 +87,9 @@ namespace WinFormsSegundoParcial
                 throw new ExcepcionAnimalNoSeleccionado();
             }
         }
-
+        /// <summary>
+        /// Establece las selecciones de los radio buttons.
+        /// </summary>
         public void SeleccionRadioButtons()
         {
             if (rbtnHornero.Checked)
@@ -91,10 +108,11 @@ namespace WinFormsSegundoParcial
                 rbtnHornero.Checked = false;
             }
         }
-
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Cancelar.
+        /// </summary>
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-
             this.Close();
         }
     }
