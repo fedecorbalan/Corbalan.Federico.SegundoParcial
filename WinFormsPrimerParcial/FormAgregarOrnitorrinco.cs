@@ -13,6 +13,9 @@ using WinFormsPrimerParcial;
 
 namespace WinFormsSegundoParcial
 {
+    /// <summary>
+    /// Formulario para agregar un Ornitorrinco.
+    /// </summary>
     public partial class FormAgregarOrnitorrinco : FormAgregar
     {
         public Ornitorrinco nuevoOrnitorrinco;

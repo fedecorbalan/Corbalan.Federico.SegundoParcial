@@ -13,16 +13,31 @@ using System.Windows.Forms;
 using WinFormsPrimerParcial;
 namespace WinFormsSegundoParcial
 {
+    /// <summary>
+    /// Formulario para agregar un Hornero.
+    /// </summary>
     public partial class FormAgregarHornero : FormAgregar
     {
+        /// <summary>
+        /// Nuevo Hornero creado.
+        /// </summary>
         public Hornero nuevoHornero;
-
+        /// <summary>
+        /// Delegado para manejar la operación completada.
+        /// </summary>
         public delegate void OperacionCompletaEventHandler(bool exito, string mensaje);
-
+        /// <summary>
+        /// Evento que se dispara cuando la operación se completa.
+        /// </summary>
         public event OperacionCompletaEventHandler OperacionCompletada;
-
+        /// <summary>
+        /// Acceso a datos para interactuar con la base de datos.
+        /// </summary>
         AccesoDatos ado = new AccesoDatos();
 
+        /// <summary>
+        /// Constructor de la clase FormAgregarHornero.
+        /// </summary>
         public FormAgregarHornero()
         {
             InitializeComponent();
@@ -33,6 +48,9 @@ namespace WinFormsSegundoParcial
             BtnCancelar.Click += BtnCancelar_Click;
             this.FormPrincipalRef = (FormPrincipal)Application.OpenForms["FormPrincipal"];
         }
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Aceptar.
+        /// </summary>
         private async void BtnAceptar_Click(object? sender, EventArgs e)
         {
             List<string> errores = new List<string>();
@@ -62,11 +80,17 @@ namespace WinFormsSegundoParcial
                 this.DialogResult = DialogResult.OK;
             }
         }
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Cancelar.
+        /// </summary>
         private void BtnCancelar_Click(object? sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
         }
-
+        /// <summary>
+        /// Crea un nuevo objeto Hornero con los datos proporcionados en el formulario.
+        /// </summary>
+        /// <returns>Nuevo objeto Hornero.</returns>
         public Hornero CrearHornero()
         {
             string nombre = TxtNombre.ToString();
@@ -78,7 +102,10 @@ namespace WinFormsSegundoParcial
 
             return nuevoHornero;
         }
-
+        /// <summary>
+        /// Task que agrega el nuevo Hornero a la base de datos y a la lista de Horneros en el formulario principal.
+        /// </summary>
+        /// <param name="h">Nuevo Hornero a agregar.</param>
         public async Task AgregarHorneroAsync(Hornero h)
         {
             try
@@ -96,6 +123,10 @@ namespace WinFormsSegundoParcial
             }
 
         }
+        /// <summary>
+        /// Valida el valor de la opción seleccionada en el grupo "Tiene alas".
+        /// </summary>
+        /// <returns>True si tiene alas, false si no las tiene.</returns>
         public bool ValidarTieneAlas()
         {
             bool tieneAlas;
@@ -113,6 +144,10 @@ namespace WinFormsSegundoParcial
             }
             return tieneAlas;
         }
+        /// <summary>
+        /// Valida los datos específicos de un Hornero y agrega excepciones a la lista.
+        /// </summary>
+        /// <param name="excepciones">Lista de excepciones.</param>
         public void ValidarDatosHornero(List<Exception> excepciones)
         {
             if (!(rbtnSi.Checked) && !(rbtnNo.Checked))
@@ -128,6 +163,10 @@ namespace WinFormsSegundoParcial
                 excepciones.Add(new ExcepcionVelocidadErroneo());
             }
         }
+        /// <summary>
+        /// Obtiene un ID adecuado para el nuevo Hornero.
+        /// </summary>
+        /// <returns>ID adecuado.</returns>
         public int ObtenerIdCorrecto()
         {
             var ultimoHornero = FormPrincipalRef.listaHornerosRefugiados.animalesRefugiados.LastOrDefault();
@@ -141,6 +180,9 @@ namespace WinFormsSegundoParcial
                 return 1;
             }
         }
+        /// <summary>
+        /// Establece el estado de los botones de opción "Tiene alas".
+        /// </summary>
         public void setRadioButtonHornero()
         {
             if (rbtnSi.Checked)

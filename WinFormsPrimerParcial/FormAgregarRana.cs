@@ -14,16 +14,32 @@ using WinFormsPrimerParcial;
 
 namespace WinFormsSegundoParcial
 {
+    /// <summary>
+    /// Formulario para agregar una Rana.
+    /// </summary>
     public partial class FormAgregarRana : FormAgregar
     {
-
+        /// <summary>
+        /// Nueva Rana creada.
+        /// </summary>
         public Rana nuevaRana;
 
+        /// <summary>
+        /// Delegado para manejar la operación completada.
+        /// </summary>
         public delegate void OperacionCompletaEventHandler(bool exito, string mensaje);
-
+        /// <summary>
+        /// Evento que se dispara cuando la operación se completa.
+        /// </summary>
         public event OperacionCompletaEventHandler OperacionCompletada;
-
+        /// <summary>
+        /// Acceso a datos para interactuar con la base de datos.
+        /// </summary>
         AccesoDatos ado = new AccesoDatos();
+
+        /// <summary>
+        /// Constructor de la clase FormAgregarRana.
+        /// </summary>
         public FormAgregarRana()
         {
             InitializeComponent();
@@ -34,6 +50,9 @@ namespace WinFormsSegundoParcial
             BtnCancelar.Click += BtnCancelar_Click;
             this.FormPrincipalRef = (FormPrincipal)Application.OpenForms["FormPrincipal"];
         }
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Aceptar.
+        /// </summary>
         private async void BtnAceptar_Click(object? sender, EventArgs e)
         {
             List<string> errores = new List<string>();
@@ -63,11 +82,17 @@ namespace WinFormsSegundoParcial
                 this.DialogResult = DialogResult.OK;
             }
         }
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Cancelar.
+        /// </summary>
         private void BtnCancelar_Click(object? sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
         }
-
+        /// <summary>
+        /// Valida el valor de la opción seleccionada en el grupo "Es venenosa".
+        /// </summary>
+        /// <returns>True si es venenosa, false si no lo es.</returns>
         public bool ValidarVenenosa()
         {
             bool esVenenosa;
@@ -86,6 +111,10 @@ namespace WinFormsSegundoParcial
             return esVenenosa;
 
         }
+        /// <summary>
+        /// Crea un nuevo objeto Rana con los datos proporcionados en el formulario.
+        /// </summary>
+        /// <returns>Nuevo objeto Rana.</returns>
         public Rana CrearRana()
         {
             bool esPeludo = VerificarEsPeludo();
@@ -97,7 +126,10 @@ namespace WinFormsSegundoParcial
 
             return nuevaRana;
         }
-
+        /// <summary>
+        /// Valida el valor de la opción seleccionada en el grupo "Es arborícola".
+        /// </summary>
+        /// <returns>True si es arborícola, false si no lo es.</returns>
         public bool ValidarArboricola()
         {
             bool esArboricola;
@@ -116,7 +148,10 @@ namespace WinFormsSegundoParcial
             }
             return esArboricola;
         }
-
+        /// <summary>
+        /// Valida los datos específicos de una Rana y agrega excepciones a la lista.
+        /// </summary>
+        /// <param name="excepciones">Lista de excepciones.</param>
         public void ValidarDatosRana(List<Exception> excepciones)
         {
             if (!(rbtnArboricolaSi.Checked) && !(rbtnArboricolaNo.Checked))
@@ -128,6 +163,10 @@ namespace WinFormsSegundoParcial
                 excepciones.Add(new ExcepcionEsVenenosaVacio());
             }
         }
+        /// <summary>
+        /// Agrega la nueva Rana a la base de datos y a la lista de Ranas en el formulario principal.
+        /// </summary>
+        /// <param name="r">Nueva Rana a agregar.</param>
         public async Task AgregarRanaAsync(Rana r)
         {
             try
@@ -144,6 +183,10 @@ namespace WinFormsSegundoParcial
                 OperacionCompletada?.Invoke(false, $"Error al agregar la rana: {ex.Message}");
             }
         }
+        /// <summary>
+        /// Obtiene un ID adecuado para la nueva Rana.
+        /// </summary>
+        /// <returns>ID adecuado.</returns>
         public int ObtenerIdCorrecto()
         {
             var ultimaRana = FormPrincipalRef.listaRanasRefugiadas.animalesRefugiados.LastOrDefault();
@@ -157,7 +200,9 @@ namespace WinFormsSegundoParcial
                 return 1;
             }
         }
-
+        /// <summary>
+        /// Establece el estado de los botones de opción "Es venenosa" y "Es arborícola".
+        /// </summary>
         public void setRadioButtonsRana()
         {
             if (rbtnVenenosaSi.Checked)
@@ -177,7 +222,5 @@ namespace WinFormsSegundoParcial
                 rbtnArboricolaSi.Checked = false;
             }
         }
-
-
     }
 }
