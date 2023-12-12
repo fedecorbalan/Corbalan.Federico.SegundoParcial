@@ -149,7 +149,7 @@ namespace WinFormsSegundoParcial
         {
             var ultimoOrnitorrinco = FormPrincipalRef.listaOrnitorrincosRefugiados.animalesRefugiados.LastOrDefault();
 
-            if (!(modificar) && ultimoOrnitorrinco is not null)
+            if (ultimoOrnitorrinco is not null)
             {
                 return ultimoOrnitorrinco.Id + 1;
             }
