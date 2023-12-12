@@ -1,9 +1,10 @@
-![perfil-vendedor](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/4cacfb38-de69-4dfc-b63d-55fc678d9f0f)# CRUD - Refugio de Animales
+# CRUD - Refugio de Animales
 Este repositorio contiene un proyecto de C# que simula un refugio de animales. En el refugio se pueden alojar tres tipos de animales: Ornitorrincos, Ranas y Horneros.
 ## Sobre mi
 - Mi nombre es Federico Corbalán, tengo 18 años y actualmente me encuentro cursando la Tecnicatura en Programación en UTN FRA, con el objetivo de poder expandir mis horizontes para poder mejorar mis habilidades como programador.
 # Resumen
 - En este programa, lo que se busca es poder listar a los diferentes animales que se encuentran en el refugio en un formulario, al que se ingresa mediante un Login de Usuarios, el cual segun el correo y contraseña ingresados, se determinaran los permisos del formulario segun el perfíl del usuario, en este caso se presentan Vendedor, Supervisor y Administrador. En base a esto cabe resaltar que el Administrador puede administrar las todas las funciones del CRUD (Create, Read, Update, Delete), en el caso del Supervisor, puede ejecutar las funciones CRU (Create, Read, Update) y no puede realizar el Delete. Y por último, el Vendedor solo puede hacer el Read de los archivos.
+- Tambien me gustaria aclarar que los bloques de codigo documentados en formato XML se encuentran disponibles al descargar los archivos, no lo hago aqui ya que me gustaria ir directo al grano en este repositorio.
   
 ![image](https://github.com/fedecorbalan/Corbalan.Federico.PrimerParcial/assets/123754871/29d64494-dc0b-4302-a47a-b0765d65d423)
 
@@ -1656,8 +1657,32 @@ namespace WinFormsSegundoParcial
 }
 
 ```
+4. `FormEspera`: Este formulario solamente contiene un label que sirve a modo de pantalla de espera.
+```c#
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
-4. `FormAgregar`: Este formulario permite agregar un nuevo animal al refugio. El usuario puede modificar el nombre, si es peludo, y atributos específicos del animal que ha sido seleccionado en el visor, en este caso, este sirve como fomulario base, ya que FormAgregarRana, Ornitorrinco y Hornero heredan de este.
+namespace WinFormsSegundoParcial
+{
+    public partial class FormEspera : Form
+    {
+        public FormEspera()
+        {
+            InitializeComponent();
+        }
+    }
+}
+
+```
+
+5. `FormAgregar`: Este formulario permite agregar un nuevo animal al refugio. El usuario puede modificar el nombre, si es peludo, y atributos específicos del animal que ha sido seleccionado en el visor, en este caso, este sirve como fomulario base, ya que FormAgregarRana, Ornitorrinco y Hornero heredan de este.
    
 ```c#
 using Entidades;
