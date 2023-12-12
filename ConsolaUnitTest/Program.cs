@@ -15,8 +15,6 @@ namespace ConsolaUnitTest
         {
             Console.WriteLine("Ejecutando pruebas");
 
-            Pruebas pruebas = new Pruebas();
-
             Console.WriteLine("Ejecutando prueba Extremidades");
             Pruebas.TestComparacion1();
 
