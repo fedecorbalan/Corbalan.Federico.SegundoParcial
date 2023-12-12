@@ -23,6 +23,7 @@ namespace WinFormsSegundoParcial
         public FormModificar()
         {
             InitializeComponent();
+            setRadioButtons();
         }
 
 
@@ -31,15 +32,18 @@ namespace WinFormsSegundoParcial
             txtNombre.Text = a.nombre;
             if (a.esPeludo)
             {
-                txtEsPeludo.Text = "si";
+                rbtnPeludoSi.Checked = true;
             }
             else
             {
-                txtEsPeludo.Text = "no";
+                rbtnPeludoNo.Checked = true;
             }
         }
 
         public string LblTitulo { get { return lblTitulo.Text; } set { lblTitulo.Text = value; } }
+
+        public RadioButton RbtnPeludoSi { get {return rbtnPeludoSi; } set { rbtnPeludoSi = value; } }
+        public RadioButton RbtnPeludoNo { get { return rbtnPeludoNo; } set { rbtnPeludoNo = value; } }
 
         public Button BtnAceptar
         {
@@ -53,7 +57,6 @@ namespace WinFormsSegundoParcial
         }
         public string TxtNombre { get { return txtNombre.Text; } set { txtNombre.Text = value; } }
 
-        public string TxtPeludo { get { return txtEsPeludo.Text; } set { txtEsPeludo.Text = value; } }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
@@ -61,16 +64,19 @@ namespace WinFormsSegundoParcial
         }
         public bool VerificarEsPeludo()
         {
-            string textoPeludo = txtEsPeludo.Text.ToLower();
             bool esPeludo;
 
-            if (textoPeludo == "si")
+            if (rbtnPeludoSi.Checked)
             {
                 esPeludo = true;
             }
-            else
+            else if(rbtnPeludoNo.Checked)
             {
                 esPeludo = false;
+            }
+            else
+            {
+                throw new ExcepcionPeludoVacio();
             }
             return esPeludo;
         }
@@ -78,8 +84,6 @@ namespace WinFormsSegundoParcial
         {
             this.Close();
         }
-
-
         public void AvisoDeErrores(List<string> errores, List<Exception> excepciones)
         {
             foreach (Exception excepcion in excepciones)
@@ -98,18 +102,27 @@ namespace WinFormsSegundoParcial
             {
                 excepciones.Add(new ExcepcionNombreVacio());
             }
-            if (string.IsNullOrWhiteSpace(txtEsPeludo.Text))
+            if (!(rbtnPeludoSi.Checked) && !(rbtnPeludoNo.Checked))
             {
                 excepciones.Add(new ExcepcionPeludoVacio());
-            }
-            else if (txtEsPeludo.Text.ToLower() != "si" && txtEsPeludo.Text.ToLower() != "no")
-            {
-                excepciones.Add(new ExcepcionPeludoErroneo());
             }
         }
         private void FormModificar_Load(object sender, EventArgs e)
         {
 
         }
+        public void setRadioButtons()
+        {
+            if (rbtnPeludoSi.Checked)
+            {
+                rbtnPeludoNo.Checked = false;
+            }
+            else if (rbtnPeludoNo.Checked)
+            {
+                rbtnPeludoSi.Checked = false;
+            }
+        }
+
+
     }
 }

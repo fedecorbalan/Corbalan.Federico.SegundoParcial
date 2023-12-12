@@ -39,20 +39,20 @@ namespace WinFormsSegundoParcial
 
             if (h.esPeludo == true)
             {
-                TxtPeludo = "si";
+                RbtnPeludoSi.Checked = true;
             }
             else
             {
-                TxtPeludo = "no";
+                RbtnPeludoNo.Checked = false;
             }
 
             if (h.tieneAlas)
             {
-                txtAlas.Text = "si";
+                rbtnSi.Checked = true;
             }
             else
             {
-                txtAlas.Text = "no";
+                rbtnNo.Checked = true;
             }
 
             txtVelocidad.Text = h.velocidadKmH.ToString();
@@ -80,7 +80,11 @@ namespace WinFormsSegundoParcial
                 horneroAModificar.tieneAlas = ValidarTieneAlas();
                 horneroAModificar.velocidadKmH = int.Parse(txtVelocidad.Text);
 
+                MessageBox.Show("Modificando Hornero, presione aceptar para continuar");
+                await Task.Delay(1000);
+
                 await ModificarHorneroAsync(horneroAModificar);
+
                 OperacionCompletada?.Invoke(true, "Modificación de datos exitoso");
                 this.DialogResult = DialogResult.OK;
             }
@@ -109,11 +113,11 @@ namespace WinFormsSegundoParcial
         public bool ValidarTieneAlas()
         {
             bool tieneAlas;
-            if (txtAlas.Text == "si")
+            if (rbtnSi.Checked)
             {
                 tieneAlas = true;
             }
-            else if (txtAlas.Text == "no")
+            else if (rbtnNo.Checked)
             {
                 tieneAlas = false;
             }
@@ -126,13 +130,9 @@ namespace WinFormsSegundoParcial
 
         public void ValidarDatosHornero(List<Exception> excepciones)
         {
-            if (string.IsNullOrWhiteSpace(txtAlas.Text))
+            if (!(rbtnSi.Checked) && !(rbtnNo.Checked))
             {
                 excepciones.Add(new ExcepcionTieneAlasVacio());
-            }
-            else if (txtAlas.Text.ToLower() != "si" && txtAlas.Text.ToLower() != "no")
-            {
-                excepciones.Add(new ExcepcionTieneAlasErroneo());
             }
             if (string.IsNullOrWhiteSpace(txtVelocidad.Text))
             {

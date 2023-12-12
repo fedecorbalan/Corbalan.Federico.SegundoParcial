@@ -13,7 +13,7 @@ namespace PruebasUnitarias
         {
             //arrange
             Ornitorrinco ornitorrinco = new Ornitorrinco(true, true, true, Eespecies.Mamifero, "tomas");
-            Rana rana = new Rana(true, true, false, Eespecies.Anfibio, "marcos");
+            Rana rana = new Rana(true, true, "marcos", false, Eespecies.Anfibio);
 
             //act
             int resultado = OrdenarAnimalesPorCantidadDeExtremidades(ornitorrinco, rana);
@@ -29,8 +29,8 @@ namespace PruebasUnitarias
         {
             //arrange
             Ornitorrinco ornitorrinco = new Ornitorrinco(true, true, true, Eespecies.Mamifero, "tomas");
-            Rana rana = new Rana(true, true, false, Eespecies.Anfibio, "marcos");
-            
+            Rana rana = new Rana(true, true, "marcos", false, Eespecies.Anfibio);
+
             //act
             int resultado = OrdenarAnimalesPorEspecie(ornitorrinco, rana);
 

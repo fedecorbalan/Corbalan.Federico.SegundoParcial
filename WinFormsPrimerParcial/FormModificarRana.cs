@@ -38,31 +38,31 @@ namespace WinFormsSegundoParcial
 
             TxtNombre = r.nombre;
 
-            if (r.esPeludo == true)
+            if (r.esPeludo)
             {
-                TxtPeludo = "si";
+                RbtnPeludoSi.Checked = true;
             }
             else
             {
-                TxtPeludo = "no";
+                RbtnPeludoNo.Checked = true;
             }
 
             if (r.esVenenosa)
             {
-                txtVenenosa.Text = "si";
+                rbtnVenenosaSi.Checked = true;
             }
             else
             {
-                txtVenenosa.Text = "no";
+                rbtnVenenosaSi.Checked = false;
             }
 
             if (r.esArboricola)
             {
-                txtArboricola.Text = "si";
+                rbtnArboricolaSi.Checked = true;
             }
             else
             {
-                txtArboricola.Text = "no";
+                rbtnArboricolaNo.Checked = true;
             }
 
             ranaAModificar = r;
@@ -89,7 +89,11 @@ namespace WinFormsSegundoParcial
                 ranaAModificar.esVenenosa = ValidarVenenosa();
                 ranaAModificar.esArboricola = ValidarArboricola();
 
+                MessageBox.Show("Modificando Rana, presione aceptar para continuar");
+                await Task.Delay(1000);
+
                 await ModificarRanaAsync(ranaAModificar);
+
                 OperacionCompletada?.Invoke(true, "Modificación de datos exitoso");
                 this.DialogResult = DialogResult.OK;
             }
@@ -101,17 +105,17 @@ namespace WinFormsSegundoParcial
         public bool ValidarVenenosa()
         {
             bool esVenenosa;
-            if (txtVenenosa.Text.ToLower() == "si")
+            if (rbtnVenenosaSi.Checked)
             {
                 esVenenosa = true;
             }
-            else if (txtVenenosa.Text.ToLower() == "no")
+            else if (rbtnVenenosaNo.Checked)
             {
                 esVenenosa = false;
             }
             else
             {
-                throw new ExcepcionEsArboricolaErroneo();
+                throw new ExcepcionEsArboricolaVacio();
             }
             return esVenenosa;
 
@@ -120,11 +124,11 @@ namespace WinFormsSegundoParcial
         {
             bool esArboricola;
 
-            if (txtArboricola.Text.ToLower() == "si")
+            if (rbtnArboricolaSi.Checked)
             {
                 esArboricola = true;
             }
-            else if (txtArboricola.Text.ToLower() == "no")
+            else if (rbtnArboricolaNo.Checked)
             {
                 esArboricola = false;
             }
@@ -137,21 +141,13 @@ namespace WinFormsSegundoParcial
 
         public void ValidarDatosRana(List<Exception> excepciones)
         {
-            if (string.IsNullOrWhiteSpace(txtArboricola.Text))
+            if (!(rbtnArboricolaSi.Checked) && !(rbtnArboricolaNo.Checked))
             {
                 excepciones.Add(new ExcepcionEsArboricolaVacio());
             }
-            else if (txtArboricola.Text.ToLower() != "si" && txtArboricola.Text.ToLower() != "no")
-            {
-                excepciones.Add(new ExcepcionEsArboricolaErroneo());
-            }
-            if (string.IsNullOrWhiteSpace(txtVenenosa.Text))
+            if (!(rbtnVenenosaSi.Checked) && !(rbtnVenenosaNo.Checked))
             {
                 excepciones.Add(new ExcepcionEsVenenosaVacio());
-            }
-            else if (txtVenenosa.Text.ToLower() != "si" && txtVenenosa.Text.ToLower() != "no")
-            {
-                excepciones.Add(new ExcepcionEsVenenosaErroneo());
             }
         }
         public async Task ModificarRanaAsync(Rana r)

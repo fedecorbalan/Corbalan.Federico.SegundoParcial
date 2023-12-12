@@ -28,68 +28,108 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
-            txtTieneCola = new TextBox();
-            label2 = new Label();
-            txtOviparo = new TextBox();
+            groupBox3 = new GroupBox();
+            rbtnColaNo = new RadioButton();
+            rbtnColaSi = new RadioButton();
+            groupBox2 = new GroupBox();
+            rbtnOviparoNo = new RadioButton();
+            rbtnOviparoSi = new RadioButton();
+            groupBox3.SuspendLayout();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
-            // label1
+            // groupBox3
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(27, 250);
-            label1.Name = "label1";
-            label1.Size = new Size(101, 25);
-            label1.TabIndex = 19;
-            label1.Text = "Tiene Cola?";
+            groupBox3.Controls.Add(rbtnColaNo);
+            groupBox3.Controls.Add(rbtnColaSi);
+            groupBox3.Location = new Point(27, 367);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(293, 66);
+            groupBox3.TabIndex = 19;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Tiene Cola?";
             // 
-            // txtTieneCola
+            // rbtnColaNo
             // 
-            txtTieneCola.Location = new Point(27, 278);
-            txtTieneCola.Name = "txtTieneCola";
-            txtTieneCola.Size = new Size(293, 31);
-            txtTieneCola.TabIndex = 20;
+            rbtnColaNo.AutoSize = true;
+            rbtnColaNo.Location = new Point(168, 30);
+            rbtnColaNo.Name = "rbtnColaNo";
+            rbtnColaNo.Size = new Size(61, 29);
+            rbtnColaNo.TabIndex = 1;
+            rbtnColaNo.TabStop = true;
+            rbtnColaNo.Text = "No";
+            rbtnColaNo.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // rbtnColaSi
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(27, 333);
-            label2.Name = "label2";
-            label2.Size = new Size(106, 25);
-            label2.TabIndex = 21;
-            label2.Text = "Es Oviparo?";
+            rbtnColaSi.AutoSize = true;
+            rbtnColaSi.Location = new Point(68, 30);
+            rbtnColaSi.Name = "rbtnColaSi";
+            rbtnColaSi.Size = new Size(51, 29);
+            rbtnColaSi.TabIndex = 0;
+            rbtnColaSi.TabStop = true;
+            rbtnColaSi.Text = "Si";
+            rbtnColaSi.UseVisualStyleBackColor = true;
             // 
-            // txtOviparo
+            // groupBox2
             // 
-            txtOviparo.Location = new Point(27, 361);
-            txtOviparo.Name = "txtOviparo";
-            txtOviparo.Size = new Size(293, 31);
-            txtOviparo.TabIndex = 22;
+            groupBox2.Controls.Add(rbtnOviparoNo);
+            groupBox2.Controls.Add(rbtnOviparoSi);
+            groupBox2.Location = new Point(27, 269);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(293, 81);
+            groupBox2.TabIndex = 20;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Es Oviparo?";
+            // 
+            // rbtnOviparoNo
+            // 
+            rbtnOviparoNo.AutoSize = true;
+            rbtnOviparoNo.Location = new Point(168, 30);
+            rbtnOviparoNo.Name = "rbtnOviparoNo";
+            rbtnOviparoNo.Size = new Size(61, 29);
+            rbtnOviparoNo.TabIndex = 1;
+            rbtnOviparoNo.TabStop = true;
+            rbtnOviparoNo.Text = "No";
+            rbtnOviparoNo.UseVisualStyleBackColor = true;
+            // 
+            // rbtnOviparoSi
+            // 
+            rbtnOviparoSi.AutoSize = true;
+            rbtnOviparoSi.Location = new Point(68, 30);
+            rbtnOviparoSi.Name = "rbtnOviparoSi";
+            rbtnOviparoSi.Size = new Size(51, 29);
+            rbtnOviparoSi.TabIndex = 0;
+            rbtnOviparoSi.TabStop = true;
+            rbtnOviparoSi.Text = "Si";
+            rbtnOviparoSi.UseVisualStyleBackColor = true;
             // 
             // FormModificarOrnitorrinco
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(345, 488);
-            Controls.Add(txtOviparo);
-            Controls.Add(label2);
-            Controls.Add(txtTieneCola);
-            Controls.Add(label1);
+            Controls.Add(groupBox3);
+            Controls.Add(groupBox2);
             Name = "FormModificarOrnitorrinco";
             Text = "FormModificarOrnitorrinco";
-            Controls.SetChildIndex(label1, 0);
-            Controls.SetChildIndex(txtTieneCola, 0);
-            Controls.SetChildIndex(label2, 0);
-            Controls.SetChildIndex(txtOviparo, 0);
+            Controls.SetChildIndex(groupBox2, 0);
+            Controls.SetChildIndex(groupBox3, 0);
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Label label1;
-        private TextBox txtTieneCola;
-        private Label label2;
-        private TextBox txtOviparo;
+        private GroupBox groupBox3;
+        private RadioButton rbtnColaNo;
+        private RadioButton rbtnColaSi;
+        private GroupBox groupBox2;
+        private RadioButton rbtnOviparoNo;
+        private RadioButton rbtnOviparoSi;
     }
 }

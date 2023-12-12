@@ -37,30 +37,30 @@ namespace WinFormsSegundoParcial
 
             TxtNombre = o.nombre;
 
-            if (o.esPeludo == true)
+            if (o.esPeludo)
             {
-                TxtPeludo = "si";
+                RbtnPeludoSi.Checked = true;
             }
             else
             {
-                TxtPeludo = "no";
+                RbtnPeludoNo.Checked = true;
             }
             if (o.oviparo)
             {
-                txtOviparo.Text = "si";
+                rbtnOviparoSi.Checked = true;
             }
             else
             {
-                txtOviparo.Text = "no";
+                rbtnOviparoNo.Checked = true;
             }
 
             if (o.tieneCola)
             {
-                txtTieneCola.Text = "si";
+                rbtnColaSi.Checked = true;
             }
             else
             {
-                txtTieneCola.Text = "no";
+                rbtnColaNo.Checked = true;
             }
 
             ornitorrincoAModificar = o;
@@ -85,6 +85,9 @@ namespace WinFormsSegundoParcial
                 ornitorrincoAModificar.tieneCola = VerificarTieneCola();
                 ornitorrincoAModificar.oviparo = VerificarOviparo();
 
+                MessageBox.Show("Modificando Ornitorrinco, presione aceptar para continuar");
+                await Task.Delay(1000);
+
                 await ModificarOrnitorrincoAsync(ornitorrincoAModificar);
                 OperacionCompletada?.Invoke(true, "Modificacion de datos exitoso");
                 this.DialogResult = DialogResult.OK;
@@ -98,11 +101,11 @@ namespace WinFormsSegundoParcial
         {
             bool esOviparo;
 
-            if (txtOviparo.Text == "si")
+            if (rbtnOviparoSi.Checked)
             {
                 esOviparo = true;
             }
-            else if (txtOviparo.Text == "no")
+            else if (rbtnOviparoNo.Checked)
             {
                 esOviparo = false;
             }
@@ -116,11 +119,11 @@ namespace WinFormsSegundoParcial
         {
             bool tieneCola;
 
-            if (txtTieneCola.Text == "si")
+            if (rbtnColaSi.Checked)
             {
                 tieneCola = true;
             }
-            else if (txtTieneCola.Text == "no")
+            else if (rbtnColaNo.Checked)
             {
                 tieneCola = false;
             }
@@ -132,21 +135,13 @@ namespace WinFormsSegundoParcial
         }
         public void ValidarDatosOrnitorrinco(List<Exception> excepciones)
         {
-            if (string.IsNullOrWhiteSpace(txtTieneCola.Text))
+            if (!(rbtnColaSi.Checked) && !(rbtnColaNo.Checked))
             {
-                excepciones.Add(new ExcepcionEsArboricolaVacio());
+                excepciones.Add(new ExcepcionTieneColaVacio());
             }
-            else if (txtTieneCola.Text.ToLower() != "si" && txtTieneCola.Text.ToLower() != "no")
+            if (!(rbtnOviparoSi.Checked) && !(rbtnOviparoNo.Checked))
             {
-                excepciones.Add(new ExcepcionEsArboricolaErroneo());
-            }
-            if (string.IsNullOrWhiteSpace(txtOviparo.Text))
-            {
-                excepciones.Add(new ExcepcionEsVenenosaVacio());
-            }
-            else if (txtOviparo.Text.ToLower() != "si" && txtOviparo.Text.ToLower() != "no")
-            {
-                excepciones.Add(new ExcepcionEsVenenosaErroneo());
+                excepciones.Add(new ExcepcionEsOviparoVacio());
             }
         }
         public async Task ModificarOrnitorrincoAsync(Ornitorrinco o)

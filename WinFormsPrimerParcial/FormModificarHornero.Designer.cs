@@ -28,68 +28,87 @@
         /// </summary>
         private void InitializeComponent()
         {
-            txtAlas = new TextBox();
             txtVelocidad = new TextBox();
-            label1 = new Label();
             label2 = new Label();
+            groupBox1 = new GroupBox();
+            rbtnSi = new RadioButton();
+            rbtnNo = new RadioButton();
+            groupBox1.SuspendLayout();
             SuspendLayout();
-            // 
-            // txtAlas
-            // 
-            txtAlas.Location = new Point(27, 279);
-            txtAlas.Name = "txtAlas";
-            txtAlas.Size = new Size(293, 31);
-            txtAlas.TabIndex = 21;
             // 
             // txtVelocidad
             // 
-            txtVelocidad.Location = new Point(27, 361);
+            txtVelocidad.Location = new Point(27, 389);
             txtVelocidad.Name = "txtVelocidad";
             txtVelocidad.Size = new Size(293, 31);
             txtVelocidad.TabIndex = 22;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(27, 242);
-            label1.Name = "label1";
-            label1.Size = new Size(99, 25);
-            label1.TabIndex = 23;
-            label1.Text = "Tiene Alas?";
-            // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(27, 327);
+            label2.Location = new Point(27, 361);
             label2.Name = "label2";
             label2.Size = new Size(164, 25);
             label2.TabIndex = 24;
             label2.Text = "Velocidad en KM/H";
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(rbtnSi);
+            groupBox1.Controls.Add(rbtnNo);
+            groupBox1.Location = new Point(27, 254);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(293, 95);
+            groupBox1.TabIndex = 25;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Tiene Alas?";
+            // 
+            // rbtnSi
+            // 
+            rbtnSi.AutoSize = true;
+            rbtnSi.Location = new Point(55, 47);
+            rbtnSi.Name = "rbtnSi";
+            rbtnSi.Size = new Size(51, 29);
+            rbtnSi.TabIndex = 16;
+            rbtnSi.TabStop = true;
+            rbtnSi.Text = "Si";
+            rbtnSi.UseVisualStyleBackColor = true;
+            // 
+            // rbtnNo
+            // 
+            rbtnNo.AutoSize = true;
+            rbtnNo.Location = new Point(171, 47);
+            rbtnNo.Name = "rbtnNo";
+            rbtnNo.Size = new Size(61, 29);
+            rbtnNo.TabIndex = 17;
+            rbtnNo.TabStop = true;
+            rbtnNo.Text = "No";
+            rbtnNo.UseVisualStyleBackColor = true;
             // 
             // FormModificarHornero
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(350, 498);
+            Controls.Add(groupBox1);
             Controls.Add(label2);
-            Controls.Add(label1);
             Controls.Add(txtVelocidad);
-            Controls.Add(txtAlas);
             Name = "FormModificarHornero";
             Text = "FormModificarHornero";
-            Controls.SetChildIndex(txtAlas, 0);
             Controls.SetChildIndex(txtVelocidad, 0);
-            Controls.SetChildIndex(label1, 0);
             Controls.SetChildIndex(label2, 0);
+            Controls.SetChildIndex(groupBox1, 0);
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private TextBox txtAlas;
         private TextBox txtVelocidad;
-        private Label label1;
         private Label label2;
+        private GroupBox groupBox1;
+        private RadioButton rbtnSi;
+        private RadioButton rbtnNo;
     }
 }
