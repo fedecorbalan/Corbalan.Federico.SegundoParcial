@@ -18,14 +18,25 @@ namespace WinFormsSegundoParcial
     /// </summary>
     public partial class FormAgregarOrnitorrinco : FormAgregar
     {
+        /// <summary>
+        /// Nuevo Ornitorrinco creado.
+        /// </summary>
         public Ornitorrinco nuevoOrnitorrinco;
-
+        /// <summary>
+        /// Delegado para manejar la operación completada.
+        /// </summary>
         public delegate void OperacionCompletaEventHandler(bool exito, string mensaje);
-
+        /// <summary>
+        /// Evento que se dispara cuando la operación se completa.
+        /// </summary>
         public event OperacionCompletaEventHandler OperacionCompletada;
-
+        /// <summary>
+        /// Acceso a datos para interactuar con la base de datos.
+        /// </summary>;
         AccesoDatos ado = new AccesoDatos();
-
+        /// <summary>
+        /// Constructor de la clase FormAgregarOrnitorrinco.
+        /// </summary>
         public FormAgregarOrnitorrinco()
         {
             InitializeComponent();
@@ -36,6 +47,9 @@ namespace WinFormsSegundoParcial
             BtnCancelar.Click += BtnCancelar_Click;
             this.FormPrincipalRef = (FormPrincipal)Application.OpenForms["FormPrincipal"];
         }
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Aceptar.
+        /// </summary>
         private async void BtnAceptar_Click(object? sender, EventArgs e)
         {
             List<string> errores = new List<string>();
@@ -65,11 +79,17 @@ namespace WinFormsSegundoParcial
                 this.DialogResult = DialogResult.OK;
             }
         }
-
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Cancelar.
+        /// </summary>
         private void BtnCancelar_Click(object? sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
         }
+        /// <summary>
+        /// Crea un nuevo objeto Ornitorrinco con los datos proporcionados en el formulario.
+        /// </summary>
+        /// <returns>Nuevo objeto Ornitorrinco.</returns>
         public Ornitorrinco CrearOrnitorrinco()
         {
             string nombre = TxtNombre.ToString();
@@ -81,7 +101,10 @@ namespace WinFormsSegundoParcial
 
             return nuevoOrnitorrinco;
         }
-
+        /// <summary>
+        /// Valida el valor de la opción seleccionada en el grupo "Es ovíparo".
+        /// </summary>
+        /// <returns>True si es ovíparo, false si no lo es.</returns>
         public bool VerificarOviparo()
         {
             bool esOviparo;
@@ -100,6 +123,10 @@ namespace WinFormsSegundoParcial
             }
             return esOviparo;
         }
+        /// <summary>
+        /// Valida el valor de la opción seleccionada en el grupo "Tiene cola".
+        /// </summary>
+        /// <returns>True si tiene cola, false si no la tiene.</returns>
         public bool VerificarTieneCola()
         {
             bool tieneCola;
@@ -118,8 +145,10 @@ namespace WinFormsSegundoParcial
             }
             return tieneCola;
         }
-
-
+        /// <summary>
+        /// Valida los datos específicos del Ornitorrinco.
+        /// </summary>
+        /// <param name="excepciones">Lista de excepciones para agregar posibles errores de validación.</param>
         public void ValidarDatosOrnitorrinco(List<Exception> excepciones)
         {
             if (!(rbtnColaSi.Checked) && !(rbtnColaNo.Checked))
@@ -131,6 +160,11 @@ namespace WinFormsSegundoParcial
                 excepciones.Add(new ExcepcionEsOviparoVacio());
             }
         }
+        /// <summary>
+        /// Realiza la operación de agregar el Ornitorrinco de forma asíncrona.
+        /// </summary>
+        /// <param name="o">Ornitorrinco a agregar.</param>
+        /// <returns>Task.</returns>
         public async Task AgregarOrnitorrincoAsync(Ornitorrinco o)
         {
             try
@@ -148,6 +182,10 @@ namespace WinFormsSegundoParcial
             }
 
         }
+        /// <summary>
+        /// Obtiene el ID correcto para el nuevo Ornitorrinco a partir de la lista existente.
+        /// </summary>
+        /// <returns>ID correcto.</returns>
         public int ObtenerIdCorrecto()
         {
             var ultimoOrnitorrinco = FormPrincipalRef.listaOrnitorrincosRefugiados.animalesRefugiados.LastOrDefault();
@@ -162,7 +200,9 @@ namespace WinFormsSegundoParcial
                 return 1;
             }
         }
-
+        /// <summary>
+        /// Establece los radio buttons específicos para Ornitorrinco.
+        /// </summary>
         public void setRadioButtonsOrnitorrinco()
         {
             if (rbtnOviparoSi.Checked)
