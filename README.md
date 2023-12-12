@@ -4,7 +4,7 @@ Este repositorio contiene un proyecto de C# que simula un refugio de animales. E
 - Mi nombre es Federico Corbalán, tengo 18 años y actualmente me encuentro cursando la Tecnicatura en Programación en UTN FRA, con el objetivo de poder expandir mis horizontes para poder mejorar mis habilidades como programador.
 # Resumen
 - En este programa, lo que se busca es poder listar a los diferentes animales que se encuentran en el refugio en un formulario, al que se ingresa mediante un Login de Usuarios, el cual segun el correo y contraseña ingresados, se determinaran los permisos del formulario segun el perfíl del usuario, en este caso se presentan Vendedor, Supervisor y Administrador. En base a esto cabe resaltar que el Administrador puede administrar las todas las funciones del CRUD (Create, Read, Update, Delete), en el caso del Supervisor, puede ejecutar las funciones CRU (Create, Read, Update) y no puede realizar el Delete. Y por último, el Vendedor solo puede hacer el Read de los archivos.
-- Tambien me gustaria aclarar que los bloques de codigo documentados en formato XML se encuentran disponibles al descargar los archivos, no lo hago aqui ya que me gustaria ir directo al grano en este repositorio.
+- Tambien me gustaria aclarar que hay bloques de codigo que no estan documentados en este repositorio ya que no se han realizado cambios en ellos dentro del proyecto, aquellos que si presentan la documentacion si fueron modificados.
   
 ![image](https://github.com/fedecorbalan/Corbalan.Federico.PrimerParcial/assets/123754871/29d64494-dc0b-4302-a47a-b0765d65d423)
 
