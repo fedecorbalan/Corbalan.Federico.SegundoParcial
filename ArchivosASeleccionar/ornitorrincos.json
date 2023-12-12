@@ -33,12 +33,20 @@
       "Id": 5
     },
     {
-      "oviparo": true,
-      "tieneCola": true,
-      "esPeludo": true,
+      "oviparo": false,
+      "tieneCola": false,
+      "esPeludo": false,
       "especie": 0,
       "nombre": "raul",
       "Id": 6
+    },
+    {
+      "oviparo": true,
+      "tieneCola": false,
+      "esPeludo": false,
+      "especie": 0,
+      "nombre": "topacio",
+      "Id": 9
     }
   ]
 }
