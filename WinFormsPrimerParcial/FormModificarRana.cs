@@ -89,11 +89,12 @@ namespace WinFormsSegundoParcial
                 ranaAModificar.esVenenosa = ValidarVenenosa();
                 ranaAModificar.esArboricola = ValidarArboricola();
 
-                MessageBox.Show("Modificando Rana, presione aceptar para continuar");
-                await Task.Delay(1000);
+                FormEspera frmEspera = new FormEspera();
+                frmEspera.Show();
 
                 await ModificarRanaAsync(ranaAModificar);
 
+                frmEspera.Close();
                 OperacionCompletada?.Invoke(true, "Modificación de datos exitoso");
                 this.DialogResult = DialogResult.OK;
             }

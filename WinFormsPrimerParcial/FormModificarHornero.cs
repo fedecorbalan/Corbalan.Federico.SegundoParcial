@@ -80,11 +80,12 @@ namespace WinFormsSegundoParcial
                 horneroAModificar.tieneAlas = ValidarTieneAlas();
                 horneroAModificar.velocidadKmH = int.Parse(txtVelocidad.Text);
 
-                MessageBox.Show("Modificando Hornero, presione aceptar para continuar");
-                await Task.Delay(1000);
+                FormEspera frmEspera = new FormEspera();
+                frmEspera.Show();
 
                 await ModificarHorneroAsync(horneroAModificar);
 
+                frmEspera.Close();
                 OperacionCompletada?.Invoke(true, "Modificación de datos exitoso");
                 this.DialogResult = DialogResult.OK;
             }

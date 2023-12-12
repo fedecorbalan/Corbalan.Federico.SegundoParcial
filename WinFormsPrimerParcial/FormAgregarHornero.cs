@@ -50,12 +50,12 @@ namespace WinFormsSegundoParcial
             {
                 nuevoHornero = CrearHornero();
 
-                MessageBox.Show("Agregando Hornero, presione aceptar para continuar");
-
-                await Task.Delay(1000);
+                FormEspera frmEspera = new FormEspera();
+                frmEspera.Show();
 
                 await AgregarHorneroAsync(nuevoHornero);
 
+                frmEspera.Close();
                 MessageBox.Show("Agregado de datos exitoso");
 
                 OperacionCompletada?.Invoke(true, "Agregado de datos exitoso");

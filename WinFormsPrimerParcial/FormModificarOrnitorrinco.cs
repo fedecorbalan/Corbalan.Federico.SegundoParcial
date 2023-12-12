@@ -85,10 +85,12 @@ namespace WinFormsSegundoParcial
                 ornitorrincoAModificar.tieneCola = VerificarTieneCola();
                 ornitorrincoAModificar.oviparo = VerificarOviparo();
 
-                MessageBox.Show("Modificando Ornitorrinco, presione aceptar para continuar");
-                await Task.Delay(1000);
+                FormEspera frmEspera = new FormEspera();
+                frmEspera.Show();
 
                 await ModificarOrnitorrincoAsync(ornitorrincoAModificar);
+
+                frmEspera.Close();
                 OperacionCompletada?.Invoke(true, "Modificacion de datos exitoso");
                 this.DialogResult = DialogResult.OK;
             }

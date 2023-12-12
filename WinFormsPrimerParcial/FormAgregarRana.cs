@@ -51,14 +51,15 @@ namespace WinFormsSegundoParcial
             {
                 nuevaRana = CrearRana();
 
-                MessageBox.Show("Agregando Rana, presione aceptar para continuar");
+                FormEspera frmEspera = new FormEspera();
+                frmEspera.Show();
 
-                await Task.Delay(1000);
                 await AgregarRanaAsync(nuevaRana);
 
+                frmEspera.Close();
                 MessageBox.Show("Agregado de datos exitoso");
+                
                 OperacionCompletada?.Invoke(true, "Agregado de datos exitoso");
-
                 this.DialogResult = DialogResult.OK;
             }
         }

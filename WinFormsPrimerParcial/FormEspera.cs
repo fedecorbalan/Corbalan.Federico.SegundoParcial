@@ -16,9 +16,5 @@ namespace WinFormsSegundoParcial
         {
             InitializeComponent();
         }
-        public void Mostrar()
-        {
-
-        }
     }
 }
