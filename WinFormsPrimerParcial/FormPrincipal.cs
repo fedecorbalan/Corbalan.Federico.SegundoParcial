@@ -10,17 +10,36 @@ using WinFormsSegundoParcial;
 
 namespace WinFormsPrimerParcial
 {
-
+    /// <summary>
+    /// Clase del formulario principal de la aplicación.
+    /// </summary>
     public partial class FormPrincipal : Form
     {
+        /// <summary>
+        /// Listas de Ornitorrincos, Horneros y Ranas refugiadas.
+        /// </summary>
         public Refugio<Rana> listaRanasRefugiadas;
         public Refugio<Hornero> listaHornerosRefugiados;
         public Refugio<Ornitorrinco> listaOrnitorrincosRefugiados;
 
+        /// <summary>
+        /// Perfil del usuario actual.
+        /// </summary>
         public string perfilUsuario;
 
+        /// <summary>
+        /// Instancia de la clase de acceso a datos.
+        /// </summary>
         AccesoDatos ado = new AccesoDatos();
+       
+        /// <summary>
+        /// ListBox utilizado para mostrar información en el formulario.
+        /// </summary>
         public ListBox LstVisor { get; set; }
+
+        /// <summary>
+        /// Constructor de la clase FormPrincipal.
+        /// </summary>
         public FormPrincipal()
         {
             InitializeComponent();
@@ -30,6 +49,10 @@ namespace WinFormsPrimerParcial
             this.listaOrnitorrincosRefugiados = new Refugio<Ornitorrinco>();
             this.listaRanasRefugiadas = new Refugio<Rana>();
         }
+        /// <summary>
+        /// Constructor sobrecargado de la clase FormPrincipal.
+        /// </summary>
+        /// <param name="usuario">Usuario que ha iniciado sesión.</param>
         public FormPrincipal(Usuario usuario) : this()
         {
             MessageBox.Show($"Bienvenido, {usuario.nombre}");
@@ -37,11 +60,17 @@ namespace WinFormsPrimerParcial
             this.perfilUsuario = usuario.perfil;
 
         }
+        /// <summary>
+        /// Muestra la fecha actual en el formulario.
+        /// </summary>
         private void MostrarFechaActual()
         {
             DateTime fechaActual = DateTime.Now;
             lblDateTime.Text = fechaActual.ToString("dd/MM/yyyy");
         }
+        /// <summary>
+        /// Maneja el evento de clic en el botón "Agregar".
+        /// </summary>
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             if (perfilUsuario.ToLower() == "administrador" || perfilUsuario.ToLower() == "supervisor")
@@ -87,7 +116,9 @@ namespace WinFormsPrimerParcial
                 MessageBox.Show("Usted no es administrador ni supervisor, por lo tanto, no posee permisos para agregar elementos");
             }
         }
-
+        /// <summary>
+        /// Maneja el evento de clic en el botón "Modificar".
+        /// </summary>
         private void btnModificar_Click(object sender, EventArgs e)
         {
             if (perfilUsuario.ToLower() == "administrador" || perfilUsuario.ToLower() == "supervisor")
@@ -155,6 +186,9 @@ namespace WinFormsPrimerParcial
             }
         
         }
+        /// <summary>
+        /// Maneja el evento de clic en el botón "Eliminar".
+        /// </summary>
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             
@@ -218,10 +252,16 @@ namespace WinFormsPrimerParcial
                 MessageBox.Show("Selecciona un elemento para eliminar.");
             }
         }
+        /// <summary>
+        /// Maneja el evento Load.
+        /// </summary>
         private void FormPrincipal_Load(object sender, EventArgs e) 
         {
             
         }
+        /// <summary>
+        /// Maneja el evento de clic en el botón "Salir".
+        /// </summary>
         private void btnSalir_Click(object sender, EventArgs e)
         {
             DialogResult resultado = MessageBox.Show("¿Estas seguro que quieres salir?", "SALIR", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -236,6 +276,9 @@ namespace WinFormsPrimerParcial
                 MessageBox.Show("App no cerrada");
             }
         }
+        /// <summary>
+        /// Ordena la lista de animales por cantidad de extremidades y actualiza el visor.
+        /// </summary>
         private void btnOrdenar1_Click(object sender, EventArgs e)
         {
             listaOrnitorrincosRefugiados.animalesRefugiados.Sort((a1, a2) => listaOrnitorrincosRefugiados.OrdenarAnimalesPorCantidadDeExtremidades(a1, a2));
@@ -244,6 +287,9 @@ namespace WinFormsPrimerParcial
 
             ActualizarVisor();
         }
+        /// <summary>
+        /// Ordena la lista de animales por Especie y actualiza el visor.
+        /// </summary>
         private void btnOrdenar2_Click(object sender, EventArgs e)
         {
             listaOrnitorrincosRefugiados.animalesRefugiados.Sort((a1, a2) => listaOrnitorrincosRefugiados.OrdenarAnimalesPorEspecie(a1, a2));
@@ -252,6 +298,9 @@ namespace WinFormsPrimerParcial
 
             ActualizarVisor();
         }
+        /// <summary>
+        /// Actualiza el contenido del visor con la información de los animales.
+        /// </summary>
         private void ActualizarVisor()
         {
             lstVisor.Items.Clear();
@@ -269,6 +318,9 @@ namespace WinFormsPrimerParcial
                 lstVisor.Items.Add(hornero.ToString());
             }
         }
+        /// <summary>
+        /// Actualiza el contenido del visor con la información de las ranas.
+        /// </summary>
         private void ActualizarRanas()
         {
             lstVisor.Items.Clear();
@@ -277,6 +329,9 @@ namespace WinFormsPrimerParcial
                 lstVisor.Items.Add(rana.ToString());
             }
         }
+        /// <summary>
+        /// Actualiza el contenido del visor con la información de los horneros.
+        /// </summary>
         private void ActualizarHorneros()
         {
             lstVisor.Items.Clear();
@@ -285,6 +340,9 @@ namespace WinFormsPrimerParcial
                 lstVisor.Items.Add(h.ToString());
             }
         }
+        /// <summary>
+        /// Actualiza el contenido del visor con la información de los ornitorrincos.
+        /// </summary>
         private void ActualizarOrnitorrincos()
         {
             lstVisor.Items.Clear();
@@ -293,6 +351,9 @@ namespace WinFormsPrimerParcial
                 lstVisor.Items.Add(o.ToString());
             }
         }
+        /// <summary>
+        /// Maneja el resultado de una operación completa.
+        /// </summary>
         private void ManejarOperacionCompleta(bool exito, string mensaje)
         {
             if (exito)
@@ -304,6 +365,9 @@ namespace WinFormsPrimerParcial
                 MessageBox.Show($"{mensaje}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        /// <summary>
+        /// Abre un formulario para visualizar el contenido del archivo de registro llamado usuarios.log.
+        /// </summary>
         private void btnVisualizador_Click(object sender, EventArgs e)
         {
             string rutaArchivoLog = @"..\..\..\usuarios.log";
@@ -328,7 +392,9 @@ namespace WinFormsPrimerParcial
                 MessageBox.Show($"Error al abrir el archivo de registro: {ex.Message}");
             }
         }
-
+        /// <summary>
+        /// Abre el diálogo para seleccionar un archivo de entrada y carga la información.
+        /// </summary>
         private void btnArchivoEntrada_Click(object sender, EventArgs e)
         {
             if (openFileDialogDeserializar.ShowDialog() == DialogResult.OK)
@@ -354,6 +420,9 @@ namespace WinFormsPrimerParcial
                 }
             }
         }
+        /// <summary>
+        /// Abre el diálogo para seleccionar un archivo de salida y guarda la información.
+        /// </summary>
         private void btnArchivoSalida_Click(object sender, EventArgs e)
         {
             if (perfilUsuario.ToLower() == "administrador" || perfilUsuario.ToLower() == "supervisor")
@@ -382,16 +451,25 @@ namespace WinFormsPrimerParcial
                 MessageBox.Show("Usted es vendedor, por lo que solo puede leer los elementos, no guardarlos");
             }
         }
+        /// <summary>
+        /// Serializa la lista de ranas y guarda el contenido en un archivo, en este caso un JSON.
+        /// </summary>
         public void SerializarAArchivoRana(string rutaArchivo, Refugio<Rana> lista)
         {
             string json = JsonConvert.SerializeObject(lista, Formatting.Indented);
             File.WriteAllText(rutaArchivo, json);
         }
+        /// <summary>
+        /// Serializa la lista de ornitorrincos y guarda el contenido en un archivo, en este caso un JSON.
+        /// </summary>
         public void SerializarAArchivoOrnitorrinco(string rutaArchivo, Refugio<Ornitorrinco> lista)
         {
             string json = JsonConvert.SerializeObject(lista, Formatting.Indented);
             File.WriteAllText(rutaArchivo, json);
         }
+        /// <summary>
+        /// Serializa la lista de horneros y guarda el contenido en un archivo, en este caso un JSON.
+        /// </summary>
         public void SerializarAArchivoHornero(string rutaArchivo, Refugio<Hornero> lista)
         {
             string json = JsonConvert.SerializeObject(lista, Formatting.Indented);
