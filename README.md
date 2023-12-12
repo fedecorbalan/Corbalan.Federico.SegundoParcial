@@ -1,9 +1,9 @@
-# CRUD - Refugio de Animales
+![perfil-vendedor](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/4cacfb38-de69-4dfc-b63d-55fc678d9f0f)# CRUD - Refugio de Animales
 Este repositorio contiene un proyecto de C# que simula un refugio de animales. En el refugio se pueden alojar tres tipos de animales: Ornitorrincos, Ranas y Horneros.
 ## Sobre mi
 - Mi nombre es Federico Corbalán, tengo 18 años y actualmente me encuentro cursando la Tecnicatura en Programación en UTN FRA, con el objetivo de poder expandir mis horizontes para poder mejorar mis habilidades como programador.
 # Resumen
-- En este programa, lo que se busca es poder listar a los diferentes animales que se encuentran en el refugio en un formulario, al que se ingresa mediante un Login de Usuarios.
+- En este programa, lo que se busca es poder listar a los diferentes animales que se encuentran en el refugio en un formulario, al que se ingresa mediante un Login de Usuarios, el cual segun el correo y contraseña ingresados, se determinaran los permisos del formulario segun el perfíl del usuario, en este caso se presentan Vendedor, Supervisor y Administrador. En base a esto cabe resaltar que el Administrador puede administrar las todas las funciones del CRUD (Create, Read, Update, Delete), en el caso del Supervisor, puede ejecutar las funciones CRU (Create, Read, Update) y no puede realizar el Delete. Y por último, el Vendedor solo puede hacer el Read de los archivos.
   
 ![image](https://github.com/fedecorbalan/Corbalan.Federico.PrimerParcial/assets/123754871/29d64494-dc0b-4302-a47a-b0765d65d423)
 
@@ -3282,7 +3282,16 @@ namespace PruebasUnitarias
 
 ## Uso del Programa
 
-Puede ejecutar la aplicación y utilizar la ventana principal (`FormPrincipal`) para gestionar los animales en el refugio, obviamente luego del login. Se debe elegir el archivo al que quiere deserializar para poder ver los animales en el visor, al descargar este repositorio, usted puede encontrar en la carpeta ArchivosASeleccionar los archivos JSON que corresponden a los diferentes animales, pero en este caso, trae los datos existentes en la base de datos correspondiente al archivo seleccionado, sea ranas, ornitorrincos u horneros. Puede agregar nuevos animales, modificar sus atributos (no puede cambiar de especie) y eliminar animales. También, la aplicación permite ordenar la lista de animales por cantidad de extremidades y especie. Además cuenta con un visualizador de usuarios, el cual le brinda toda la informacion acerca de los usuarios que han ingresado con su cuenta al programa y la fecha y hora en la que lo hicieron.
+Puede ejecutar la aplicación y utilizar la ventana principal (`FormPrincipal`) para gestionar los animales en el refugio, obviamente luego del login, en donde se determina el perfil del usuario (Administrador, Supervisor y Vendedor), que determina las funciones que uno puede realizar. En todos los casos, se debe elegir el archivo al que quiere deserializar para poder ver los animales en el visor, al descargar este repositorio, usted puede encontrar en la carpeta ArchivosASeleccionar los archivos JSON que corresponden a los diferentes animales, pero en este caso, trae los datos existentes en la base de datos correspondiente al archivo seleccionado, sea ranas, ornitorrincos u horneros. En el caso de que seas Administrador o Supervisor, puede agregar nuevos animales y modificar sus atributos (no puede cambiar de especie) y en el caso de que sea Administrador, usted puede eliminar animales. También, la aplicación permite ordenar la lista de animales por cantidad de extremidades y especie. Además cuenta con un visualizador de usuarios, el cual le brinda toda la informacion acerca de los usuarios que han ingresado con su cuenta al programa y la fecha y hora en la que lo hicieron.
+
+## Uso Administrador
+[Link al Video del Uso del Administrador](https://youtu.be/_c-UK64gK3Y)
+
+## Uso Supervisor
+[Link al Video del Uso del Supervisor](https://youtu.be/eJId8DHYQKM)
+
+## Uso Vendedor
+https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/515a31a6-5c97-439b-8a4f-fc3bb003478b
 
 # Diagrama de clases
 ![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/7732a4d3-a236-4aa4-9dd5-efef80790d5b)
