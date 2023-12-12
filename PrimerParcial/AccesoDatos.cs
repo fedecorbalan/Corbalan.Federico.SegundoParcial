@@ -9,20 +9,35 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
+    /// <summary>
+    /// Clase que proporciona acceso a datos y realiza operaciones CRUD en la base de datos para las entidades Rana, Hornero y Ornitorrinco.
+    /// Implementa las interfaces ICrudRana, ICrudHornero e ICrudOrnitorrinco.
+    /// </summary>
     public class AccesoDatos: ICrudRana,ICrudHornero,ICrudOrnitorrinco
     {
         private SqlConnection conexion;
         private static string cadena_conexion;
         private SqlCommand comando;
         private SqlDataReader lector;
+
+        /// <summary>
+        /// Inicializa la cadena de conexión estática con el valor proporcionado en los recursos.
+        /// </summary>
         static AccesoDatos()
         {
             AccesoDatos.cadena_conexion = Properties.Resources.miConexion;
         }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase AccesoDatos con una conexión a la base de datos.
+        /// </summary>
         public AccesoDatos()
         {
             this.conexion = new SqlConnection(AccesoDatos.cadena_conexion);
         }
+        /// <summary>
+        /// Realiza una prueba de conexión a la base de datos.
+        /// </summary>
+        /// <returns>True si la conexión es exitosa, false en caso contrario.</returns>
         public bool PruebaConexion()
         {
             bool retorno = false;
@@ -45,7 +60,11 @@ namespace Entidades
             }
             return retorno;
         }
-
+        /// <summary>
+        /// Obtiene la lista de ranas desde la base de datos y la asigna a la lista proporcionada.
+        /// </summary>
+        /// <param name="lista">Lista de ranas existente.</param>
+        /// <returns>La lista de ranas actualizada.</returns>
         public Refugio<Rana> ObtenerListaRanas(Refugio<Rana> lista)
         {
             try
@@ -81,6 +100,11 @@ namespace Entidades
             }
             return lista;
         }
+        /// <summary>
+        /// Obtiene la lista de horneros desde la base de datos y la asigna a la lista proporcionada.
+        /// </summary>
+        /// <param name="lista">Lista de horneros existente.</param>
+        /// <returns>La lista de horneros actualizada.</returns>
         public Refugio<Hornero> ObtenerListaHorneros(Refugio<Hornero> lista)
         {
             try
@@ -116,6 +140,11 @@ namespace Entidades
             }
             return lista;
         }
+        /// <summary>
+        /// Obtiene la lista de ornitorrincos desde la base de datos y la asigna a la lista proporcionada.
+        /// </summary>
+        /// <param name="lista">Lista de ornitorrincos existente.</param>
+        /// <returns>La lista de ornitorrincos actualizada.</returns>
         public Refugio<Ornitorrinco> ObtenerListaOrnitorrincos(Refugio<Ornitorrinco> lista)
         {
             try
@@ -151,7 +180,10 @@ namespace Entidades
             }
             return lista;
         }
-       
+        /// <summary>
+        /// Agrega una rana a la base de datos.
+        /// </summary>
+        /// <param name="r">La rana a agregar.</param>
         public bool AgregarRana(Rana r)
         {
             bool retorno = false;
@@ -199,8 +231,10 @@ namespace Entidades
             }
             return retorno;
         }
-
-
+        /// <summary>
+        /// Agrega un hornero a la base de datos.
+        /// </summary>
+        /// <param name="h">El hornero a agregar.</param>
         public bool AgregarHornero(Hornero h)
         {
             bool retorno = false;
@@ -249,6 +283,10 @@ namespace Entidades
             }
             return retorno;
         }
+        /// <summary>
+        /// Agrega un ornitorrinco a la base de datos.
+        /// </summary>
+        /// <param name="o">El ornitorrinco a agregar.</param>
         public bool AgregarOrnitorrinco(Ornitorrinco o)
         {
             bool retorno = false;
@@ -298,9 +336,11 @@ namespace Entidades
             }
             return retorno;
         }
-
-
-
+        /// <summary>
+        /// Modifica una rana en la base de datos.
+        /// </summary>
+        /// <param name="r">La rana a modificar.</param>
+        /// <returns>True si se modificó correctamente, false en caso contrario.</returns>
         public bool ModificarRana(Rana r)
         {
             bool retorno = false;
@@ -340,7 +380,11 @@ namespace Entidades
             }
             return retorno;
         }
-
+        /// <summary>
+        /// Modifica un hornero en la base de datos.
+        /// </summary>
+        /// <param name="h">El hornero a modificar.</param>
+        /// <returns>True si se modificó correctamente, false en caso contrario.</returns>
         public bool ModificarHornero(Hornero h)
         {
             bool retorno = false;
@@ -384,7 +428,11 @@ namespace Entidades
         }
 
 
-
+        /// <summary>
+        /// Modifica un ornitorrinco en la base de datos.
+        /// </summary>
+        /// <param name="o">El ornitorrinco a modificar.</param>
+        /// <returns>True si se modificó correctamente, false en caso contrario.</returns>
         public bool ModificarOrnitorrinco(Ornitorrinco o)
         {
             bool retorno = false;
@@ -424,6 +472,11 @@ namespace Entidades
             }
             return retorno;
         }
+        /// <summary>
+        /// Elimina una rana de la base de datos.
+        /// </summary>
+        /// <param name="r">La rana a eliminar.</param>
+        /// <returns>True si se eliminó correctamente, false en caso contrario.</returns>
         public bool EliminarRana(Rana r)
         {
             bool retorno = false;
@@ -455,6 +508,11 @@ namespace Entidades
             }
             return retorno;
         }
+        /// <summary>
+        /// Elimina un hornero de la base de datos.
+        /// </summary>
+        /// <param name="h">El hornero a eliminar.</param>
+        /// <returns>True si se eliminó correctamente, false en caso contrario.</returns>
         public bool EliminarHornero(Hornero h)
         {
             bool retorno = false;
@@ -485,6 +543,11 @@ namespace Entidades
             }
             return retorno;
         }
+        /// <summary>
+        /// Elimina un ornitorrinco de la base de datos.
+        /// </summary>
+        /// <param name="o">El ornitorrinco a eliminar.</param>
+        /// <returns>True si se eliminó correctamente, false en caso contrario.</returns>
         public bool EliminarOrnitorrinco(Ornitorrinco o)
         {
             bool retorno = false;
