@@ -134,7 +134,7 @@ namespace WinFormsSegundoParcial
             }
             else
             {
-                throw new ExcepcionEsArboricolaErroneo();
+                throw new ExcepcionEsArboricolaVacio();
             }
             return esArboricola;
         }

@@ -7,7 +7,6 @@ public enum Eespecies
     Ave,
     Anfibio
 }
-
 public interface ICrudRana
 {
     public Refugio<Rana> ObtenerListaRanas(Refugio<Rana> lista);

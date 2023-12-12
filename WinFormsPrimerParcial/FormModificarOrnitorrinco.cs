@@ -111,7 +111,7 @@ namespace WinFormsSegundoParcial
             }
             else
             {
-                throw new ExcepcionEsOviparoErroneo();
+                throw new ExcepcionEsOviparoVacio();
             }
             return esOviparo;
         }

@@ -123,7 +123,7 @@ namespace WinFormsSegundoParcial
             }
             else
             {
-                throw new ExcepcionTieneAlasErroneo();
+                throw new ExcepcionTieneAlasVacio();
             }
             return tieneAlas;
         }
