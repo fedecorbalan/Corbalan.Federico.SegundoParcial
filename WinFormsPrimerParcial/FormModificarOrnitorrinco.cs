@@ -13,16 +13,30 @@ using WinFormsPrimerParcial;
 
 namespace WinFormsSegundoParcial
 {
+    /// <summary>
+    /// Formulario para la modificación de datos de un Ornitorrinco.
+    /// </summary>
     public partial class FormModificarOrnitorrinco : FormModificar
     {
+        /// <summary>
+        /// Ornitorrinco que se va a modificar.
+        /// </summary>
         public Ornitorrinco ornitorrincoAModificar;
-
+        /// <summary>
+        /// Delegado para manejar eventos de operación completada.
+        /// </summary>
         public delegate void OperacionCompletaEventHandler(bool exito, string mensaje);
-
+        /// <summary>
+        /// Evento que se dispara cuando se completa una operación.
+        /// </summary>
         public event OperacionCompletaEventHandler OperacionCompletada;
-
+        /// <summary>
+        /// Acceso a datos para interactuar con la base de datos.
+        /// </summary>
         AccesoDatos ado = new AccesoDatos();
-
+        /// <summary>
+        /// Constructor de la clase FormModificarOrnitorrinco.
+        /// </summary>
         public FormModificarOrnitorrinco()
         {
             InitializeComponent();
@@ -31,6 +45,10 @@ namespace WinFormsSegundoParcial
             BtnCancelar.Click += BtnCancelar_Click;
             this.FormPrincipalRef = (FormPrincipal)Application.OpenForms["FormPrincipal"];
         }
+        /// <summary>
+        /// Constructor sobrecargado de la clase FormModificarOrnitorrinco.
+        /// </summary>
+        /// <param name="o">Ornitorrinco que se va a modificar.</param>
         public FormModificarOrnitorrinco(Ornitorrinco o) : this()
         {
             LblTitulo = "Modificar Ornitorrinco";
@@ -65,6 +83,9 @@ namespace WinFormsSegundoParcial
 
             ornitorrincoAModificar = o;
         }
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Aceptar.
+        /// </summary>
         private async void BtnAceptar_Click(object? sender, EventArgs e)
         {
             List<string> errores = new List<string>();
@@ -95,10 +116,17 @@ namespace WinFormsSegundoParcial
                 this.DialogResult = DialogResult.OK;
             }
         }
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Cancelar.
+        /// </summary>
         private void BtnCancelar_Click(object? sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
         }
+        /// <summary>
+        /// Valida si el Ornitorrinco es Oviparo.
+        /// </summary>
+        /// <returns>True si es Oviparo, False si no.</returns>
         public bool VerificarOviparo()
         {
             bool esOviparo;
@@ -117,6 +145,10 @@ namespace WinFormsSegundoParcial
             }
             return esOviparo;
         }
+        /// <summary>
+        /// Valida si el Ornitorrinco tiene cola.
+        /// </summary>
+        /// <returns>True si tiene cola, False si no.</returns>
         public bool VerificarTieneCola()
         {
             bool tieneCola;
@@ -135,6 +167,10 @@ namespace WinFormsSegundoParcial
             }
             return tieneCola;
         }
+        /// <summary>
+        /// Valida los datos específicos del Ornitorrinco.
+        /// </summary>
+        /// <param name="excepciones">Lista de excepciones.</param>
         public void ValidarDatosOrnitorrinco(List<Exception> excepciones)
         {
             if (!(rbtnColaSi.Checked) && !(rbtnColaNo.Checked))
@@ -146,6 +182,11 @@ namespace WinFormsSegundoParcial
                 excepciones.Add(new ExcepcionEsOviparoVacio());
             }
         }
+        /// <summary>
+        /// Método asincrónico para modificar un Ornitorrinco en la base de datos.
+        /// </summary>
+        /// <param name="o">Ornitorrinco a modificar.</param>
+        /// <returns>Task.</returns>
         public async Task ModificarOrnitorrincoAsync(Ornitorrinco o)
         {
             try

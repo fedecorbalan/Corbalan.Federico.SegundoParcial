@@ -13,15 +13,30 @@ using WinFormsPrimerParcial;
 
 namespace WinFormsSegundoParcial
 {
+    /// <summary>
+    /// Formulario para la modificación de datos de un Hornero.
+    /// </summary>
     public partial class FormModificarHornero : FormModificar
     {
+        /// <summary>
+        /// Hornero que se va a modificar.
+        /// </summary>
         public Hornero horneroAModificar;
-
+        /// <summary>
+        /// Delegado para manejar eventos de operación completada.
+        /// </summary>
         public delegate void OperacionCompletaEventHandler(bool exito, string mensaje);
-
+        /// <summary>
+        /// Evento que se dispara cuando se completa una operación.
+        /// </summary>
         public event OperacionCompletaEventHandler OperacionCompletada;
-
+        /// <summary>
+        /// Acceso a datos para interactuar con la base de datos.
+        /// </summary>
         AccesoDatos ado = new AccesoDatos();
+        /// <summary>
+        /// Constructor de la clase FormModificarHornero.
+        /// </summary>
         public FormModificarHornero()
         {
             InitializeComponent();
@@ -31,6 +46,10 @@ namespace WinFormsSegundoParcial
             BtnCancelar.Click += BtnCancelar_Click;
             this.FormPrincipalRef = (FormPrincipal)Application.OpenForms["FormPrincipal"];
         }
+        /// <summary>
+        /// Constructor sobrecargado de la clase FormModificarHornero.
+        /// </summary>
+        /// <param name="h">Hornero que se va a modificar.</param>
         public FormModificarHornero(Hornero h) : this()
         {
             LblTitulo = "Modificar Hornero";
@@ -59,7 +78,9 @@ namespace WinFormsSegundoParcial
 
             horneroAModificar = h;
         }
-
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Aceptar.
+        /// </summary>
         private async void BtnAceptar_Click(object? sender, EventArgs e)
         {
             List<string> errores = new List<string>();
@@ -90,11 +111,18 @@ namespace WinFormsSegundoParcial
                 this.DialogResult = DialogResult.OK;
             }
         }
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Cancelar.
+        /// </summary>
         private void BtnCancelar_Click(object? sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
         }
-
+        /// <summary>
+        /// Método asincrónico para modificar un Hornero en la base de datos.
+        /// </summary>
+        /// <param name="h">Hornero a modificar.</param>
+        /// <returns>Task.</returns>
         public async Task ModificarHorneroAsync(Hornero h)
         {
             try
@@ -110,7 +138,10 @@ namespace WinFormsSegundoParcial
                 OperacionCompletada?.Invoke(false, $"Error al modificar el hornero: {ex.Message}");
             }
         }
-
+        /// <summary>
+        /// Valida si el Hornero tiene alas.
+        /// </summary>
+        /// <returns>True si tiene alas, False si no.</returns>
         public bool ValidarTieneAlas()
         {
             bool tieneAlas;
@@ -128,7 +159,10 @@ namespace WinFormsSegundoParcial
             }
             return tieneAlas;
         }
-
+        /// <summary>
+        /// Valida los datos específicos del Hornero.
+        /// </summary>
+        /// <param name="excepciones">Lista de excepciones.</param>
         public void ValidarDatosHornero(List<Exception> excepciones)
         {
             if (!(rbtnSi.Checked) && !(rbtnNo.Checked))
