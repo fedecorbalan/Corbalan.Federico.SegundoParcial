@@ -1,4 +1,3 @@
-
 using Entidades;
 using Newtonsoft.Json;
 using PrimerParcial;
@@ -31,7 +30,7 @@ namespace WinFormsPrimerParcial
         /// Instancia de la clase de acceso a datos.
         /// </summary>
         AccesoDatos ado = new AccesoDatos();
-       
+
         /// <summary>
         /// ListBox utilizado para mostrar información en el formulario.
         /// </summary>
@@ -184,14 +183,14 @@ namespace WinFormsPrimerParcial
             {
                 MessageBox.Show("Usted no es administrador ni supervisor, por lo tanto, no posee permisos para modificar elementos");
             }
-        
+
         }
         /// <summary>
         /// Maneja el evento de clic en el botón "Eliminar".
         /// </summary>
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            
+
             int selectedIndex = lstVisor.SelectedIndex;
 
             if (selectedIndex >= 0)
@@ -255,9 +254,9 @@ namespace WinFormsPrimerParcial
         /// <summary>
         /// Maneja el evento Load.
         /// </summary>
-        private void FormPrincipal_Load(object sender, EventArgs e) 
+        private void FormPrincipal_Load(object sender, EventArgs e)
         {
-            
+
         }
         /// <summary>
         /// Maneja el evento de clic en el botón "Salir".
@@ -292,10 +291,9 @@ namespace WinFormsPrimerParcial
         /// </summary>
         private void btnOrdenar2_Click(object sender, EventArgs e)
         {
-            listaOrnitorrincosRefugiados.animalesRefugiados.Sort((a1, a2) => listaOrnitorrincosRefugiados.OrdenarAnimalesPorEspecie(a1, a2));
-            listaRanasRefugiadas.animalesRefugiados.Sort((a1, a2) => listaRanasRefugiadas.OrdenarAnimalesPorEspecie(a1, a2));
-            listaHornerosRefugiados.animalesRefugiados.Sort((a1, a2) => listaOrnitorrincosRefugiados.OrdenarAnimalesPorEspecie(a1, a2));
-
+            listaHornerosRefugiados.OrdenarAnimalesPorNombre();
+            listaOrnitorrincosRefugiados.OrdenarAnimalesPorNombre();
+            listaRanasRefugiadas.OrdenarAnimalesPorNombre();
             ActualizarVisor();
         }
         /// <summary>
@@ -409,7 +407,7 @@ namespace WinFormsPrimerParcial
                     ActualizarRanas();
                 }
                 else if (archivoSeleccionado == "ornitorrincos.json")
-                { 
+                {
                     ado.ObtenerListaOrnitorrincos(listaOrnitorrincosRefugiados);
                     ActualizarOrnitorrincos();
                 }

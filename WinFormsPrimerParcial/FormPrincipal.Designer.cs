@@ -126,7 +126,7 @@
             btnOrdenar2.Name = "btnOrdenar2";
             btnOrdenar2.Size = new Size(160, 119);
             btnOrdenar2.TabIndex = 7;
-            btnOrdenar2.Text = "Ordenar por Especie";
+            btnOrdenar2.Text = "Ordenar por Nombre";
             btnOrdenar2.UseVisualStyleBackColor = false;
             btnOrdenar2.Click += btnOrdenar2_Click;
             // 

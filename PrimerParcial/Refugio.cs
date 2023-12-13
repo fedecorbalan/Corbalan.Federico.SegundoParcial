@@ -106,28 +106,7 @@ namespace Entidades
             }
 
         }
-        /// <summary>
-        /// Ordena los animales por especie.
-        /// </summary>
-        /// <param name="a1">Primer animal a comparar.</param>
-        /// <param name="a2">Segundo animal a comparar.</param>
-        /// <returns>0 si son de la misma especie, 1 si a1 es de una especie mayor, -1 si a2 es de una especie mayor.</returns>
-        public int OrdenarAnimalesPorEspecie(Animal a1, Animal a2)
-        {
-            if (a1.especie == a2.especie)
-            {
-                return 0;
-            }
-            else if (a1.especie > a2.especie)
-            {
-                return 1;
-            }
-            else
-            {
-                return -1;
-            }
-        }
-
+        
         /// <summary>
         /// Agrega un animal al refugio.
         /// </summary>
@@ -152,6 +131,12 @@ namespace Entidades
                 throw new IndexOutOfRangeException("El índice está fuera de rango.");
             }
         }
-
+        /// <summary>
+        /// Ordena los animales en orden alfabetico.
+        /// </summary>
+        public void OrdenarAnimalesPorNombre()
+        {
+            animalesRefugiados.Sort((a1, a2) => String.Compare(a1.nombre, a2.nombre, StringComparison.Ordinal));
+        }
     }
 }
