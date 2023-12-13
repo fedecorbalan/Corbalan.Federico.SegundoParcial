@@ -287,7 +287,7 @@ namespace WinFormsPrimerParcial
             ActualizarVisor();
         }
         /// <summary>
-        /// Ordena la lista de animales por Especie y actualiza el visor.
+        /// Ordena la lista de animales por Nombre y actualiza el visor.
         /// </summary>
         private void btnOrdenar2_Click(object sender, EventArgs e)
         {
