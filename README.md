@@ -1,9 +1,10 @@
-![perfil-vendedor](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/4cacfb38-de69-4dfc-b63d-55fc678d9f0f)# CRUD - Refugio de Animales
+# CRUD - Refugio de Animales
 Este repositorio contiene un proyecto de C# que simula un refugio de animales. En el refugio se pueden alojar tres tipos de animales: Ornitorrincos, Ranas y Horneros.
 ## Sobre mi
 - Mi nombre es Federico Corbalán, tengo 18 años y actualmente me encuentro cursando la Tecnicatura en Programación en UTN FRA, con el objetivo de poder expandir mis horizontes para poder mejorar mis habilidades como programador.
 # Resumen
 - En este programa, lo que se busca es poder listar a los diferentes animales que se encuentran en el refugio en un formulario, al que se ingresa mediante un Login de Usuarios, el cual segun el correo y contraseña ingresados, se determinaran los permisos del formulario segun el perfíl del usuario, en este caso se presentan Vendedor, Supervisor y Administrador. En base a esto cabe resaltar que el Administrador puede administrar las todas las funciones del CRUD (Create, Read, Update, Delete), en el caso del Supervisor, puede ejecutar las funciones CRU (Create, Read, Update) y no puede realizar el Delete. Y por último, el Vendedor solo puede hacer el Read de los archivos.
+- Tambien me gustaria aclarar que hay bloques de codigo que no estan documentados en este repositorio ya que no se han realizado cambios en ellos dentro del proyecto, aquellos que si presentan la documentacion si fueron modificados.
   
 ![image](https://github.com/fedecorbalan/Corbalan.Federico.PrimerParcial/assets/123754871/29d64494-dc0b-4302-a47a-b0765d65d423)
 
@@ -1153,17 +1154,36 @@ using WinFormsSegundoParcial;
 
 namespace WinFormsPrimerParcial
 {
-
+    /// <summary>
+    /// Clase del formulario principal de la aplicación.
+    /// </summary>
     public partial class FormPrincipal : Form
     {
+        /// <summary>
+        /// Listas de Ornitorrincos, Horneros y Ranas refugiadas.
+        /// </summary>
         public Refugio<Rana> listaRanasRefugiadas;
         public Refugio<Hornero> listaHornerosRefugiados;
         public Refugio<Ornitorrinco> listaOrnitorrincosRefugiados;
 
+        /// <summary>
+        /// Perfil del usuario actual.
+        /// </summary>
         public string perfilUsuario;
 
+        /// <summary>
+        /// Instancia de la clase de acceso a datos.
+        /// </summary>
         AccesoDatos ado = new AccesoDatos();
+       
+        /// <summary>
+        /// ListBox utilizado para mostrar información en el formulario.
+        /// </summary>
         public ListBox LstVisor { get; set; }
+
+        /// <summary>
+        /// Constructor de la clase FormPrincipal.
+        /// </summary>
         public FormPrincipal()
         {
             InitializeComponent();
@@ -1173,6 +1193,10 @@ namespace WinFormsPrimerParcial
             this.listaOrnitorrincosRefugiados = new Refugio<Ornitorrinco>();
             this.listaRanasRefugiadas = new Refugio<Rana>();
         }
+        /// <summary>
+        /// Constructor sobrecargado de la clase FormPrincipal.
+        /// </summary>
+        /// <param name="usuario">Usuario que ha iniciado sesión.</param>
         public FormPrincipal(Usuario usuario) : this()
         {
             MessageBox.Show($"Bienvenido, {usuario.nombre}");
@@ -1180,11 +1204,17 @@ namespace WinFormsPrimerParcial
             this.perfilUsuario = usuario.perfil;
 
         }
+        /// <summary>
+        /// Muestra la fecha actual en el formulario.
+        /// </summary>
         private void MostrarFechaActual()
         {
             DateTime fechaActual = DateTime.Now;
             lblDateTime.Text = fechaActual.ToString("dd/MM/yyyy");
         }
+        /// <summary>
+        /// Maneja el evento de clic en el botón "Agregar".
+        /// </summary>
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             if (perfilUsuario.ToLower() == "administrador" || perfilUsuario.ToLower() == "supervisor")
@@ -1211,17 +1241,14 @@ namespace WinFormsPrimerParcial
                             if (nuevoAnimal is Rana)
                             {
                                 listaRanasRefugiadas.AgregarAnimal((Rana)nuevoAnimal);
-
                             }
                             else if (nuevoAnimal is Hornero)
                             {
                                 listaHornerosRefugiados.AgregarAnimal((Hornero)nuevoAnimal);
-
                             }
                             else if (nuevoAnimal is Ornitorrinco)
                             {
                                 listaOrnitorrincosRefugiados.AgregarAnimal((Ornitorrinco)nuevoAnimal);
-
                             }
                         }
                     }
@@ -1233,7 +1260,9 @@ namespace WinFormsPrimerParcial
                 MessageBox.Show("Usted no es administrador ni supervisor, por lo tanto, no posee permisos para agregar elementos");
             }
         }
-
+        /// <summary>
+        /// Maneja el evento de clic en el botón "Modificar".
+        /// </summary>
         private void btnModificar_Click(object sender, EventArgs e)
         {
             if (perfilUsuario.ToLower() == "administrador" || perfilUsuario.ToLower() == "supervisor")
@@ -1301,17 +1330,17 @@ namespace WinFormsPrimerParcial
             }
         
         }
-        private void MostrarMensajeID(int idAnimal)
-        {
-            MessageBox.Show($"ID del animal seleccionado: {idAnimal}", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
+        /// <summary>
+        /// Maneja el evento de clic en el botón "Eliminar".
+        /// </summary>
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             
             int selectedIndex = lstVisor.SelectedIndex;
-            if (perfilUsuario.ToLower() == "administrador")
+
+            if (selectedIndex >= 0)
             {
-                if (selectedIndex >= 0)
+                if (perfilUsuario.ToLower() == "administrador")
                 {
                     DialogResult resultado = MessageBox.Show("¿Esta seguro que desea eliminar el registro?\nEsto tambien lo eliminara de la base de datos", "Pregunta", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (resultado == DialogResult.Yes)
@@ -1326,6 +1355,7 @@ namespace WinFormsPrimerParcial
                             {
                                 listaRanasRefugiadas.animalesRefugiados.RemoveAt(selectedIndex);
                                 lstVisor.Items.RemoveAt(selectedIndex);
+                                MessageBox.Show("Rana eliminada");
                             }
                         }
                         else if (selectedIndex < listaRanasRefugiadas.animalesRefugiados.Count + listaHornerosRefugiados.animalesRefugiados.Count)
@@ -1338,6 +1368,7 @@ namespace WinFormsPrimerParcial
                             {
                                 listaHornerosRefugiados.animalesRefugiados.RemoveAt(selectedIndex);
                                 lstVisor.Items.RemoveAt(selectedIndex);
+                                MessageBox.Show("Hornero eliminado");
                             }
                         }
                         else
@@ -1350,25 +1381,31 @@ namespace WinFormsPrimerParcial
                             {
                                 listaOrnitorrincosRefugiados.animalesRefugiados.RemoveAt(selectedIndex);
                                 lstVisor.Items.RemoveAt(selectedIndex);
+                                MessageBox.Show("Ornitorrinco Eliminado");
                             }
                         }
                     }
-                    else
-                    {
-                        MessageBox.Show("Selecciona un elemento para eliminar.");
-                    }
-
                 }
                 else
                 {
                     MessageBox.Show("Usted no es administrador por lo tanto, no posee permisos para eliminar elementos");
                 }
             }
+            else
+            {
+                MessageBox.Show("Selecciona un elemento para eliminar.");
+            }
         }
+        /// <summary>
+        /// Maneja el evento Load.
+        /// </summary>
         private void FormPrincipal_Load(object sender, EventArgs e) 
         {
             
         }
+        /// <summary>
+        /// Maneja el evento de clic en el botón "Salir".
+        /// </summary>
         private void btnSalir_Click(object sender, EventArgs e)
         {
             DialogResult resultado = MessageBox.Show("¿Estas seguro que quieres salir?", "SALIR", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -1383,6 +1420,9 @@ namespace WinFormsPrimerParcial
                 MessageBox.Show("App no cerrada");
             }
         }
+        /// <summary>
+        /// Ordena la lista de animales por cantidad de extremidades y actualiza el visor.
+        /// </summary>
         private void btnOrdenar1_Click(object sender, EventArgs e)
         {
             listaOrnitorrincosRefugiados.animalesRefugiados.Sort((a1, a2) => listaOrnitorrincosRefugiados.OrdenarAnimalesPorCantidadDeExtremidades(a1, a2));
@@ -1391,6 +1431,9 @@ namespace WinFormsPrimerParcial
 
             ActualizarVisor();
         }
+        /// <summary>
+        /// Ordena la lista de animales por Especie y actualiza el visor.
+        /// </summary>
         private void btnOrdenar2_Click(object sender, EventArgs e)
         {
             listaOrnitorrincosRefugiados.animalesRefugiados.Sort((a1, a2) => listaOrnitorrincosRefugiados.OrdenarAnimalesPorEspecie(a1, a2));
@@ -1399,6 +1442,9 @@ namespace WinFormsPrimerParcial
 
             ActualizarVisor();
         }
+        /// <summary>
+        /// Actualiza el contenido del visor con la información de los animales.
+        /// </summary>
         private void ActualizarVisor()
         {
             lstVisor.Items.Clear();
@@ -1416,6 +1462,9 @@ namespace WinFormsPrimerParcial
                 lstVisor.Items.Add(hornero.ToString());
             }
         }
+        /// <summary>
+        /// Actualiza el contenido del visor con la información de las ranas.
+        /// </summary>
         private void ActualizarRanas()
         {
             lstVisor.Items.Clear();
@@ -1424,6 +1473,9 @@ namespace WinFormsPrimerParcial
                 lstVisor.Items.Add(rana.ToString());
             }
         }
+        /// <summary>
+        /// Actualiza el contenido del visor con la información de los horneros.
+        /// </summary>
         private void ActualizarHorneros()
         {
             lstVisor.Items.Clear();
@@ -1432,6 +1484,9 @@ namespace WinFormsPrimerParcial
                 lstVisor.Items.Add(h.ToString());
             }
         }
+        /// <summary>
+        /// Actualiza el contenido del visor con la información de los ornitorrincos.
+        /// </summary>
         private void ActualizarOrnitorrincos()
         {
             lstVisor.Items.Clear();
@@ -1440,6 +1495,9 @@ namespace WinFormsPrimerParcial
                 lstVisor.Items.Add(o.ToString());
             }
         }
+        /// <summary>
+        /// Maneja el resultado de una operación completa.
+        /// </summary>
         private void ManejarOperacionCompleta(bool exito, string mensaje)
         {
             if (exito)
@@ -1451,6 +1509,9 @@ namespace WinFormsPrimerParcial
                 MessageBox.Show($"{mensaje}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        /// <summary>
+        /// Abre un formulario para visualizar el contenido del archivo de registro llamado usuarios.log.
+        /// </summary>
         private void btnVisualizador_Click(object sender, EventArgs e)
         {
             string rutaArchivoLog = @"..\..\..\usuarios.log";
@@ -1475,7 +1536,9 @@ namespace WinFormsPrimerParcial
                 MessageBox.Show($"Error al abrir el archivo de registro: {ex.Message}");
             }
         }
-
+        /// <summary>
+        /// Abre el diálogo para seleccionar un archivo de entrada y carga la información.
+        /// </summary>
         private void btnArchivoEntrada_Click(object sender, EventArgs e)
         {
             if (openFileDialogDeserializar.ShowDialog() == DialogResult.OK)
@@ -1501,6 +1564,9 @@ namespace WinFormsPrimerParcial
                 }
             }
         }
+        /// <summary>
+        /// Abre el diálogo para seleccionar un archivo de salida y guarda la información.
+        /// </summary>
         private void btnArchivoSalida_Click(object sender, EventArgs e)
         {
             if (perfilUsuario.ToLower() == "administrador" || perfilUsuario.ToLower() == "supervisor")
@@ -1529,16 +1595,25 @@ namespace WinFormsPrimerParcial
                 MessageBox.Show("Usted es vendedor, por lo que solo puede leer los elementos, no guardarlos");
             }
         }
+        /// <summary>
+        /// Serializa la lista de ranas y guarda el contenido en un archivo, en este caso un JSON.
+        /// </summary>
         public void SerializarAArchivoRana(string rutaArchivo, Refugio<Rana> lista)
         {
             string json = JsonConvert.SerializeObject(lista, Formatting.Indented);
             File.WriteAllText(rutaArchivo, json);
         }
+        /// <summary>
+        /// Serializa la lista de ornitorrincos y guarda el contenido en un archivo, en este caso un JSON.
+        /// </summary>
         public void SerializarAArchivoOrnitorrinco(string rutaArchivo, Refugio<Ornitorrinco> lista)
         {
             string json = JsonConvert.SerializeObject(lista, Formatting.Indented);
             File.WriteAllText(rutaArchivo, json);
         }
+        /// <summary>
+        /// Serializa la lista de horneros y guarda el contenido en un archivo, en este caso un JSON.
+        /// </summary>
         public void SerializarAArchivoHornero(string rutaArchivo, Refugio<Hornero> lista)
         {
             string json = JsonConvert.SerializeObject(lista, Formatting.Indented);
@@ -1547,7 +1622,7 @@ namespace WinFormsPrimerParcial
     }
 }
 ```
-3. `FormSeleccionAnimal`: Este formulario sirve para poder elegir el tipo de animal que deseemos crear entre los tipos de animales posibles, luego de seleccionar uno, se pasa al FormAgregar para poder darle los atributos correspondientes a la clase seleccionada.
+2. `FormSeleccionAnimal`: Este formulario sirve para poder elegir el tipo de animal que deseemos crear entre los tipos de animales posibles, luego de seleccionar uno, se pasa al FormAgregar para poder darle los atributos correspondientes a la clase seleccionada.
 
 ![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/82f0a92b-a5b3-45b7-9dcb-3d7dfa370dc3)
 
@@ -1656,6 +1731,34 @@ namespace WinFormsSegundoParcial
 }
 
 ```
+3. `FormEspera`: Este formulario solamente contiene un label que sirve a modo de pantalla de espera.
+
+![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/40486678-6791-430e-b636-102bdafdaa89)
+
+   
+```c#
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WinFormsSegundoParcial
+{
+    public partial class FormEspera : Form
+    {
+        public FormEspera()
+        {
+            InitializeComponent();
+        }
+    }
+}
+
+```
 
 4. `FormAgregar`: Este formulario permite agregar un nuevo animal al refugio. El usuario puede modificar el nombre, si es peludo, y atributos específicos del animal que ha sido seleccionado en el visor, en este caso, este sirve como fomulario base, ya que FormAgregarRana, Ornitorrinco y Hornero heredan de este.
    
@@ -1674,37 +1777,31 @@ using System.Windows.Forms;
 
 namespace WinFormsPrimerParcial
 {
+    /// <summary>
+    /// Formulario para agregar animales.
+    /// </summary>
     public partial class FormAgregar : Form
     {
 
+        /// <summary>
+        /// Propiedades que obtienen o establecen el nuevo animal creado y una referencia al form principal.
+        /// </summary>
         public Animal NuevoAnimal { get; private set; }
-        
+
         public FormPrincipal FormPrincipalRef { get; set; }
 
-
-        public bool modificar = false;
-
-
+        /// <summary>
+        /// Constructor por defecto del form
+        /// </summary>
         public FormAgregar()
         {
             InitializeComponent();
+            setRadioButtons();
         }
-
-        public FormAgregar(Animal a) : this()
-        {
-            txtNombre.Text = a.nombre;
-            if (a.esPeludo)
-            {
-                txtEsPeludo.Text = "si";
-            }
-            else
-            {
-                txtEsPeludo.Text = "no";
-            }
-            this.modificar = true;
-        }
-
-        public string LblTitulo { get { return lblTitulo.Text; } set {lblTitulo.Text = value; } }
+        /// <summary>
+        /// Propiedades que obtiene o establecen el título de un Label, Un boton aceptar, un boton cancelar y el texto de la Textbox Nombre.
+        /// </summary>
+        public string LblTitulo { get { return lblTitulo.Text; } set { lblTitulo.Text = value; } }
 
         public Button BtnAceptar
         {
@@ -1713,38 +1810,54 @@ namespace WinFormsPrimerParcial
         }
         public Button BtnCancelar
         {
-            get { return btnCancelar;}
+            get { return btnCancelar; }
             set { btnCancelar = value; }
         }
-        public string TxtNombre { get { return txtNombre.Text; } set {txtNombre.Text = value; } }
+        public string TxtNombre { get { return txtNombre.Text; } set { txtNombre.Text = value; } }
 
-        public string TxtPeludo { get {return txtEsPeludo.Text; } set {txtEsPeludo.Text = value;} }
-
+        /// <summary>
+        /// Maneja el evento aceptar que en este caso no se usa, ya que este seria un form padre.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-           
+
         }
+        /// <summary>
+        /// Obtiene el valor de la opción seleccionada en el grupo "Es peludo".
+        /// </summary>
+        /// <returns>True si es peludo, false si no lo es.</returns>
         public bool VerificarEsPeludo()
         {
-            string textoPeludo = txtEsPeludo.Text.ToLower();
             bool esPeludo;
 
-            if (textoPeludo == "si")
+            if (rbtnPeludoSi.Checked)
             {
                 esPeludo = true;
             }
-            else
+            else if (rbtnPeludoNo.Checked)
             {
                 esPeludo = false;
             }
+            else
+            {
+                throw new ExcepcionPeludoVacio();
+            }
             return esPeludo;
         }
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Cancelar.
+        /// </summary>
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
-
+        /// <summary>
+        /// Muestra mensajes de error en caso de excepciones.
+        /// </summary>
+        /// <param name="errores">Lista de mensajes de error.</param>
+        /// <param name="excepciones">Lista de excepciones.</param>
         public void AvisoDeErrores(List<string> errores, List<Exception> excepciones)
         {
             foreach (Exception excepcion in excepciones)
@@ -1757,30 +1870,43 @@ namespace WinFormsPrimerParcial
                 MessageBox.Show(mensajeError, "Errores al validar datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        /// <summary>
+        /// Valida los datos del animal y agrega excepciones a la lista.
+        /// </summary>
+        /// <param name="excepciones">Lista de excepciones.</param>
         public void ValidarDatosAnimal(List<Exception> excepciones)
         {
             if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
                 excepciones.Add(new ExcepcionNombreVacio());
             }
-            if (string.IsNullOrWhiteSpace(txtEsPeludo.Text))
+            if (!(rbtnPeludoSi.Checked) && !(rbtnPeludoNo.Checked))
             {
                 excepciones.Add(new ExcepcionPeludoVacio());
             }
-            else if (txtEsPeludo.Text.ToLower() != "si" && txtEsPeludo.Text.ToLower() != "no")
+        }
+        /// <summary>
+        /// Establece el estado de los botones de opción "Es peludo".
+        /// </summary>
+        public void setRadioButtons()
+        {
+            if (rbtnPeludoSi.Checked)
             {
-                excepciones.Add(new ExcepcionPeludoErroneo());
+                rbtnPeludoNo.Checked = false;
+            }
+            else if (rbtnPeludoNo.Checked)
+            {
+                rbtnPeludoSi.Checked = false;
             }
         }
 
     }
 }
 
-
 ```
 - FormAgregarRana
 
-![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/4b076563-751a-4a31-ae66-f73b6153a168)
+![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/79702608-6941-4b3f-9b24-430c603e9398)
 
   
 ```c#
@@ -1800,25 +1926,45 @@ using WinFormsPrimerParcial;
 
 namespace WinFormsSegundoParcial
 {
+    /// <summary>
+    /// Formulario para agregar una Rana.
+    /// </summary>
     public partial class FormAgregarRana : FormAgregar
     {
-
+        /// <summary>
+        /// Nueva Rana creada.
+        /// </summary>
         public Rana nuevaRana;
 
+        /// <summary>
+        /// Delegado para manejar la operación completada.
+        /// </summary>
         public delegate void OperacionCompletaEventHandler(bool exito, string mensaje);
-       
+        /// <summary>
+        /// Evento que se dispara cuando la operación se completa.
+        /// </summary>
         public event OperacionCompletaEventHandler OperacionCompletada;
-
+        /// <summary>
+        /// Acceso a datos para interactuar con la base de datos.
+        /// </summary>
         AccesoDatos ado = new AccesoDatos();
+
+        /// <summary>
+        /// Constructor de la clase FormAgregarRana.
+        /// </summary>
         public FormAgregarRana()
         {
             InitializeComponent();
+            setRadioButtonsRana();
             BtnAceptar.Enabled = true;
             BtnCancelar.Enabled = true;
             BtnAceptar.Click += BtnAceptar_Click;
             BtnCancelar.Click += BtnCancelar_Click;
             this.FormPrincipalRef = (FormPrincipal)Application.OpenForms["FormPrincipal"];
         }
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Aceptar.
+        /// </summary>
         private async void BtnAceptar_Click(object? sender, EventArgs e)
         {
             List<string> errores = new List<string>();
@@ -1835,34 +1981,52 @@ namespace WinFormsSegundoParcial
             else
             {
                 nuevaRana = CrearRana();
+
+                FormEspera frmEspera = new FormEspera();
+                frmEspera.Show();
+
                 await AgregarRanaAsync(nuevaRana);
+
+                frmEspera.Close();
+                MessageBox.Show("Agregado de datos exitoso");
+                
                 OperacionCompletada?.Invoke(true, "Agregado de datos exitoso");
                 this.DialogResult = DialogResult.OK;
             }
         }
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Cancelar.
+        /// </summary>
         private void BtnCancelar_Click(object? sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
         }
-
+        /// <summary>
+        /// Valida el valor de la opción seleccionada en el grupo "Es venenosa".
+        /// </summary>
+        /// <returns>True si es venenosa, false si no lo es.</returns>
         public bool ValidarVenenosa()
         {
             bool esVenenosa;
-            if (txtVenenosa.Text.ToLower() == "si" )
+            if (rbtnVenenosaSi.Checked)
             {
                 esVenenosa = true;
             }
-            else if (txtVenenosa.Text.ToLower() == "no")
+            else if (rbtnVenenosaNo.Checked)
             {
                 esVenenosa = false;
             }
-            else 
-            { 
-                throw new ExcepcionEsArboricolaErroneo(); 
+            else
+            {
+                throw new ExcepcionEsVenenosaVacio();
             }
             return esVenenosa;
 
         }
+        /// <summary>
+        /// Crea un nuevo objeto Rana con los datos proporcionados en el formulario.
+        /// </summary>
+        /// <returns>Nuevo objeto Rana.</returns>
         public Rana CrearRana()
         {
             bool esPeludo = VerificarEsPeludo();
@@ -1870,49 +2034,51 @@ namespace WinFormsSegundoParcial
             bool esArboricola = ValidarArboricola();
             string nombre = TxtNombre.ToString();
 
-            nuevaRana = new Rana(esArboricola, esVenenosa, esPeludo, Eespecies.Anfibio, nombre);
+            nuevaRana = new Rana(esArboricola, esVenenosa, nombre, esPeludo, Eespecies.Anfibio);
 
             return nuevaRana;
         }
-
+        /// <summary>
+        /// Valida el valor de la opción seleccionada en el grupo "Es arborícola".
+        /// </summary>
+        /// <returns>True si es arborícola, false si no lo es.</returns>
         public bool ValidarArboricola()
         {
             bool esArboricola;
 
-            if (txtArboricola.Text.ToLower() == "si")
+            if (rbtnArboricolaSi.Checked)
             {
                 esArboricola = true;
             }
-            else if  (txtArboricola.Text.ToLower() == "no")
+            else if (rbtnArboricolaNo.Checked)
             {
                 esArboricola = false;
             }
             else
             {
-                throw new ExcepcionEsArboricolaErroneo();
+                throw new ExcepcionEsArboricolaVacio();
             }
             return esArboricola;
         }
-
+        /// <summary>
+        /// Valida los datos específicos de una Rana y agrega excepciones a la lista.
+        /// </summary>
+        /// <param name="excepciones">Lista de excepciones.</param>
         public void ValidarDatosRana(List<Exception> excepciones)
         {
-            if (string.IsNullOrWhiteSpace(txtArboricola.Text))
+            if (!(rbtnArboricolaSi.Checked) && !(rbtnArboricolaNo.Checked))
             {
                 excepciones.Add(new ExcepcionEsArboricolaVacio());
             }
-            else if (txtArboricola.Text.ToLower() != "si" && txtArboricola.Text.ToLower() != "no")
-            {
-                excepciones.Add(new ExcepcionEsArboricolaErroneo());
-            }
-            if (string.IsNullOrWhiteSpace(txtVenenosa.Text))
+            if (!(rbtnVenenosaSi.Checked) && !(rbtnVenenosaNo.Checked))
             {
                 excepciones.Add(new ExcepcionEsVenenosaVacio());
             }
-            else if (txtVenenosa.Text.ToLower() != "si" && txtVenenosa.Text.ToLower() != "no")
-            {
-                excepciones.Add(new ExcepcionEsVenenosaErroneo());
-            }
         }
+        /// <summary>
+        /// Agrega la nueva Rana a la base de datos y a la lista de Ranas en el formulario principal.
+        /// </summary>
+        /// <param name="r">Nueva Rana a agregar.</param>
         public async Task AgregarRanaAsync(Rana r)
         {
             try
@@ -1924,11 +2090,15 @@ namespace WinFormsSegundoParcial
                     FormPrincipalRef.listaRanasRefugiadas.AgregarAnimal(nuevaRana);
                 });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 OperacionCompletada?.Invoke(false, $"Error al agregar la rana: {ex.Message}");
             }
         }
+        /// <summary>
+        /// Obtiene un ID adecuado para la nueva Rana.
+        /// </summary>
+        /// <returns>ID adecuado.</returns>
         public int ObtenerIdCorrecto()
         {
             var ultimaRana = FormPrincipalRef.listaRanasRefugiadas.animalesRefugiados.LastOrDefault();
@@ -1942,6 +2112,28 @@ namespace WinFormsSegundoParcial
                 return 1;
             }
         }
+        /// <summary>
+        /// Establece el estado de los botones de opción "Es venenosa" y "Es arborícola".
+        /// </summary>
+        public void setRadioButtonsRana()
+        {
+            if (rbtnVenenosaSi.Checked)
+            {
+                rbtnVenenosaNo.Checked = false;
+            }
+            else if(rbtnVenenosaNo.Checked)
+            {
+                rbtnVenenosaSi.Checked = false;
+            }
+            if (rbtnArboricolaSi.Checked)
+            {
+                rbtnArboricolaNo.Checked = false;
+            }
+            else if (rbtnArboricolaNo.Checked)
+            {
+                rbtnArboricolaSi.Checked = false;
+            }
+        }
     }
 }
 
@@ -1949,11 +2141,10 @@ namespace WinFormsSegundoParcial
 ```
 - FormAgregarOrnitorrinco
 
-![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/84dbe50c-3608-4852-a0c0-de380b1afa73)
+![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/ea9d7669-cb9e-4842-8c26-7034b0e8ac23)
 
 
 ```c#
-
 using Entidades;
 using PrimerParcial;
 using System;
@@ -1969,62 +2160,43 @@ using WinFormsPrimerParcial;
 
 namespace WinFormsSegundoParcial
 {
+    /// <summary>
+    /// Formulario para agregar un Ornitorrinco.
+    /// </summary>
     public partial class FormAgregarOrnitorrinco : FormAgregar
     {
+        /// <summary>
+        /// Nuevo Ornitorrinco creado.
+        /// </summary>
         public Ornitorrinco nuevoOrnitorrinco;
-
+        /// <summary>
+        /// Delegado para manejar la operación completada.
+        /// </summary>
         public delegate void OperacionCompletaEventHandler(bool exito, string mensaje);
-
+        /// <summary>
+        /// Evento que se dispara cuando la operación se completa.
+        /// </summary>
         public event OperacionCompletaEventHandler OperacionCompletada;
-
+        /// <summary>
+        /// Acceso a datos para interactuar con la base de datos.
+        /// </summary>;
         AccesoDatos ado = new AccesoDatos();
-
+        /// <summary>
+        /// Constructor de la clase FormAgregarOrnitorrinco.
+        /// </summary>
         public FormAgregarOrnitorrinco()
         {
             InitializeComponent();
+            setRadioButtonsOrnitorrinco();
             BtnAceptar.Enabled = true;
             BtnCancelar.Enabled = true;
             BtnAceptar.Click += BtnAceptar_Click;
             BtnCancelar.Click += BtnCancelar_Click;
             this.FormPrincipalRef = (FormPrincipal)Application.OpenForms["FormPrincipal"];
         }
-        public FormAgregarOrnitorrinco(Ornitorrinco o) : this()
-        {
-            LblTitulo = "Modificar Ornitorrinco";
-
-            TxtNombre = o.nombre;
-
-            if (o.esPeludo == true)
-            {
-                TxtPeludo = "si";
-            }
-            else
-            {
-                TxtPeludo = "no";
-            }
-
-
-            if (o.oviparo)
-            {
-                txtOviparo.Text = "si";
-            }
-            else
-            {
-                txtOviparo.Text = "no";
-            }
-
-            if (o.tieneCola)
-            {
-                txtTieneCola.Text = "si";
-            }
-            else
-            {
-                txtTieneCola.Text = "no";
-            }
-
-            nuevoOrnitorrinco = o;
-            this.modificar = true;
-        }
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Aceptar.
+        /// </summary>
         private async void BtnAceptar_Click(object? sender, EventArgs e)
         {
             List<string> errores = new List<string>();
@@ -2041,16 +2213,30 @@ namespace WinFormsSegundoParcial
             else
             {
                 nuevoOrnitorrinco = CrearOrnitorrinco();
+
+                FormEspera frmEspera = new FormEspera();
+                frmEspera.Show();
+
                 await AgregarOrnitorrincoAsync(nuevoOrnitorrinco);
+
+                frmEspera.Close();
+                MessageBox.Show("Agregado de datos exitoso");
+
                 OperacionCompletada?.Invoke(true, "Agregado de datos exitoso");
                 this.DialogResult = DialogResult.OK;
             }
         }
-
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Cancelar.
+        /// </summary>
         private void BtnCancelar_Click(object? sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
         }
+        /// <summary>
+        /// Crea un nuevo objeto Ornitorrinco con los datos proporcionados en el formulario.
+        /// </summary>
+        /// <returns>Nuevo objeto Ornitorrinco.</returns>
         public Ornitorrinco CrearOrnitorrinco()
         {
             string nombre = TxtNombre.ToString();
@@ -2062,34 +2248,41 @@ namespace WinFormsSegundoParcial
 
             return nuevoOrnitorrinco;
         }
-
-        public bool VerificarOviparo() 
+        /// <summary>
+        /// Valida el valor de la opción seleccionada en el grupo "Es ovíparo".
+        /// </summary>
+        /// <returns>True si es ovíparo, false si no lo es.</returns>
+        public bool VerificarOviparo()
         {
             bool esOviparo;
 
-            if(txtOviparo.Text == "si")
+            if (rbtnOviparoSi.Checked)
             {
                 esOviparo = true;
             }
-            else if(txtOviparo.Text == "no")
+            else if (rbtnOviparoNo.Checked)
             {
                 esOviparo = false;
             }
             else
             {
-                throw new ExcepcionEsOviparoErroneo();
+                throw new ExcepcionEsOviparoVacio();
             }
             return esOviparo;
         }
+        /// <summary>
+        /// Valida el valor de la opción seleccionada en el grupo "Tiene cola".
+        /// </summary>
+        /// <returns>True si tiene cola, false si no la tiene.</returns>
         public bool VerificarTieneCola()
         {
             bool tieneCola;
 
-            if (txtTieneCola.Text == "si")
+            if (rbtnColaSi.Checked)
             {
                 tieneCola = true;
             }
-            else if (txtTieneCola.Text == "no")
+            else if (rbtnColaNo.Checked)
             {
                 tieneCola = false;
             }
@@ -2099,28 +2292,26 @@ namespace WinFormsSegundoParcial
             }
             return tieneCola;
         }
-
-
+        /// <summary>
+        /// Valida los datos específicos del Ornitorrinco.
+        /// </summary>
+        /// <param name="excepciones">Lista de excepciones para agregar posibles errores de validación.</param>
         public void ValidarDatosOrnitorrinco(List<Exception> excepciones)
         {
-            if (string.IsNullOrWhiteSpace(txtTieneCola.Text))
+            if (!(rbtnColaSi.Checked) && !(rbtnColaNo.Checked))
             {
-                excepciones.Add(new ExcepcionEsArboricolaVacio());
+                excepciones.Add(new ExcepcionTieneColaVacio());
             }
-            else if (txtTieneCola.Text.ToLower() != "si" && txtTieneCola.Text.ToLower() != "no")
+            if (!(rbtnOviparoSi.Checked) && !(rbtnOviparoNo.Checked))
             {
-                excepciones.Add(new ExcepcionEsArboricolaErroneo());
-            }
-            if (string.IsNullOrWhiteSpace(txtOviparo.Text))
-            {
-                excepciones.Add(new ExcepcionEsVenenosaVacio());
-            }
-            else if (txtOviparo.Text.ToLower() != "si" && txtOviparo.Text.ToLower() != "no")
-            {
-                excepciones.Add(new ExcepcionEsVenenosaErroneo());
+                excepciones.Add(new ExcepcionEsOviparoVacio());
             }
         }
-
+        /// <summary>
+        /// Realiza la operación de agregar el Ornitorrinco de forma asíncrona.
+        /// </summary>
+        /// <param name="o">Ornitorrinco a agregar.</param>
+        /// <returns>Task.</returns>
         public async Task AgregarOrnitorrincoAsync(Ornitorrinco o)
         {
             try
@@ -2138,26 +2329,15 @@ namespace WinFormsSegundoParcial
             }
 
         }
-
-        public async Task ModificarOrnitorrincoAsync(Ornitorrinco o)
-        {
-            try
-            {
-                await Task.Run(() =>
-                {
-                    this.ado.ModificarOrnitorrinco(o);
-                });
-            }
-            catch (Exception ex)
-            {
-                OperacionCompletada?.Invoke(false, $"Error al modificar el Ornitorrinco: {ex.Message}");
-            }
-        }
+        /// <summary>
+        /// Obtiene el ID correcto para el nuevo Ornitorrinco a partir de la lista existente.
+        /// </summary>
+        /// <returns>ID correcto.</returns>
         public int ObtenerIdCorrecto()
         {
             var ultimoOrnitorrinco = FormPrincipalRef.listaOrnitorrincosRefugiados.animalesRefugiados.LastOrDefault();
 
-            if (!(modificar) && ultimoOrnitorrinco is not null)
+            if (ultimoOrnitorrinco is not null)
             {
                 return ultimoOrnitorrinco.Id + 1;
             }
@@ -2167,13 +2347,37 @@ namespace WinFormsSegundoParcial
                 return 1;
             }
         }
+        /// <summary>
+        /// Establece los radio buttons específicos para Ornitorrinco.
+        /// </summary>
+        public void setRadioButtonsOrnitorrinco()
+        {
+            if (rbtnOviparoSi.Checked)
+            {
+                rbtnOviparoNo.Checked = false;
+            }
+            else if (rbtnOviparoNo.Checked)
+            {
+                rbtnOviparoSi.Checked = false;
+            }
+            if (rbtnColaSi.Checked)
+            {
+                rbtnOviparoNo.Checked = false;
+            }
+            else if (rbtnColaNo.Checked)
+            {
+                rbtnOviparoSi.Checked = false;
+            }
+        }
+
     }
 }
 
+
 ```
 - FormAgregarHornero
-
-![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/a9ca311f-4b0c-4d4e-a2c2-d822085c6601)
+  
+![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/dc7f5dbc-6279-4f7a-9c1f-61306f758ba0)
 
   
 ```c#
@@ -2192,25 +2396,44 @@ using System.Windows.Forms;
 using WinFormsPrimerParcial;
 namespace WinFormsSegundoParcial
 {
+    /// <summary>
+    /// Formulario para agregar un Hornero.
+    /// </summary>
     public partial class FormAgregarHornero : FormAgregar
     {
+        /// <summary>
+        /// Nuevo Hornero creado.
+        /// </summary>
         public Hornero nuevoHornero;
-
+        /// <summary>
+        /// Delegado para manejar la operación completada.
+        /// </summary>
         public delegate void OperacionCompletaEventHandler(bool exito, string mensaje);
-
+        /// <summary>
+        /// Evento que se dispara cuando la operación se completa.
+        /// </summary>
         public event OperacionCompletaEventHandler OperacionCompletada;
-
+        /// <summary>
+        /// Acceso a datos para interactuar con la base de datos.
+        /// </summary>
         AccesoDatos ado = new AccesoDatos();
 
+        /// <summary>
+        /// Constructor de la clase FormAgregarHornero.
+        /// </summary>
         public FormAgregarHornero()
         {
             InitializeComponent();
+            setRadioButtonHornero();
             BtnAceptar.Enabled = true;
             BtnCancelar.Enabled = true;
             BtnAceptar.Click += BtnAceptar_Click;
             BtnCancelar.Click += BtnCancelar_Click;
             this.FormPrincipalRef = (FormPrincipal)Application.OpenForms["FormPrincipal"];
         }
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Aceptar.
+        /// </summary>
         private async void BtnAceptar_Click(object? sender, EventArgs e)
         {
             List<string> errores = new List<string>();
@@ -2227,16 +2450,30 @@ namespace WinFormsSegundoParcial
             else
             {
                 nuevoHornero = CrearHornero();
+
+                FormEspera frmEspera = new FormEspera();
+                frmEspera.Show();
+
                 await AgregarHorneroAsync(nuevoHornero);
+
+                frmEspera.Close();
+                MessageBox.Show("Agregado de datos exitoso");
+
                 OperacionCompletada?.Invoke(true, "Agregado de datos exitoso");
                 this.DialogResult = DialogResult.OK;
             }
         }
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Cancelar.
+        /// </summary>
         private void BtnCancelar_Click(object? sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
         }
-
+        /// <summary>
+        /// Crea un nuevo objeto Hornero con los datos proporcionados en el formulario.
+        /// </summary>
+        /// <returns>Nuevo objeto Hornero.</returns>
         public Hornero CrearHornero()
         {
             string nombre = TxtNombre.ToString();
@@ -2244,11 +2481,14 @@ namespace WinFormsSegundoParcial
             int velocidad = int.Parse(txtVelocidad.Text);
             bool tieneAlas = ValidarTieneAlas();
 
-            nuevoHornero = new Hornero(velocidad, tieneAlas, esPeludo, Eespecies.Ave, nombre);
+            nuevoHornero = new Hornero(velocidad, tieneAlas, nombre, esPeludo, Eespecies.Ave);
 
             return nuevoHornero;
         }
-
+        /// <summary>
+        /// Task que agrega el nuevo Hornero a la base de datos y a la lista de Horneros en el formulario principal.
+        /// </summary>
+        /// <param name="h">Nuevo Hornero a agregar.</param>
         public async Task AgregarHorneroAsync(Hornero h)
         {
             try
@@ -2266,32 +2506,36 @@ namespace WinFormsSegundoParcial
             }
 
         }
+        /// <summary>
+        /// Valida el valor de la opción seleccionada en el grupo "Tiene alas".
+        /// </summary>
+        /// <returns>True si tiene alas, false si no las tiene.</returns>
         public bool ValidarTieneAlas()
         {
             bool tieneAlas;
-            if (txtTieneAlas.Text == "si")
+            if (rbtnSi.Checked)
             {
                 tieneAlas = true;
             }
-            else if (txtTieneAlas.Text == "no")
+            else if (rbtnNo.Checked)
             {
                 tieneAlas = false;
             }
             else
             {
-                throw new ExcepcionTieneAlasErroneo();
+                throw new ExcepcionTieneAlasVacio();
             }
             return tieneAlas;
         }
+        /// <summary>
+        /// Valida los datos específicos de un Hornero y agrega excepciones a la lista.
+        /// </summary>
+        /// <param name="excepciones">Lista de excepciones.</param>
         public void ValidarDatosHornero(List<Exception> excepciones)
         {
-            if (string.IsNullOrWhiteSpace(txtTieneAlas.Text))
+            if (!(rbtnSi.Checked) && !(rbtnNo.Checked))
             {
                 excepciones.Add(new ExcepcionTieneAlasVacio());
-            }
-            else if (txtTieneAlas.Text.ToLower() != "si" && txtTieneAlas.Text.ToLower() != "no")
-            {
-                excepciones.Add(new ExcepcionTieneAlasErroneo());
             }
             if (string.IsNullOrWhiteSpace(txtVelocidad.Text))
             {
@@ -2302,6 +2546,10 @@ namespace WinFormsSegundoParcial
                 excepciones.Add(new ExcepcionVelocidadErroneo());
             }
         }
+        /// <summary>
+        /// Obtiene un ID adecuado para el nuevo Hornero.
+        /// </summary>
+        /// <returns>ID adecuado.</returns>
         public int ObtenerIdCorrecto()
         {
             var ultimoHornero = FormPrincipalRef.listaHornerosRefugiados.animalesRefugiados.LastOrDefault();
@@ -2315,9 +2563,22 @@ namespace WinFormsSegundoParcial
                 return 1;
             }
         }
+        /// <summary>
+        /// Establece el estado de los botones de opción "Tiene alas".
+        /// </summary>
+        public void setRadioButtonHornero()
+        {
+            if (rbtnSi.Checked)
+            {
+                rbtnNo.Checked = false;
+            }
+            else if (rbtnNo.Checked)
+            {
+                rbtnSi.Checked = false;
+            }
+        }
     }
 }
-
 
 ```
 
@@ -2339,73 +2600,118 @@ using WinFormsPrimerParcial;
 
 namespace WinFormsSegundoParcial
 {
+    /// <summary>
+    /// Formulario para la modificación de datos de un animal.
+    /// </summary>
     public partial class FormModificar : Form
     {
-
+        /// <summary>
+        /// Animal que se va a modificar.
+        /// </summary>
         public Animal animalAModificar { get; private set; }
-
+        /// <summary>
+        /// Referencia al formulario principal.
+        /// </summary>
         public FormPrincipal FormPrincipalRef { get; set; }
-
+        /// <summary>
+        /// Constructor de la clase FormModificar.
+        /// </summary>
         public FormModificar()
         {
             InitializeComponent();
+            setRadioButtons();
         }
 
-
+        /// <summary>
+        /// Constructor sobrecargado de la clase FormModificar.
+        /// </summary>
+        /// <param name="a">Animal que se va a modificar.</param>
         public FormModificar(Animal a) : this()
         {
             txtNombre.Text = a.nombre;
             if (a.esPeludo)
             {
-                txtEsPeludo.Text = "si";
+                rbtnPeludoSi.Checked = true;
             }
             else
             {
-                txtEsPeludo.Text = "no";
+                rbtnPeludoNo.Checked = true;
             }
         }
-
+        /// <summary>
+        /// Título del formulario.
+        /// </summary>
         public string LblTitulo { get { return lblTitulo.Text; } set { lblTitulo.Text = value; } }
-
+        /// <summary>
+        /// RadioButton para indicar si el animal es peludo.
+        /// </summary>
+        public RadioButton RbtnPeludoSi { get {return rbtnPeludoSi; } set { rbtnPeludoSi = value; } }
+        /// <summary>
+        /// RadioButton para indicar si el animal no es peludo.
+        /// </summary>
+        public RadioButton RbtnPeludoNo { get { return rbtnPeludoNo; } set { rbtnPeludoNo = value; } }
+        /// <summary>
+        /// Botón de aceptar.
+        /// </summary>
         public Button BtnAceptar
         {
             get { return btnAceptar; }
             set { btnAceptar = value; }
         }
+        /// <summary>
+        /// Botón de cancelar.
+        /// </summary>
         public Button BtnCancelar
         {
             get { return btnCancelar; }
             set { btnCancelar = value; }
         }
+        /// <summary>
+        /// Nombre del animal.
+        /// </summary>
         public string TxtNombre { get { return txtNombre.Text; } set { txtNombre.Text = value; } }
 
-        public string TxtPeludo { get { return txtEsPeludo.Text; } set { txtEsPeludo.Text = value; } }
-
+        /// <summary>
+        /// Maneja el evento aceptar, que no se usa ya que este es un formulario base.
+        /// </summary>
         private void btnAceptar_Click(object sender, EventArgs e)
         {
 
         }
+        /// <summary>
+        /// Verifica si el animal es peludo.
+        /// </summary>
+        /// <returns>True si el animal es peludo, False si no.</returns>
         public bool VerificarEsPeludo()
         {
-            string textoPeludo = txtEsPeludo.Text.ToLower();
             bool esPeludo;
 
-            if (textoPeludo == "si")
+            if (rbtnPeludoSi.Checked)
             {
                 esPeludo = true;
             }
-            else
+            else if(rbtnPeludoNo.Checked)
             {
                 esPeludo = false;
             }
+            else
+            {
+                throw new ExcepcionPeludoVacio();
+            }
             return esPeludo;
         }
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Cancelar.
+        /// </summary>
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
-
+        /// <summary>
+        /// Muestra mensajes de error en caso de excepciones.
+        /// </summary>
+        /// <param name="errores">Lista de mensajes de error.</param>
+        /// <param name="excepciones">Lista de excepciones.</param>
         public void AvisoDeErrores(List<string> errores, List<Exception> excepciones)
         {
             foreach (Exception excepcion in excepciones)
@@ -2418,36 +2724,52 @@ namespace WinFormsSegundoParcial
                 MessageBox.Show(mensajeError, "Errores al validar datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        /// <summary>
+        /// Valida los datos del animal.
+        /// </summary>
+        /// <param name="excepciones">Lista de excepciones.</param>
         public void ValidarDatosAnimal(List<Exception> excepciones)
         {
             if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
                 excepciones.Add(new ExcepcionNombreVacio());
             }
-            if (string.IsNullOrWhiteSpace(txtEsPeludo.Text))
+            if (!(rbtnPeludoSi.Checked) && !(rbtnPeludoNo.Checked))
             {
                 excepciones.Add(new ExcepcionPeludoVacio());
             }
-            else if (txtEsPeludo.Text.ToLower() != "si" && txtEsPeludo.Text.ToLower() != "no")
-            {
-                excepciones.Add(new ExcepcionPeludoErroneo());
-            }
         }
+        /// <summary>
+        /// Maneja el evento load, que no es utilizado
+        /// </summary>
         private void FormModificar_Load(object sender, EventArgs e)
         {
 
         }
+        /// <summary>
+        /// Configura los RadioButtons del formulario.
+        /// </summary>
+        public void setRadioButtons()
+        {
+            if (rbtnPeludoSi.Checked)
+            {
+                rbtnPeludoNo.Checked = false;
+            }
+            else if (rbtnPeludoNo.Checked)
+            {
+                rbtnPeludoSi.Checked = false;
+            }
+        }
     }
 }
+
 
 ```
 - FormModificarRana
 
-![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/c85b7522-006a-4810-924e-6f6eed8e4001)
-
+![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/5b9a40aa-8c53-445f-a773-d0312b9f547a)
 
 ```c#
-
 using Entidades;
 using PrimerParcial;
 using System;
@@ -2463,15 +2785,30 @@ using WinFormsPrimerParcial;
 
 namespace WinFormsSegundoParcial
 {
+    /// <summary>
+    /// Formulario para la modificación de datos de una Rana.
+    /// </summary>
     public partial class FormModificarRana : FormModificar
     {
+        /// <summary>
+        /// Rana que se va a modificar.
+        /// </summary>
         public Rana ranaAModificar;
-
+        /// <summary>
+        /// Delegado para manejar eventos de operación completada.
+        /// </summary>
         public delegate void OperacionCompletaEventHandler(bool exito, string mensaje);
-
+        /// <summary>
+        /// Evento que se dispara cuando se completa una operación.
+        /// </summary>
         public event OperacionCompletaEventHandler OperacionCompletada;
-
+        /// <summary>
+        /// Acceso a datos para interactuar con la base de datos.
+        /// </summary>
         AccesoDatos ado = new AccesoDatos();
+        /// <summary>
+        /// Constructor de la clase FormModificarRana.
+        /// </summary>
         public FormModificarRana()
         {
             InitializeComponent();
@@ -2481,43 +2818,48 @@ namespace WinFormsSegundoParcial
             BtnCancelar.Click += BtnCancelar_Click;
             this.FormPrincipalRef = (FormPrincipal)Application.OpenForms["FormPrincipal"];
         }
-
+        /// <summary>
+        /// Constructor sobrecargado de la clase FormModificarRana.
+        /// </summary>
+        /// <param name="r">Rana que se va a modificar.</param>
         public FormModificarRana(Rana r) : this()
         {
             LblTitulo = "Modificar Rana";
 
             TxtNombre = r.nombre;
 
-            if (r.esPeludo == true)
+            if (r.esPeludo)
             {
-                TxtPeludo = "si";
+                RbtnPeludoSi.Checked = true;
             }
             else
             {
-                TxtPeludo = "no";
+                RbtnPeludoNo.Checked = true;
             }
 
             if (r.esVenenosa)
             {
-                txtVenenosa.Text = "si";
+                rbtnVenenosaSi.Checked = true;
             }
             else
             {
-                txtVenenosa.Text = "no";
+                rbtnVenenosaNo.Checked = true;
             }
 
             if (r.esArboricola)
             {
-                txtArboricola.Text = "si";
+                rbtnArboricolaSi.Checked = true;
             }
             else
             {
-                txtArboricola.Text = "no";
+                rbtnArboricolaNo.Checked = true;
             }
 
             ranaAModificar = r;
         }
-
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Aceptar.
+        /// </summary>
         private async void BtnAceptar_Click(object? sender, EventArgs e)
         {
 
@@ -2539,71 +2881,87 @@ namespace WinFormsSegundoParcial
                 ranaAModificar.esVenenosa = ValidarVenenosa();
                 ranaAModificar.esArboricola = ValidarArboricola();
 
+                FormEspera frmEspera = new FormEspera();
+                frmEspera.Show();
+
                 await ModificarRanaAsync(ranaAModificar);
+
+                frmEspera.Close();
                 OperacionCompletada?.Invoke(true, "Modificación de datos exitoso");
                 this.DialogResult = DialogResult.OK;
             }
         }
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Cancelar.
+        /// </summary>
         private void BtnCancelar_Click(object? sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
         }
+        /// <summary>
+        /// Valida si la Rana es Venenosa.
+        /// </summary>
+        /// <returns>True si es Venenosa, False si no.</returns>
         public bool ValidarVenenosa()
         {
             bool esVenenosa;
-            if (txtVenenosa.Text.ToLower() == "si")
+            if (rbtnVenenosaSi.Checked)
             {
                 esVenenosa = true;
             }
-            else if (txtVenenosa.Text.ToLower() == "no")
+            else if (rbtnVenenosaNo.Checked)
             {
                 esVenenosa = false;
             }
             else
             {
-                throw new ExcepcionEsArboricolaErroneo();
+                throw new ExcepcionEsArboricolaVacio();
             }
             return esVenenosa;
 
         }
+        /// <summary>
+        /// Valida si la Rana es Arboricola.
+        /// </summary>
+        /// <returns>True si es Arboricola, False si no.</returns>
         public bool ValidarArboricola()
         {
             bool esArboricola;
 
-            if (txtArboricola.Text.ToLower() == "si")
+            if (rbtnArboricolaSi.Checked)
             {
                 esArboricola = true;
             }
-            else if (txtArboricola.Text.ToLower() == "no")
+            else if (rbtnArboricolaNo.Checked)
             {
                 esArboricola = false;
             }
             else
             {
-                throw new ExcepcionEsArboricolaErroneo();
+                throw new ExcepcionEsArboricolaVacio();
             }
             return esArboricola;
         }
-
+        /// <summary>
+        /// Valida los datos específicos de la Rana.
+        /// </summary>
+        /// <param name="excepciones">Lista de excepciones.</param>
         public void ValidarDatosRana(List<Exception> excepciones)
         {
-            if (string.IsNullOrWhiteSpace(txtArboricola.Text))
+            if (!(rbtnArboricolaSi.Checked) && !(rbtnArboricolaNo.Checked))
             {
                 excepciones.Add(new ExcepcionEsArboricolaVacio());
             }
-            else if (txtArboricola.Text.ToLower() != "si" && txtArboricola.Text.ToLower() != "no")
-            {
-                excepciones.Add(new ExcepcionEsArboricolaErroneo());
-            }
-            if (string.IsNullOrWhiteSpace(txtVenenosa.Text))
+            if (!(rbtnVenenosaSi.Checked) && !(rbtnVenenosaNo.Checked))
             {
                 excepciones.Add(new ExcepcionEsVenenosaVacio());
             }
-            else if (txtVenenosa.Text.ToLower() != "si" && txtVenenosa.Text.ToLower() != "no")
-            {
-                excepciones.Add(new ExcepcionEsVenenosaErroneo());
-            }
         }
+        /// <summary>
+        /// Método asincrónico para modificar una Rana en la base de datos.
+        /// </summary>
+        /// <param name="r">Rana a modificar.</param>
+        /// <returns>Task.</returns>
         public async Task ModificarRanaAsync(Rana r)
         {
             try
@@ -2625,8 +2983,7 @@ namespace WinFormsSegundoParcial
 ```
 - FormModificarOrnitorrinco
 
-![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/fcb35ce3-1113-4d26-9069-44eae530b5a8)
-
+![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/5de1812e-28d8-4c23-9aac-b2258061a8ab)
 
 ```c#
 using Entidades;
@@ -2644,16 +3001,30 @@ using WinFormsPrimerParcial;
 
 namespace WinFormsSegundoParcial
 {
+    /// <summary>
+    /// Formulario para la modificación de datos de un Ornitorrinco.
+    /// </summary>
     public partial class FormModificarOrnitorrinco : FormModificar
     {
+        /// <summary>
+        /// Ornitorrinco que se va a modificar.
+        /// </summary>
         public Ornitorrinco ornitorrincoAModificar;
-
+        /// <summary>
+        /// Delegado para manejar eventos de operación completada.
+        /// </summary>
         public delegate void OperacionCompletaEventHandler(bool exito, string mensaje);
-
+        /// <summary>
+        /// Evento que se dispara cuando se completa una operación.
+        /// </summary>
         public event OperacionCompletaEventHandler OperacionCompletada;
-
+        /// <summary>
+        /// Acceso a datos para interactuar con la base de datos.
+        /// </summary>
         AccesoDatos ado = new AccesoDatos();
-
+        /// <summary>
+        /// Constructor de la clase FormModificarOrnitorrinco.
+        /// </summary>
         public FormModificarOrnitorrinco()
         {
             InitializeComponent();
@@ -2662,40 +3033,47 @@ namespace WinFormsSegundoParcial
             BtnCancelar.Click += BtnCancelar_Click;
             this.FormPrincipalRef = (FormPrincipal)Application.OpenForms["FormPrincipal"];
         }
+        /// <summary>
+        /// Constructor sobrecargado de la clase FormModificarOrnitorrinco.
+        /// </summary>
+        /// <param name="o">Ornitorrinco que se va a modificar.</param>
         public FormModificarOrnitorrinco(Ornitorrinco o) : this()
         {
             LblTitulo = "Modificar Ornitorrinco";
 
             TxtNombre = o.nombre;
 
-            if (o.esPeludo == true)
+            if (o.esPeludo)
             {
-                TxtPeludo = "si";
+                RbtnPeludoSi.Checked = true;
             }
             else
             {
-                TxtPeludo = "no";
+                RbtnPeludoNo.Checked = true;
             }
             if (o.oviparo)
             {
-                txtOviparo.Text = "si";
+                rbtnOviparoSi.Checked = true;
             }
             else
             {
-                txtOviparo.Text = "no";
+                rbtnOviparoNo.Checked = true;
             }
 
             if (o.tieneCola)
             {
-                txtTieneCola.Text = "si";
+                rbtnColaSi.Checked = true;
             }
             else
             {
-                txtTieneCola.Text = "no";
+                rbtnColaNo.Checked = true;
             }
 
             ornitorrincoAModificar = o;
         }
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Aceptar.
+        /// </summary>
         private async void BtnAceptar_Click(object? sender, EventArgs e)
         {
             List<string> errores = new List<string>();
@@ -2716,42 +3094,58 @@ namespace WinFormsSegundoParcial
                 ornitorrincoAModificar.tieneCola = VerificarTieneCola();
                 ornitorrincoAModificar.oviparo = VerificarOviparo();
 
+                FormEspera frmEspera = new FormEspera();
+                frmEspera.Show();
+
                 await ModificarOrnitorrincoAsync(ornitorrincoAModificar);
+
+                frmEspera.Close();
                 OperacionCompletada?.Invoke(true, "Modificacion de datos exitoso");
                 this.DialogResult = DialogResult.OK;
             }
         }
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Cancelar.
+        /// </summary>
         private void BtnCancelar_Click(object? sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
         }
+        /// <summary>
+        /// Valida si el Ornitorrinco es Oviparo.
+        /// </summary>
+        /// <returns>True si es Oviparo, False si no.</returns>
         public bool VerificarOviparo()
         {
             bool esOviparo;
 
-            if (txtOviparo.Text == "si")
+            if (rbtnOviparoSi.Checked)
             {
                 esOviparo = true;
             }
-            else if (txtOviparo.Text == "no")
+            else if (rbtnOviparoNo.Checked)
             {
                 esOviparo = false;
             }
             else
             {
-                throw new ExcepcionEsOviparoErroneo();
+                throw new ExcepcionEsOviparoVacio();
             }
             return esOviparo;
         }
+        /// <summary>
+        /// Valida si el Ornitorrinco tiene cola.
+        /// </summary>
+        /// <returns>True si tiene cola, False si no.</returns>
         public bool VerificarTieneCola()
         {
             bool tieneCola;
 
-            if (txtTieneCola.Text == "si")
+            if (rbtnColaSi.Checked)
             {
                 tieneCola = true;
             }
-            else if (txtTieneCola.Text == "no")
+            else if (rbtnColaNo.Checked)
             {
                 tieneCola = false;
             }
@@ -2761,25 +3155,26 @@ namespace WinFormsSegundoParcial
             }
             return tieneCola;
         }
+        /// <summary>
+        /// Valida los datos específicos del Ornitorrinco.
+        /// </summary>
+        /// <param name="excepciones">Lista de excepciones.</param>
         public void ValidarDatosOrnitorrinco(List<Exception> excepciones)
         {
-            if (string.IsNullOrWhiteSpace(txtTieneCola.Text))
+            if (!(rbtnColaSi.Checked) && !(rbtnColaNo.Checked))
             {
-                excepciones.Add(new ExcepcionEsArboricolaVacio());
+                excepciones.Add(new ExcepcionTieneColaVacio());
             }
-            else if (txtTieneCola.Text.ToLower() != "si" && txtTieneCola.Text.ToLower() != "no")
+            if (!(rbtnOviparoSi.Checked) && !(rbtnOviparoNo.Checked))
             {
-                excepciones.Add(new ExcepcionEsArboricolaErroneo());
-            }
-            if (string.IsNullOrWhiteSpace(txtOviparo.Text))
-            {
-                excepciones.Add(new ExcepcionEsVenenosaVacio());
-            }
-            else if (txtOviparo.Text.ToLower() != "si" && txtOviparo.Text.ToLower() != "no")
-            {
-                excepciones.Add(new ExcepcionEsVenenosaErroneo());
+                excepciones.Add(new ExcepcionEsOviparoVacio());
             }
         }
+        /// <summary>
+        /// Método asincrónico para modificar un Ornitorrinco en la base de datos.
+        /// </summary>
+        /// <param name="o">Ornitorrinco a modificar.</param>
+        /// <returns>Task.</returns>
         public async Task ModificarOrnitorrincoAsync(Ornitorrinco o)
         {
             try
@@ -2801,11 +3196,11 @@ namespace WinFormsSegundoParcial
 ```
 - FormModificarHornero
 
-![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/1fe2e5e8-6a1d-4235-86f3-0d8d81e0106c)
+![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/222fa350-480f-44f6-b3a9-7955474c25aa)
+
 
 
 ```c#
-
 using Entidades;
 using PrimerParcial;
 using System;
@@ -2821,15 +3216,30 @@ using WinFormsPrimerParcial;
 
 namespace WinFormsSegundoParcial
 {
+    /// <summary>
+    /// Formulario para la modificación de datos de un Hornero.
+    /// </summary>
     public partial class FormModificarHornero : FormModificar
     {
+        /// <summary>
+        /// Hornero que se va a modificar.
+        /// </summary>
         public Hornero horneroAModificar;
-
+        /// <summary>
+        /// Delegado para manejar eventos de operación completada.
+        /// </summary>
         public delegate void OperacionCompletaEventHandler(bool exito, string mensaje);
-
+        /// <summary>
+        /// Evento que se dispara cuando se completa una operación.
+        /// </summary>
         public event OperacionCompletaEventHandler OperacionCompletada;
-
+        /// <summary>
+        /// Acceso a datos para interactuar con la base de datos.
+        /// </summary>
         AccesoDatos ado = new AccesoDatos();
+        /// <summary>
+        /// Constructor de la clase FormModificarHornero.
+        /// </summary>
         public FormModificarHornero()
         {
             InitializeComponent();
@@ -2839,6 +3249,10 @@ namespace WinFormsSegundoParcial
             BtnCancelar.Click += BtnCancelar_Click;
             this.FormPrincipalRef = (FormPrincipal)Application.OpenForms["FormPrincipal"];
         }
+        /// <summary>
+        /// Constructor sobrecargado de la clase FormModificarHornero.
+        /// </summary>
+        /// <param name="h">Hornero que se va a modificar.</param>
         public FormModificarHornero(Hornero h) : this()
         {
             LblTitulo = "Modificar Hornero";
@@ -2847,27 +3261,29 @@ namespace WinFormsSegundoParcial
 
             if (h.esPeludo == true)
             {
-                TxtPeludo = "si";
+                RbtnPeludoSi.Checked = true;
             }
             else
             {
-                TxtPeludo = "no";
+                RbtnPeludoNo.Checked = true;
             }
 
             if (h.tieneAlas)
             {
-                txtAlas.Text = "si";
+                rbtnSi.Checked = true;
             }
             else
             {
-                txtAlas.Text = "no";
+                rbtnNo.Checked = true;
             }
 
             txtVelocidad.Text = h.velocidadKmH.ToString();
 
             horneroAModificar = h;
         }
-
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Aceptar.
+        /// </summary>
         private async void BtnAceptar_Click(object? sender, EventArgs e)
         {
             List<string> errores = new List<string>();
@@ -2888,16 +3304,28 @@ namespace WinFormsSegundoParcial
                 horneroAModificar.tieneAlas = ValidarTieneAlas();
                 horneroAModificar.velocidadKmH = int.Parse(txtVelocidad.Text);
 
+                FormEspera frmEspera = new FormEspera();
+                frmEspera.Show();
+
                 await ModificarHorneroAsync(horneroAModificar);
+
+                frmEspera.Close();
                 OperacionCompletada?.Invoke(true, "Modificación de datos exitoso");
                 this.DialogResult = DialogResult.OK;
             }
         }
+        /// <summary>
+        /// Maneja el evento de hacer clic en el botón Cancelar.
+        /// </summary>
         private void BtnCancelar_Click(object? sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
         }
-
+        /// <summary>
+        /// Método asincrónico para modificar un Hornero en la base de datos.
+        /// </summary>
+        /// <param name="h">Hornero a modificar.</param>
+        /// <returns>Task.</returns>
         public async Task ModificarHorneroAsync(Hornero h)
         {
             try
@@ -2913,34 +3341,36 @@ namespace WinFormsSegundoParcial
                 OperacionCompletada?.Invoke(false, $"Error al modificar el hornero: {ex.Message}");
             }
         }
-
+        /// <summary>
+        /// Valida si el Hornero tiene alas.
+        /// </summary>
+        /// <returns>True si tiene alas, False si no.</returns>
         public bool ValidarTieneAlas()
         {
             bool tieneAlas;
-            if (txtAlas.Text == "si")
+            if (rbtnSi.Checked)
             {
                 tieneAlas = true;
             }
-            else if (txtAlas.Text == "no")
+            else if (rbtnNo.Checked)
             {
                 tieneAlas = false;
             }
             else
             {
-                throw new ExcepcionTieneAlasErroneo();
+                throw new ExcepcionTieneAlasVacio();
             }
             return tieneAlas;
         }
-
+        /// <summary>
+        /// Valida los datos específicos del Hornero.
+        /// </summary>
+        /// <param name="excepciones">Lista de excepciones.</param>
         public void ValidarDatosHornero(List<Exception> excepciones)
         {
-            if (string.IsNullOrWhiteSpace(txtAlas.Text))
+            if (!(rbtnSi.Checked) && !(rbtnNo.Checked))
             {
                 excepciones.Add(new ExcepcionTieneAlasVacio());
-            }
-            else if (txtAlas.Text.ToLower() != "si" && txtAlas.Text.ToLower() != "no")
-            {
-                excepciones.Add(new ExcepcionTieneAlasErroneo());
             }
             if (string.IsNullOrWhiteSpace(txtVelocidad.Text))
             {
@@ -2953,10 +3383,12 @@ namespace WinFormsSegundoParcial
         }
     }
 }
+
+
 ```
 
 
-4. `FormVisualizador`: Este formulario permite observar los usuarios que han ingresado al programa junto con sus datos y la fecha y la hora en la que han ingresado. Cuenta con una instancia en el formulario principal.
+6. `FormVisualizador`: Este formulario permite observar los usuarios que han ingresado al programa junto con sus datos y la fecha y la hora en la que han ingresado. Cuenta con una instancia en el formulario principal.
 
 ![image](https://github.com/fedecorbalan/Corbalan.Federico.PrimerParcial/assets/123754871/613248d9-dc00-494f-a51e-44bec43da1f2)
 
@@ -3294,7 +3726,7 @@ Puede ejecutar la aplicación y utilizar la ventana principal (`FormPrincipal`) 
 https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/515a31a6-5c97-439b-8a4f-fc3bb003478b
 
 # Diagrama de clases
-![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/7732a4d3-a236-4aa4-9dd5-efef80790d5b)
+![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/a4d330f2-fe5b-48a2-9715-ef43ab5a53b9)
 
 # Fin del Repositorio
 Muchas gracias por leer ;D!
