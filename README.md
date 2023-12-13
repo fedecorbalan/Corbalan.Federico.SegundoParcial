@@ -484,14 +484,29 @@ using System.IO;
 
 namespace Entidades
 {
+    /// <summary>
+    /// Representa un refugio que almacena animales de tipo T.
+    /// </summary>
+    /// <typeparam name="T">Tipo de animal que puede ser almacenado en el refugio.</typeparam>
     public class Refugio<T> where T : Animal
     {
+        /// <summary>
+        /// Lista que almacena los animales refugiados.
+        /// </summary>
         public List<T> animalesRefugiados;
-
+        /// <summary>
+        /// Constructor predeterminado de la clase Refugio.
+        /// </summary>
         public Refugio()
         {
             this.animalesRefugiados = new List<T>();
         }
+        /// <summary>
+        /// Sobrecarga del operador de igualdad para verificar si un animal ya está en el refugio.
+        /// </summary>
+        /// <param name="refugio">Refugio a comparar.</param>
+        /// <param name="animal">Animal a verificar.</param>
+        /// <returns>True si el animal ya está en el refugio, false en caso contrario.</returns>
         public static bool operator ==(Refugio<T> refugio, T animal)
         {
             foreach (T elemento in refugio.animalesRefugiados)
@@ -504,11 +519,22 @@ namespace Entidades
             return false;
 
         }
+        /// <summary>
+        /// Sobrecarga del operador de desigualdad para verificar si un animal no está en el refugio.
+        /// </summary>
+        /// <param name="refugio">Refugio a comparar.</param>
+        /// <param name="animal">Animal a verificar.</param>
+        /// <returns>True si el animal no está en el refugio, false en caso contrario.</returns>
         public static bool operator !=(Refugio<T> refugio, T animal)
         {
             return !(refugio == animal);
         }
-
+        /// <summary>
+        /// Sobrecarga del operador de adición para agregar un animal al refugio.
+        /// </summary>
+        /// <param name="refugio">Refugio al que se agregará el animal.</param>
+        /// <param name="animal">Animal a agregar.</param>
+        /// <returns>True si se agregó el animal, false en caso contrario.</returns>
         public static bool operator +(Refugio<T> refugio, T animal)
         {
             if ((refugio is not null && animal is not null) && refugio != animal)
@@ -518,6 +544,12 @@ namespace Entidades
             }
             return false;
         }
+        /// <summary>
+        /// Sobrecarga del operador de sustracción para quitar un animal del refugio.
+        /// </summary>
+        /// <param name="refugio">Refugio del que se quitará el animal.</param>
+        /// <param name="animal">Animal a quitar.</param>
+        /// <returns>True si se quitó el animal, false en caso contrario.</returns>
         public static bool operator -(Refugio<T> refugio, T animal)
         {
             if (refugio == animal)
@@ -527,7 +559,12 @@ namespace Entidades
             }
             return false;
         }
-
+        /// <summary>
+        /// Ordena los animales por cantidad de extremidades.
+        /// </summary>
+        /// <param name="a1">Primer animal a comparar.</param>
+        /// <param name="a2">Segundo animal a comparar.</param>
+        /// <returns>0 si tienen la misma cantidad de extremidades, 1 si a1 tiene más extremidades, -1 si a2 tiene más extremidades.</returns>
         public int OrdenarAnimalesPorCantidadDeExtremidades(Animal a1, Animal a2)
         {
             if (a1.CantidadExtremidades() == a2.CantidadExtremidades())
@@ -544,11 +581,36 @@ namespace Entidades
             }
 
         }
+        public int OrdenarAnimalesPorCantidadDeExtremidadesDesc(Animal a1, Animal a2)
+        {
+            if (a1.CantidadExtremidades() == a2.CantidadExtremidades())
+            {
+                return 0;
+            }
+            else if (a1.CantidadExtremidades() < a2.CantidadExtremidades())
+            {
+                return -1;
+            }
+            else
+            {
+                return 1;
+            }
+
+        }
+
+        /// <summary>
+        /// Agrega un animal al refugio.
+        /// </summary>
+        /// <param name="animal">Animal a agregar.</param>
         public void AgregarAnimal(T animal)
         {
             animalesRefugiados.Add(animal);
         }
-        // Dentro de la clase Refugio<T>
+        /// <summary>
+        /// Actualiza un animal en el refugio en la posición indicada.
+        /// </summary>
+        /// <param name="animalModificado">Animal con las propiedades actualizadas.</param>
+        /// <param name="indice">Índice del animal a actualizar.</param>
         public void ActualizarAnimal(T animalModificado, int indice)
         {
             if (indice >= 0 && indice < animalesRefugiados.Count)
@@ -560,13 +622,23 @@ namespace Entidades
                 throw new IndexOutOfRangeException("El índice está fuera de rango.");
             }
         }
+        /// <summary>
+        /// Ordena los animales en orden alfabetico de forma Ascendente.
+        /// </summary>
         public void OrdenarAnimalesPorNombre()
         {
             animalesRefugiados.Sort((a1, a2) => String.Compare(a1.nombre, a2.nombre, StringComparison.Ordinal));
         }
+        /// <summary>
+        /// Ordena los animales en orden alfabetico de forma Descendente.
+        /// </summary>
+        public void OrdenarAnimalesPorNombreDescendente()
+        {
+            animalesRefugiados.Sort((a1, a2) => String.Compare(a2.nombre, a1.nombre, StringComparison.Ordinal));
+        }
+
     }
 }
-
 ```
 
 ### Clase `AccesoDatos`
@@ -1130,7 +1202,6 @@ El proyecto contiene cinco formularios en total, incluyendo el Formulario de Log
 
 
 ```c#
-
 using Entidades;
 using Newtonsoft.Json;
 using PrimerParcial;
@@ -1155,6 +1226,11 @@ namespace WinFormsPrimerParcial
         public Refugio<Ornitorrinco> listaOrnitorrincosRefugiados;
 
         /// <summary>
+        /// Variable booleana que sirve para indicar si el orden que corresponde es ascendente.
+        /// </summary>
+        private bool ordenAscendente = true;
+
+        /// <summary>
         /// Perfil del usuario actual.
         /// </summary>
         public string perfilUsuario;
@@ -1163,7 +1239,7 @@ namespace WinFormsPrimerParcial
         /// Instancia de la clase de acceso a datos.
         /// </summary>
         AccesoDatos ado = new AccesoDatos();
-       
+
         /// <summary>
         /// ListBox utilizado para mostrar información en el formulario.
         /// </summary>
@@ -1316,14 +1392,14 @@ namespace WinFormsPrimerParcial
             {
                 MessageBox.Show("Usted no es administrador ni supervisor, por lo tanto, no posee permisos para modificar elementos");
             }
-        
+
         }
         /// <summary>
         /// Maneja el evento de clic en el botón "Eliminar".
         /// </summary>
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            
+
             int selectedIndex = lstVisor.SelectedIndex;
 
             if (selectedIndex >= 0)
@@ -1387,9 +1463,9 @@ namespace WinFormsPrimerParcial
         /// <summary>
         /// Maneja el evento Load.
         /// </summary>
-        private void FormPrincipal_Load(object sender, EventArgs e) 
+        private void FormPrincipal_Load(object sender, EventArgs e)
         {
-            
+
         }
         /// <summary>
         /// Maneja el evento de clic en el botón "Salir".
@@ -1413,21 +1489,43 @@ namespace WinFormsPrimerParcial
         /// </summary>
         private void btnOrdenar1_Click(object sender, EventArgs e)
         {
-            listaOrnitorrincosRefugiados.animalesRefugiados.Sort((a1, a2) => listaOrnitorrincosRefugiados.OrdenarAnimalesPorCantidadDeExtremidades(a1, a2));
-            listaRanasRefugiadas.animalesRefugiados.Sort((a1, a2) => listaRanasRefugiadas.OrdenarAnimalesPorCantidadDeExtremidades(a1, a2));
-            listaHornerosRefugiados.animalesRefugiados.Sort((a1, a2) => listaOrnitorrincosRefugiados.OrdenarAnimalesPorCantidadDeExtremidades(a1, a2));
-
-            ActualizarVisor();
+            if (ordenAscendente)
+            {
+                listaOrnitorrincosRefugiados.animalesRefugiados.Sort((a1, a2) => listaOrnitorrincosRefugiados.OrdenarAnimalesPorCantidadDeExtremidades(a1, a2));
+                listaRanasRefugiadas.animalesRefugiados.Sort((a1, a2) => listaRanasRefugiadas.OrdenarAnimalesPorCantidadDeExtremidades(a1, a2));
+                listaHornerosRefugiados.animalesRefugiados.Sort((a1, a2) => listaHornerosRefugiados.OrdenarAnimalesPorCantidadDeExtremidades(a1, a2));
+                ActualizarVisor();
+            }
+            else
+            {
+                listaOrnitorrincosRefugiados.animalesRefugiados.Sort((a2, a1) => listaOrnitorrincosRefugiados.OrdenarAnimalesPorCantidadDeExtremidadesDesc(a2, a1));
+                listaRanasRefugiadas.animalesRefugiados.Sort((a2, a1) => listaRanasRefugiadas.OrdenarAnimalesPorCantidadDeExtremidadesDesc(a2, a1));
+                listaHornerosRefugiados.animalesRefugiados.Sort((a2, a1) => listaHornerosRefugiados.OrdenarAnimalesPorCantidadDeExtremidadesDesc(a2, a1));
+                ActualizarVisor();
+            }
+            
+            ordenAscendente = !ordenAscendente;
         }
         /// <summary>
         /// Ordena la lista de animales por Nombre y actualiza el visor.
         /// </summary>
         private void btnOrdenar2_Click(object sender, EventArgs e)
         {
-            listaHornerosRefugiados.OrdenarAnimalesPorNombre();
-            listaOrnitorrincosRefugiados.OrdenarAnimalesPorNombre();
-            listaRanasRefugiadas.OrdenarAnimalesPorNombre();
-            ActualizarVisor();
+            if (ordenAscendente)
+            {
+                listaHornerosRefugiados.OrdenarAnimalesPorNombre();
+                listaOrnitorrincosRefugiados.OrdenarAnimalesPorNombre();
+                listaRanasRefugiadas.OrdenarAnimalesPorNombre();
+                ActualizarVisor();
+            }
+            else
+            {
+                listaHornerosRefugiados.OrdenarAnimalesPorNombreDescendente();
+                listaOrnitorrincosRefugiados.OrdenarAnimalesPorNombreDescendente();
+                listaRanasRefugiadas.OrdenarAnimalesPorNombreDescendente();
+                ActualizarVisor();
+            }
+            ordenAscendente = !ordenAscendente;
         }
         /// <summary>
         /// Actualiza el contenido del visor con la información de los animales.
@@ -1540,7 +1638,7 @@ namespace WinFormsPrimerParcial
                     ActualizarRanas();
                 }
                 else if (archivoSeleccionado == "ornitorrincos.json")
-                { 
+                {
                     ado.ObtenerListaOrnitorrincos(listaOrnitorrincosRefugiados);
                     ActualizarOrnitorrincos();
                 }
@@ -1609,6 +1707,7 @@ namespace WinFormsPrimerParcial
     }
 }
 ```
+
 2. `FormSeleccionAnimal`: Este formulario sirve para poder elegir el tipo de animal que deseemos crear entre los tipos de animales posibles, luego de seleccionar uno, se pasa al FormAgregar para poder darle los atributos correspondientes a la clase seleccionada.
 
 ![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/82f0a92b-a5b3-45b7-9dcb-3d7dfa370dc3)
