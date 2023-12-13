@@ -1477,6 +1477,9 @@ namespace WinFormsPrimerParcial
             if (resultado == DialogResult.Yes)
             {
                 MessageBox.Show("Aplicacion Finalizada");
+                SerializarAArchivoHornero("ArchivosASeleccionar\\horneros.json", listaHornerosRefugiados);
+                SerializarAArchivoOrnitorrinco("ArchivosASeleccionar\\ornitorrincos.json",listaOrnitorrincosRefugiados);
+                SerializarAArchivoRana("ArchivosASeleccionar\\ranas.json",listaRanasRefugiadas);
                 Application.Exit();
             }
             else
@@ -3800,7 +3803,7 @@ namespace PruebasUnitarias
 
 ## Uso del Programa
 
-Puede ejecutar la aplicación y utilizar la ventana principal (`FormPrincipal`) para gestionar los animales en el refugio, obviamente luego del login, en donde se determina el perfil del usuario (Administrador, Supervisor y Vendedor), que determina las funciones que uno puede realizar. En todos los casos, se debe elegir el archivo al que quiere deserializar para poder ver los animales en el visor, al descargar este repositorio, usted puede encontrar en la carpeta ArchivosASeleccionar los archivos JSON que corresponden a los diferentes animales, pero en este caso, trae los datos existentes en la base de datos correspondiente al archivo seleccionado, sea ranas, ornitorrincos u horneros. En el caso de que seas Administrador o Supervisor, puede agregar nuevos animales y modificar sus atributos (no puede cambiar de especie) y en el caso de que sea Administrador, usted puede eliminar animales. También, la aplicación permite ordenar la lista de animales por cantidad de extremidades y especie. Además cuenta con un visualizador de usuarios, el cual le brinda toda la informacion acerca de los usuarios que han ingresado con su cuenta al programa y la fecha y hora en la que lo hicieron.
+Puede ejecutar la aplicación y utilizar la ventana principal (`FormPrincipal`) para gestionar los animales en el refugio, obviamente luego del login, en donde se determina el perfil del usuario (Administrador, Supervisor y Vendedor), que determina las funciones que uno puede realizar. En todos los casos, se debe elegir el archivo al que quiere deserializar para poder ver los animales en el visor, al descargar este repositorio, usted puede encontrar en la carpeta ArchivosASeleccionar (que se encuentra en WinFormsPrimerParcial\bin\Debug\net6.0-windows\ArchivosASeleccionar), los archivos JSON que corresponden a los diferentes animales, pero en este caso, trae los datos existentes en la base de datos correspondiente al archivo seleccionado, sea ranas, ornitorrincos u horneros. En el caso de que seas Administrador o Supervisor, puede agregar nuevos animales y modificar sus atributos (no puede cambiar de especie) y en el caso de que sea Administrador, usted puede eliminar animales. También, la aplicación permite ordenar la lista de animales por cantidad de extremidades y especie. Además cuenta con un visualizador de usuarios, el cual le brinda toda la informacion acerca de los usuarios que han ingresado con su cuenta al programa y la fecha y hora en la que lo hicieron.
 
 ## Uso Administrador
 [Link al Video del Uso del Administrador](https://youtu.be/_c-UK64gK3Y)
