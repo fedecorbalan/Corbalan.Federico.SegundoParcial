@@ -1,0 +1,76 @@
+{
+  "animalesRefugiados": [
+    {
+      "esVenenosa": true,
+      "esArboricola": false,
+      "esPeludo": false,
+      "especie": 2,
+      "nombre": "matias",
+      "Id": 2
+    },
+    {
+      "esVenenosa": true,
+      "esArboricola": false,
+      "esPeludo": false,
+      "especie": 2,
+      "nombre": "pepe",
+      "Id": 3
+    },
+    {
+      "esVenenosa": true,
+      "esArboricola": false,
+      "esPeludo": false,
+      "especie": 2,
+      "nombre": "roman",
+      "Id": 4
+    },
+    {
+      "esVenenosa": false,
+      "esArboricola": true,
+      "esPeludo": false,
+      "especie": 2,
+      "nombre": "vany",
+      "Id": 32
+    },
+    {
+      "esVenenosa": true,
+      "esArboricola": true,
+      "esPeludo": false,
+      "especie": 2,
+      "nombre": "juan",
+      "Id": 33
+    },
+    {
+      "esVenenosa": true,
+      "esArboricola": false,
+      "esPeludo": false,
+      "especie": 2,
+      "nombre": "maxi",
+      "Id": 45
+    },
+    {
+      "esVenenosa": true,
+      "esArboricola": false,
+      "esPeludo": false,
+      "especie": 2,
+      "nombre": "raul",
+      "Id": 46
+    },
+    {
+      "esVenenosa": true,
+      "esArboricola": false,
+      "esPeludo": false,
+      "especie": 2,
+      "nombre": "rene",
+      "Id": 47
+    },
+    {
+      "esVenenosa": true,
+      "esArboricola": true,
+      "esPeludo": false,
+      "especie": 2,
+      "nombre": "paulo",
+      "Id": 48
+    }
+  ]
+}

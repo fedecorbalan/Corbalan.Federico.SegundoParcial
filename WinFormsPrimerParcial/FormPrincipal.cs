@@ -273,6 +273,9 @@ namespace WinFormsPrimerParcial
             if (resultado == DialogResult.Yes)
             {
                 MessageBox.Show("Aplicacion Finalizada");
+                SerializarAArchivoHornero("ArchivosASeleccionar\\horneros.json", listaHornerosRefugiados);
+                SerializarAArchivoOrnitorrinco("ArchivosASeleccionar\\ornitorrincos.json",listaOrnitorrincosRefugiados);
+                SerializarAArchivoRana("ArchivosASeleccionar\\ranas.json",listaRanasRefugiadas);
                 Application.Exit();
             }
             else
