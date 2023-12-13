@@ -106,7 +106,23 @@ namespace Entidades
             }
 
         }
-        
+        public int OrdenarAnimalesPorCantidadDeExtremidadesDesc(Animal a1, Animal a2)
+        {
+            if (a1.CantidadExtremidades() == a2.CantidadExtremidades())
+            {
+                return 0;
+            }
+            else if (a1.CantidadExtremidades() < a2.CantidadExtremidades())
+            {
+                return -1;
+            }
+            else
+            {
+                return 1;
+            }
+
+        }
+
         /// <summary>
         /// Agrega un animal al refugio.
         /// </summary>
@@ -132,11 +148,19 @@ namespace Entidades
             }
         }
         /// <summary>
-        /// Ordena los animales en orden alfabetico.
+        /// Ordena los animales en orden alfabetico de forma Ascendente.
         /// </summary>
         public void OrdenarAnimalesPorNombre()
         {
             animalesRefugiados.Sort((a1, a2) => String.Compare(a1.nombre, a2.nombre, StringComparison.Ordinal));
         }
+        /// <summary>
+        /// Ordena los animales en orden alfabetico de forma Descendente.
+        /// </summary>
+        public void OrdenarAnimalesPorNombreDescendente()
+        {
+            animalesRefugiados.Sort((a1, a2) => String.Compare(a2.nombre, a1.nombre, StringComparison.Ordinal));
+        }
+
     }
 }

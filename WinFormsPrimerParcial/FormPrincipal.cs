@@ -20,6 +20,7 @@ namespace WinFormsPrimerParcial
         public Refugio<Rana> listaRanasRefugiadas;
         public Refugio<Hornero> listaHornerosRefugiados;
         public Refugio<Ornitorrinco> listaOrnitorrincosRefugiados;
+        private bool ordenAscendente = true;
 
         /// <summary>
         /// Perfil del usuario actual.
@@ -280,21 +281,43 @@ namespace WinFormsPrimerParcial
         /// </summary>
         private void btnOrdenar1_Click(object sender, EventArgs e)
         {
-            listaOrnitorrincosRefugiados.animalesRefugiados.Sort((a1, a2) => listaOrnitorrincosRefugiados.OrdenarAnimalesPorCantidadDeExtremidades(a1, a2));
-            listaRanasRefugiadas.animalesRefugiados.Sort((a1, a2) => listaRanasRefugiadas.OrdenarAnimalesPorCantidadDeExtremidades(a1, a2));
-            listaHornerosRefugiados.animalesRefugiados.Sort((a1, a2) => listaOrnitorrincosRefugiados.OrdenarAnimalesPorCantidadDeExtremidades(a1, a2));
-
-            ActualizarVisor();
+            if (ordenAscendente)
+            {
+                listaOrnitorrincosRefugiados.animalesRefugiados.Sort((a1, a2) => listaOrnitorrincosRefugiados.OrdenarAnimalesPorCantidadDeExtremidades(a1, a2));
+                listaRanasRefugiadas.animalesRefugiados.Sort((a1, a2) => listaRanasRefugiadas.OrdenarAnimalesPorCantidadDeExtremidades(a1, a2));
+                listaHornerosRefugiados.animalesRefugiados.Sort((a1, a2) => listaHornerosRefugiados.OrdenarAnimalesPorCantidadDeExtremidades(a1, a2));
+                ActualizarVisor();
+            }
+            else
+            {
+                listaOrnitorrincosRefugiados.animalesRefugiados.Sort((a2, a1) => listaOrnitorrincosRefugiados.OrdenarAnimalesPorCantidadDeExtremidadesDesc(a2, a1));
+                listaRanasRefugiadas.animalesRefugiados.Sort((a2, a1) => listaRanasRefugiadas.OrdenarAnimalesPorCantidadDeExtremidadesDesc(a2, a1));
+                listaHornerosRefugiados.animalesRefugiados.Sort((a2, a1) => listaHornerosRefugiados.OrdenarAnimalesPorCantidadDeExtremidadesDesc(a2, a1));
+                ActualizarVisor();
+            }
+            
+            ordenAscendente = !ordenAscendente;
         }
         /// <summary>
         /// Ordena la lista de animales por Nombre y actualiza el visor.
         /// </summary>
         private void btnOrdenar2_Click(object sender, EventArgs e)
         {
-            listaHornerosRefugiados.OrdenarAnimalesPorNombre();
-            listaOrnitorrincosRefugiados.OrdenarAnimalesPorNombre();
-            listaRanasRefugiadas.OrdenarAnimalesPorNombre();
-            ActualizarVisor();
+            if (ordenAscendente)
+            {
+                listaHornerosRefugiados.OrdenarAnimalesPorNombre();
+                listaOrnitorrincosRefugiados.OrdenarAnimalesPorNombre();
+                listaRanasRefugiadas.OrdenarAnimalesPorNombre();
+                ActualizarVisor();
+            }
+            else
+            {
+                listaHornerosRefugiados.OrdenarAnimalesPorNombreDescendente();
+                listaOrnitorrincosRefugiados.OrdenarAnimalesPorNombreDescendente();
+                listaRanasRefugiadas.OrdenarAnimalesPorNombreDescendente();
+                ActualizarVisor();
+            }
+            ordenAscendente = !ordenAscendente;
         }
         /// <summary>
         /// Actualiza el contenido del visor con la información de los animales.
