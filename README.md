@@ -544,21 +544,6 @@ namespace Entidades
             }
 
         }
-        public int OrdenarAnimalesPorEspecie(Animal a1, Animal a2)
-        {
-            if (a1.especie == a2.especie)
-            {
-                return 0;
-            }
-            else if (a1.especie > a2.especie)
-            {
-                return 1;
-            }
-            else
-            {
-                return -1;
-            }
-        }
         public void AgregarAnimal(T animal)
         {
             animalesRefugiados.Add(animal);
@@ -575,7 +560,10 @@ namespace Entidades
                 throw new IndexOutOfRangeException("El índice está fuera de rango.");
             }
         }
-
+        public void OrdenarAnimalesPorNombre()
+        {
+            animalesRefugiados.Sort((a1, a2) => String.Compare(a1.nombre, a2.nombre, StringComparison.Ordinal));
+        }
     }
 }
 
@@ -1136,9 +1124,9 @@ namespace Entidades
 
 El proyecto contiene cinco formularios en total, incluyendo el Formulario de Login que se ha mencionado previamente:
 
-1. `FormPrincipal`: Este formulario es la ventana principal de la aplicación. Permite agregar, modificar y eliminar animales en el refugio. Ademas, se pueden seleccionar los archivos que se quieren serializar y mostrarse en el visor, cabe aclarar que cuando se selecciona/deserializa un archivo, se traen los datos directamente desde la base de datos. También se cuenta con botones para poder ordenar los animales que han sido deserializados en el visor en base a su cantidad de extremidades y su especie (Número de enumerado) y un visualizador para poder observar quien ha iniciado sesión y en que fecha y horario.
+1. `FormPrincipal`: Este formulario es la ventana principal de la aplicación. Permite agregar, modificar y eliminar animales en el refugio. Ademas, se pueden seleccionar los archivos que se quieren serializar y mostrarse en el visor, cabe aclarar que cuando se selecciona/deserializa un archivo, se traen los datos directamente desde la base de datos. También se cuenta con botones para poder ordenar los animales que han sido deserializados en el visor en base a su cantidad de extremidades y los nombres en orden alfabetico, junto con un visualizador para poder observar quien ha iniciado sesión y en que fecha y horario.
 
-![image](https://github.com/fedecorbalan/Corbalan.Federico.PrimerParcial/assets/123754871/c23c200b-88b5-4540-95e3-72ce5299e505)
+![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/9cdc5618-9d32-4beb-801d-0a35207b4303)
 
 
 ```c#
@@ -1432,14 +1420,13 @@ namespace WinFormsPrimerParcial
             ActualizarVisor();
         }
         /// <summary>
-        /// Ordena la lista de animales por Especie y actualiza el visor.
+        /// Ordena la lista de animales por Nombre y actualiza el visor.
         /// </summary>
         private void btnOrdenar2_Click(object sender, EventArgs e)
         {
-            listaOrnitorrincosRefugiados.animalesRefugiados.Sort((a1, a2) => listaOrnitorrincosRefugiados.OrdenarAnimalesPorEspecie(a1, a2));
-            listaRanasRefugiadas.animalesRefugiados.Sort((a1, a2) => listaRanasRefugiadas.OrdenarAnimalesPorEspecie(a1, a2));
-            listaHornerosRefugiados.animalesRefugiados.Sort((a1, a2) => listaOrnitorrincosRefugiados.OrdenarAnimalesPorEspecie(a1, a2));
-
+            listaHornerosRefugiados.OrdenarAnimalesPorNombre();
+            listaOrnitorrincosRefugiados.OrdenarAnimalesPorNombre();
+            listaRanasRefugiadas.OrdenarAnimalesPorNombre();
             ActualizarVisor();
         }
         /// <summary>
