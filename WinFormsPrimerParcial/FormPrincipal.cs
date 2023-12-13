@@ -20,6 +20,10 @@ namespace WinFormsPrimerParcial
         public Refugio<Rana> listaRanasRefugiadas;
         public Refugio<Hornero> listaHornerosRefugiados;
         public Refugio<Ornitorrinco> listaOrnitorrincosRefugiados;
+
+        /// <summary>
+        /// Variable booleana que sirve para indicar si el orden que corresponde es ascendente.
+        /// </summary>
         private bool ordenAscendente = true;
 
         /// <summary>
