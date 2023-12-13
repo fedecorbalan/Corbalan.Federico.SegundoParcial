@@ -1124,7 +1124,7 @@ namespace Entidades
 
 El proyecto contiene cinco formularios en total, incluyendo el Formulario de Login que se ha mencionado previamente:
 
-1. `FormPrincipal`: Este formulario es la ventana principal de la aplicación. Permite agregar, modificar y eliminar animales en el refugio. Ademas, se pueden seleccionar los archivos que se quieren serializar y mostrarse en el visor, cabe aclarar que cuando se selecciona/deserializa un archivo, se traen los datos directamente desde la base de datos. También se cuenta con botones para poder ordenar los animales que han sido deserializados en el visor en base a su cantidad de extremidades y su especie (Número de enumerado) y un visualizador para poder observar quien ha iniciado sesión y en que fecha y horario.
+1. `FormPrincipal`: Este formulario es la ventana principal de la aplicación. Permite agregar, modificar y eliminar animales en el refugio. Ademas, se pueden seleccionar los archivos que se quieren serializar y mostrarse en el visor, cabe aclarar que cuando se selecciona/deserializa un archivo, se traen los datos directamente desde la base de datos. También se cuenta con botones para poder ordenar los animales que han sido deserializados en el visor en base a su cantidad de extremidades y los nombres en orden alfabetico, junto con un visualizador para poder observar quien ha iniciado sesión y en que fecha y horario.
 
 ![image](https://github.com/fedecorbalan/Corbalan.Federico.SegundoParcial/assets/123754871/9cdc5618-9d32-4beb-801d-0a35207b4303)
 
